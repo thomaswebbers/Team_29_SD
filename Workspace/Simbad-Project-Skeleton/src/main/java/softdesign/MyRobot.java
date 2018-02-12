@@ -102,7 +102,7 @@ public class MyRobot extends Agent {
     			}
     			System.out.println();
     			
-    			//take a picture and select a new target, !!implement picture
+    			//take a picture and select a new target
     			myCamera.copyVisionImage(luminanceMatrix);
     			cameraPanel.repaint();
     			
@@ -112,7 +112,7 @@ public class MyRobot extends Agent {
     				System.out.println("MYPATH EMPTY");
     				System.exit(0);
     			}
-    			currentTarget = myPath.get(0); //!nullpointer when empty
+    			currentTarget = myPath.get(0);
     		}
     		
     		pointTowards(currentTarget);
@@ -135,7 +135,7 @@ public class MyRobot extends Agent {
     	return myLocation;
     }
     
-    private ArrayList<Vector3d> getPath(Vector3d from, Vector3d to){//!implement
+    private ArrayList<Vector3d> getPath(Vector3d from, Vector3d to){
    
     	ArrayList<Vector3d> result = new ArrayList<Vector3d>();
     	EdgeArray fromEdges = new EdgeArray();
@@ -253,7 +253,7 @@ public class MyRobot extends Agent {
 
     }
     
-    private ArrayList<Vector3d> getAdjacent(Tuple3d input){ //! implement
+    private ArrayList<Vector3d> getAdjacent(Tuple3d input){
     	double inputX = Math.round(input.x);
     	double inputZ = Math.round(input.z);
     	
