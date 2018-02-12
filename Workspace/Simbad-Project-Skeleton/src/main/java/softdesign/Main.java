@@ -28,10 +28,10 @@ public class Main {
         // create all instances of cherry
         ArrayList<CherryAgent> cherryList = new ArrayList<CherryAgent>();
         
-        for(int i = -4; i <= 4; i++){ //!better way to change interval
+        for(int i = -4; i <= 4; i++){
         	for(int j = -4; j <= 4; j++){
         		String cherryName = "Cherry("+i+", "+j+")";
-        		if(false){
+        		if(false){ //! false, as cherries currently crash (does work in cherryDemo files with same setup)
             		cherryList.add(new CherryAgent(new Vector3d(i, 0, j), cherryName, 0.1f));
         		}
         	}
@@ -44,9 +44,8 @@ public class Main {
         	environment.add(cherryList.get(i));
         }
 
-        // add the two robots to the environment
+        // add robots to the environment
         environment.add(robot1);
-        //environment.add(robot2);
         
         
         // here we create an instance of the whole Simbad simulator and we assign the newly created environment 
