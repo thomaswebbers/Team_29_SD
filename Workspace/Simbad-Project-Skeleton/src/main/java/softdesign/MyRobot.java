@@ -54,7 +54,7 @@ public class MyRobot extends Agent {
     public void initBehavior() {
         System.out.println("I exist and my name is " + this.name);
         // initialize angle & path;
-        currentAngle = 0;
+        currentAngle = 0; //! put me in constructor, so resetting doesn't break everything.
         myPath = new ArrayList<Vector3d>();
         blockedLocations = new ArrayList<Vector3d>();
         
