@@ -43,15 +43,13 @@ public class MyEnvironment extends EnvironmentDescription {
         w4.setColor(new Color3f(Color.YELLOW));
         add(w4);
         
-        /*
-        Wall roomWall1 = new Wall(new Vector3d(2, 0, -3.5), 3, 1, this);
-        roomWall1.setColor(new Color3f(Color.RED));
-        roomWall1.rotate90(1);
-        add(roomWall1);
+        Box wallBox1 = new Box(new Vector3d (2, 0, -3), new Vector3f(1,1,4), this);
+        wallBox1.setColor(new Color3f(Color.BLUE));
+        add (wallBox1);
         
-        Wall roomWall2 = new Wall(new Vector3d(3.5, 0, -2), 3, 1, this);
-        roomWall2.setColor(new Color3f(Color.YELLOW));
-        add(roomWall2);
+        Box wallBox2 = new Box(new Vector3d (3.25, 0, -1), new Vector3f(3.5f,1,1), this);
+        wallBox2.setColor(new Color3f(Color.CYAN));
+        add (wallBox2);
         
         Box box1 = new Box(new Vector3d(-3, 0, -3), new Vector3f(1, 1, 1), this);
         box1.setColor(new Color3f(Color.ORANGE));
@@ -64,6 +62,5 @@ public class MyEnvironment extends EnvironmentDescription {
         Box box3 = new Box(new Vector3d(-2, 0, 3), new Vector3f(1,1,1), this);
         box3.setColor(new Color3f(Color.YELLOW));
         add(box3);
-        */
     }
 }

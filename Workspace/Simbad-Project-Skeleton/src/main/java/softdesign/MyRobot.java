@@ -19,15 +19,18 @@ import simbad.sim.RobotFactory;
 import simbad.sim.SensorMatrix;
 
 public class MyRobot extends Agent {
+	
+	private int SENSOR_AMOUNT = 12;
 
 	private String currentMode;
 	private double currentAngle;
 	
 	public ArrayList<Vector3d> visited; //! implement in code
 	public ArrayList<Vector3d> toVisit; 
-	public ArrayList<Vector3d> blockedLocations;
+	public ArrayList<Vector3d> obstacles;
 	
 	private ArrayList<Vector3d> myPath; //use as queue
+	private Vector3d finalTarget;
 	private Vector3d currentTarget;
 	private Vector3d previousTarget;
 	
@@ -43,7 +46,7 @@ public class MyRobot extends Agent {
         // Add bumpers
         RobotFactory.addBumperBeltSensor(this, 12);
         // Add sonars
-        RangeSensorBelt mySonarBelt = RobotFactory.addSonarBeltSensor(this, 12);  
+        mySonarBelt = RobotFactory.addSonarBeltSensor(this, SENSOR_AMOUNT);  
         // Add camera & prep camera UI
         myCamera = RobotFactory.addCameraSensor(this);
         luminanceMatrix = myCamera.createCompatibleSensorMatrix();
@@ -62,14 +65,15 @@ public class MyRobot extends Agent {
         myPath = new ArrayList<Vector3d>();
         toVisit = new ArrayList<Vector3d>();
         visited = new ArrayList<Vector3d>();
-        blockedLocations = new ArrayList<Vector3d>();
+        obstacles = new ArrayList<Vector3d>();
         
-        //TESTING make test path & blocked locations
+        //TESTING make toVisit
         for(int i = -4; i <= 4; i++){
         	for(int j = -4; j <= 4; j++){
         		toVisit.add(new Vector3d(i, 0, j));
         	}
         }
+        Collections.shuffle(toVisit);
                         
 		//go back to start
 		this.moveToStartPosition();
@@ -107,22 +111,35 @@ public class MyRobot extends Agent {
     			toVisit.remove(currentTarget);
     			if(!visited.contains(currentTarget)){
     				System.out.println("VISITED: "+currentTarget.toString());
+    				
+    				registerObstacles(); //new place visited, register possible obstacles!!!
+    				
     				visited.add(currentTarget);
     			}
     			
     			myPath.remove(currentTarget); //currentTarget should be at position 0
     			previousTarget = currentTarget;
     			
-    			if(myPath.size() == 0){
+    			//generate a new path if it is null, empty, or blocked
+    			while(myPath == null || myPath.size() == 0 || obstacles.contains(myPath.get(0))){
     				if(toVisit.size() == 0){
     					setTranslationalVelocity(0);
     					System.out.println("VISITED EVERYTHING"); //loops forever, get better solution
     					return;
     				}
-    				System.out.println("NEW TARGET: "+toVisit.get(0).toString());
+    				
+    				finalTarget = toVisit.get(0);
+    				System.out.println("NEW TARGET: "+finalTarget.toString());
     				myPath = getPath(previousTarget, toVisit.get(0));
+    				if(myPath == null){
+    					//add something as an 'obstacle' if it is unreachable
+    					obstacles.add(finalTarget);
+    					toVisit.remove(finalTarget);
+    					System.out.println("UNREACHABLE: "+finalTarget.toString());
+    				}
     			}
-        		currentTarget = myPath.get(0);	
+    			
+        		currentTarget = myPath.get(0);
     		}
     		
     		pointTowards(currentTarget);
@@ -180,7 +197,7 @@ public class MyRobot extends Agent {
     					//don't add an edge if there is already an edge to it
     					continue;
     				}
-    				if(blockedLocations.contains(neighbour)){
+    				if(obstacles.contains(neighbour)){
     					//don't add new edge if neighbour is blocked.
     					continue;
     				}
@@ -225,7 +242,7 @@ public class MyRobot extends Agent {
     					//don't add an edge if there is already an edge to it
     					continue;
     				}
-    				if(blockedLocations.contains(neighbour)){
+    				if(obstacles.contains(neighbour)){
     					//don't add new edge if neighbour is blocked.
     					continue;
     				}
@@ -263,18 +280,52 @@ public class MyRobot extends Agent {
 
     }
     
+    //returns neighbours starting from 1,0 in counter clock fashion
     private ArrayList<Vector3d> getAdjacent(Tuple3d input){
-    	double inputX = Math.round(input.x);
-    	double inputZ = Math.round(input.z);
-    	
+    	long inputX = Math.round(input.x);
+    	long inputZ = Math.round(input.z);
+    	    	
     	ArrayList<Vector3d> result = new ArrayList<Vector3d>();
-    	result.add(new Vector3d(input.x + 1, 0, input.z));
-    	result.add(new Vector3d(input.x - 1, 0, input.z));
-    	result.add(new Vector3d(input.x, 0, input.z + 1));
-    	result.add(new Vector3d(input.x, 0, input.z - 1));
+    	
+    	result.add(new Vector3d(inputX + 1, 0, inputZ));
+    	result.add(new Vector3d(inputX, 0, inputZ - 1));
+    	result.add(new Vector3d(inputX - 1 , 0, inputZ));
+    	result.add(new Vector3d(inputX, 0, inputZ + 1));
     	
     	return result;
     }
+    
+    private boolean registerObstacles(){
+    	boolean obstacleFound = false;
+    	
+    	//distance (radian) between sensors
+    	double sensorDistance = (Math.PI*2)/SENSOR_AMOUNT;
+    	//the offset from sensor 0 to the northernmost sensor (sensor which points to x)
+    	int northOffset = (int) ((SENSOR_AMOUNT - Math.round(currentAngle/sensorDistance)) % SENSOR_AMOUNT);
+    	
+    	ArrayList<Vector3d> neighbours = getAdjacent(this.getLocation());
+    	
+    	double centerMeasurement, leftMeasurement, rightMeasurement;
+    	
+    	for(int i = 0; i < neighbours.size(); i++){
+    		Vector3d neighbour = neighbours.get(i);
+   
+    		leftMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset + 1) % SENSOR_AMOUNT);
+    		centerMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset) % SENSOR_AMOUNT);
+    		rightMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset + 1) % SENSOR_AMOUNT);
+    		
+    		//0.71 because its the distance to the neighbour in the worst case scenario, a 45 degree angle
+    		//!probably not correct. sensor does not measure from center, to tests for better number
+    		if(leftMeasurement <= 0.71 && centerMeasurement <= 0.71 && rightMeasurement <= 0.71 && !obstacles.contains(neighbour)){
+    			obstacles.add(neighbour);
+    			toVisit.remove(neighbour);
+    			System.out.println("OBSTACLES ADDED: "+neighbour.toString());
+    			obstacleFound = true;
+    		}
+    	}
+    	return obstacleFound;
+    }
+    
     private void pointTowards(Vector3d input){
     	Vector3d currentPoint = this.getLocation();
     	
