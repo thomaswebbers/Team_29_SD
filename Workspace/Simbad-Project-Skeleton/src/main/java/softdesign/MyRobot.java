@@ -14,6 +14,7 @@ import javax.vecmath.*;
 import simbad.sim.Agent;
 import simbad.sim.CameraSensor;
 import simbad.sim.CherryAgent;
+import simbad.sim.RangeSensorBelt;
 import simbad.sim.RobotFactory;
 import simbad.sim.SensorMatrix;
 
@@ -22,16 +23,19 @@ public class MyRobot extends Agent {
 	private String currentMode;
 	private double currentAngle;
 	
+	public ArrayList<Vector3d> visited; //! implement in code
+	public ArrayList<Vector3d> toVisit; 
 	public ArrayList<Vector3d> blockedLocations;
+	
 	private ArrayList<Vector3d> myPath; //use as queue
 	private Vector3d currentTarget;
 	private Vector3d previousTarget;
 	
-	//start: camera
 	private CameraSensor myCamera;
 	SensorMatrix luminanceMatrix;
     JPanel cameraPanel;
-	//end: camera
+    
+    RangeSensorBelt mySonarBelt; //! use later for object detection
 	
     public MyRobot(Vector3d position, String name) {
         super(position, name);
@@ -39,7 +43,7 @@ public class MyRobot extends Agent {
         // Add bumpers
         RobotFactory.addBumperBeltSensor(this, 12);
         // Add sonars
-        RobotFactory.addSonarBeltSensor(this, 4);  
+        RangeSensorBelt mySonarBelt = RobotFactory.addSonarBeltSensor(this, 12);  
         // Add camera & prep camera UI
         myCamera = RobotFactory.addCameraSensor(this);
         luminanceMatrix = myCamera.createCompatibleSensorMatrix();
@@ -56,24 +60,27 @@ public class MyRobot extends Agent {
         // initialize angle & path;
         currentAngle = 0; //! put me in constructor, so resetting doesn't break everything.
         myPath = new ArrayList<Vector3d>();
+        toVisit = new ArrayList<Vector3d>();
+        visited = new ArrayList<Vector3d>();
         blockedLocations = new ArrayList<Vector3d>();
         
         //TESTING make test path & blocked locations
         for(int i = -4; i <= 4; i++){
         	for(int j = -4; j <= 4; j++){
-        		myPath.add(new Vector3d(i, 0, j));
+        		toVisit.add(new Vector3d(i, 0, j));
         	}
         }
-        
-        blockedLocations.add(new Vector3d(-4,0,-3));
-        blockedLocations.add(new Vector3d(-3,0,-3));
-        
+                        
+		//go back to start
+		this.moveToStartPosition();
+		
         //TESTING? set current target
+		previousTarget = getLocation();
+        myPath = getPath(previousTarget, toVisit.get(0));
         currentTarget = myPath.get(0);
-        
+
         //start moving
 		setTranslationalVelocity(1);
-
     }
 
     /** This method is call cyclically (20 times per second) by the simulator engine. */
@@ -88,31 +95,34 @@ public class MyRobot extends Agent {
     			getVeryNearAgent().detach();
     		}
     		
-    		//If I am currently less than 0.5 units away from my target
-    		if (getDistance(this.getLocation(), currentTarget) < 0.5){
-    			System.out.printf("arrived at: %.1f, %.1f\n", currentTarget.x, currentTarget.z);
-    			
-    			//TESTING calculate path to center
-    			Vector3d center = new Vector3d(0,0,0);
+    		//If I am currently less than 0.1 units away from my target
+    		if (getDistance(this.getLocation(), currentTarget) < 0.1){
+    			//System.out.printf("arrived at: %.1f, %.1f\n", currentTarget.x, currentTarget.z);
     			    			
-    			ArrayList<Vector3d> centerPath = getPath(currentTarget, center);
-    			for(int i = 0; i < centerPath.size(); i++){
-    				Vector3d vect = centerPath.get(i);
-    				System.out.printf("PATH: (%.1f, %.1f)\n", vect.x, vect.z);
-    			}
-    			System.out.println();
-    			
     			//take a picture and select a new target
     			myCamera.copyVisionImage(luminanceMatrix);
     			cameraPanel.repaint();
     			
-    			myPath.remove(0);
-    			previousTarget = currentTarget;
-    			if(myPath.size() == 0){
-    				System.out.println("MYPATH EMPTY");
-    				System.exit(0);
+    			//get next location and add current location to visited
+    			toVisit.remove(currentTarget);
+    			if(!visited.contains(currentTarget)){
+    				System.out.println("VISITED: "+currentTarget.toString());
+    				visited.add(currentTarget);
     			}
-    			currentTarget = myPath.get(0);
+    			
+    			myPath.remove(currentTarget); //currentTarget should be at position 0
+    			previousTarget = currentTarget;
+    			
+    			if(myPath.size() == 0){
+    				if(toVisit.size() == 0){
+    					setTranslationalVelocity(0);
+    					System.out.println("VISITED EVERYTHING"); //loops forever, get better solution
+    					return;
+    				}
+    				System.out.println("NEW TARGET: "+toVisit.get(0).toString());
+    				myPath = getPath(previousTarget, toVisit.get(0));
+    			}
+        		currentTarget = myPath.get(0);	
     		}
     		
     		pointTowards(currentTarget);
