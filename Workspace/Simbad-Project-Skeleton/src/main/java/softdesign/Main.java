@@ -31,7 +31,7 @@ public class Main {
         for(int i = -4; i <= 4; i++){
         	for(int j = -4; j <= 4; j++){
         		String cherryName = "Cherry("+i+", "+j+")";
-        		if(false){ //! false, as cherries currently crash (does work in cherryDemo files with same setup)
+        		if(false	){ //! false, as cherries currently crash (does work in cherryDemo files with same setup)
             		cherryList.add(new CherryAgent(new Vector3d(i, 0, j), cherryName, 0.1f));
         		}
         	}

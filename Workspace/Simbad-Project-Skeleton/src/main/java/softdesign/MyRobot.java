@@ -60,6 +60,7 @@ public class MyRobot extends Agent {
     /** This method is called by the simulator engine on reset. */
     public void initBehavior() {
         System.out.println("I exist and my name is " + this.name);
+        currentMode = "Active";
         // initialize angle & path;
         currentAngle = 0; //! put me in constructor, so resetting doesn't break everything.
         myPath = new ArrayList<Vector3d>();
@@ -89,6 +90,10 @@ public class MyRobot extends Agent {
 
     /** This method is call cyclically (20 times per second) by the simulator engine. */
     public void performBehavior() {
+    	if(currentMode == "Inactive"){
+    		return;
+    	}
+    	
     	if(getCounter() % 5 == 0){
     		//If I am touching a cherry, detach (delete) that cherry //!!! does not work yet due to cherry problem
     		if(getVeryNearAgent() instanceof CherryAgent){
@@ -124,7 +129,8 @@ public class MyRobot extends Agent {
     			while(myPath == null || myPath.size() == 0 || obstacles.contains(myPath.get(0))){
     				if(toVisit.size() == 0){
     					setTranslationalVelocity(0);
-    					System.out.println("VISITED EVERYTHING"); //loops forever, get better solution
+    					System.out.println(this.getName() + " VISITED EVERYTHING, SHUTTING DOWN");
+    					currentMode = "Inactive";
     					return;
     				}
     				
