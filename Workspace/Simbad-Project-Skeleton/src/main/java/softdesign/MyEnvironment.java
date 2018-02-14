@@ -58,9 +58,7 @@ public class MyEnvironment extends EnvironmentDescription {
         Box box3 = new Box(new Vector3d(-2, 0, 3), new Vector3f(1,1,1), this);
         box3.setColor(new Color3f(Color.YELLOW));
         add(box3);
-        
-        add(new Box(new Vector3d(1,0,0), new Vector3f(1,1,1), this));
-        
+                
         //add robots to the environment (have to add here, or cherries won't work)
         add(new MyRobot(new Vector3d(0,0,0), "R1"));
         
@@ -71,7 +69,9 @@ public class MyEnvironment extends EnvironmentDescription {
         		if(Math.abs(i) <= 1 && Math.abs(j) <= 1){
         			continue;
         		}
-            	add(new CherryAgent(new Vector3d(i, 0, j), cherryName, 0.15f));
+        		if(true){
+                	add(new CherryAgent(new Vector3d(i, 0, j), cherryName, 0.15f));
+        		}
         	}
         }
     }
