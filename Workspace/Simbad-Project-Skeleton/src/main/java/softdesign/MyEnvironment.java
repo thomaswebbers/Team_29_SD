@@ -1,12 +1,14 @@
 package main.java.softdesign;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
 import simbad.sim.Box;
+import simbad.sim.CherryAgent;
 import simbad.sim.EnvironmentDescription;
 import simbad.sim.Wall;
 
@@ -17,29 +19,23 @@ public class MyEnvironment extends EnvironmentDescription {
         this.light1IsOn = true;
         this.light2IsOn = true;
         
-        // enable the physics engine in order to have better physics effects on the objects
-        this.setUsePhysics(true);
+        this.showAxis(false);
         
-        // show the axes so that we know where things are
-        this.showAxis(true);
+        this.setWorldSize(14);
         
-        this.setWorldSize(20);
-        
-        Wall w1 = new Wall(new Vector3d(-5, 0, 0), 10, 2, this);
+        Box w1 = new Box(new Vector3d(-5, 0, -0.5),new Vector3f(1, 1, 10), this);
         w1.setColor(new Color3f(Color.BLUE));
-        w1.rotate90(1);
         add(w1);
         
-        Wall w2 = new Wall(new Vector3d(5, 0, 0), 10, 2, this);
+        Box w2 = new Box(new Vector3d(5, 0, 0.5),new Vector3f(1, 1, 10), this);
         w2.setColor(new Color3f(Color.GREEN));
-        w2.rotate90(1);
         add(w2);
         
-        Wall w3 = new Wall(new Vector3d(0, 0, 5), 10, 2, this);
+        Box w3 = new Box(new Vector3d(-0.5, 0, 5),new Vector3f(10, 1, 1), this);
         w3.setColor(new Color3f(Color.RED));
         add(w3);
         
-        Wall w4 = new Wall(new Vector3d(0, 0, -5), 10, 2, this);
+        Box w4 = new Box(new Vector3d(0.5, 0, -5),new Vector3f(10, 1, 1), this);
         w4.setColor(new Color3f(Color.YELLOW));
         add(w4);
         
@@ -62,5 +58,21 @@ public class MyEnvironment extends EnvironmentDescription {
         Box box3 = new Box(new Vector3d(-2, 0, 3), new Vector3f(1,1,1), this);
         box3.setColor(new Color3f(Color.YELLOW));
         add(box3);
+        
+        add(new Box(new Vector3d(1,0,0), new Vector3f(1,1,1), this));
+        
+        //add robots to the environment (have to add here, or cherries won't work)
+        add(new MyRobot(new Vector3d(0,0,0), "R1"));
+        
+        // create all instances of cherry
+        for(int i = -4; i <= 4; i++){
+        	for(int j = -4; j <= 4; j++){
+        		String cherryName = "Cherry("+i+", "+j+")";
+        		if(Math.abs(i) <= 1 && Math.abs(j) <= 1){
+        			continue;
+        		}
+            	add(new CherryAgent(new Vector3d(i, 0, j), cherryName, 0.15f));
+        	}
+        }
     }
 }

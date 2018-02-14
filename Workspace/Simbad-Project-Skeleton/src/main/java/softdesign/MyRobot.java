@@ -17,6 +17,7 @@ import simbad.sim.CherryAgent;
 import simbad.sim.RangeSensorBelt;
 import simbad.sim.RobotFactory;
 import simbad.sim.SensorMatrix;
+import simbad.sim.SimpleAgent;
 
 public class MyRobot extends Agent {
 	
@@ -25,11 +26,11 @@ public class MyRobot extends Agent {
 	private String currentMode;
 	private double currentAngle;
 	
-	public ArrayList<Vector3d> visited; //! implement in code
+	public ArrayList<Vector3d> visited;
 	public ArrayList<Vector3d> toVisit; 
 	public ArrayList<Vector3d> obstacles;
 	
-	private ArrayList<Vector3d> myPath; //use as queue
+	private ArrayList<Vector3d> myPath;
 	private Vector3d finalTarget;
 	private Vector3d currentTarget;
 	private Vector3d previousTarget;
@@ -38,15 +39,17 @@ public class MyRobot extends Agent {
 	SensorMatrix luminanceMatrix;
     JPanel cameraPanel;
     
-    RangeSensorBelt mySonarBelt; //! use later for object detection
+    RangeSensorBelt mySonarBelt;
 	
     public MyRobot(Vector3d position, String name) {
         super(position, name);
         
         // Add bumpers
-        RobotFactory.addBumperBeltSensor(this, 12);
+        //RobotFactory.addBumperBeltSensor(this, 12); //! removed bumpers as they don't serve a purpose yet
+        
         // Add sonars
         mySonarBelt = RobotFactory.addSonarBeltSensor(this, SENSOR_AMOUNT);  
+        
         // Add camera & prep camera UI
         myCamera = RobotFactory.addCameraSensor(this);
         luminanceMatrix = myCamera.createCompatibleSensorMatrix();
@@ -62,7 +65,7 @@ public class MyRobot extends Agent {
         System.out.println("I exist and my name is " + this.name);
         currentMode = "Active";
         // initialize angle & path;
-        currentAngle = 0; //! put me in constructor, so resetting doesn't break everything.
+        currentAngle = 0;
         myPath = new ArrayList<Vector3d>();
         toVisit = new ArrayList<Vector3d>();
         visited = new ArrayList<Vector3d>();
@@ -74,18 +77,19 @@ public class MyRobot extends Agent {
         		toVisit.add(new Vector3d(i, 0, j));
         	}
         }
+        //TESTING shuffle toVisit list
         Collections.shuffle(toVisit);
                         
 		//go back to start
 		this.moveToStartPosition();
 		
-        //TESTING? set current target
+        //set current target
 		previousTarget = getLocation();
         myPath = getPath(previousTarget, toVisit.get(0));
         currentTarget = myPath.get(0);
 
         //start moving
-		setTranslationalVelocity(1);
+		setTranslationalVelocity(0.5);
     }
 
     /** This method is call cyclically (20 times per second) by the simulator engine. */
@@ -94,16 +98,17 @@ public class MyRobot extends Agent {
     		return;
     	}
     	
+    	//If I am touching a cherry, detach (delete) that cherry
+		if(anOtherAgentIsVeryNear()){
+			SimpleAgent nearAgent = getVeryNearAgent();
+			if (nearAgent instanceof CherryAgent){
+				nearAgent.detach();	
+				String foundCherryName = nearAgent.getName();
+				System.out.printf("Found %s\n", foundCherryName);
+			}
+		}
+    	
     	if(getCounter() % 5 == 0){
-    		//If I am touching a cherry, detach (delete) that cherry //!!! does not work yet due to cherry problem
-    		if(getVeryNearAgent() instanceof CherryAgent){
-    			CherryAgent foundCherry = (CherryAgent) getVeryNearAgent();
-    			String foundCherryName = foundCherry.getName();
-    			
-    			System.out.printf("Found cherry %s\n", foundCherryName);
-    			getVeryNearAgent().detach();
-    		}
-    		
     		//If I am currently less than 0.1 units away from my target
     		if (getDistance(this.getLocation(), currentTarget) < 0.1){
     			//System.out.printf("arrived at: %.1f, %.1f\n", currentTarget.x, currentTarget.z);
@@ -117,7 +122,7 @@ public class MyRobot extends Agent {
     			if(!visited.contains(currentTarget)){
     				System.out.println("VISITED: "+currentTarget.toString());
     				
-    				registerObstacles(); //new place visited, register possible obstacles!!!
+    				registerObstacles(); //new place visited, register possible obstacles
     				
     				visited.add(currentTarget);
     			}
@@ -320,9 +325,8 @@ public class MyRobot extends Agent {
     		centerMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset) % SENSOR_AMOUNT);
     		rightMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset + 1) % SENSOR_AMOUNT);
     		
-    		//0.71 because its the distance to the neighbour in the worst case scenario, a 45 degree angle
-    		//!probably not correct. sensor does not measure from center, to tests for better number
-    		if(leftMeasurement <= 0.71 && centerMeasurement <= 0.71 && rightMeasurement <= 0.71 && !obstacles.contains(neighbour)){
+    		//0.4 because its the distance to the neighbour in the worst case scenario, a 45 degree angle
+    		if(leftMeasurement <= 0.4 && centerMeasurement <= 0.4 && rightMeasurement <= 0.4 && !obstacles.contains(neighbour)){
     			obstacles.add(neighbour);
     			toVisit.remove(neighbour);
     			System.out.println("OBSTACLES ADDED: "+neighbour.toString());
