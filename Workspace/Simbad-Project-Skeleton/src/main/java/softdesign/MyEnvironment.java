@@ -59,17 +59,63 @@ public class MyEnvironment extends EnvironmentDescription {
         box3.setColor(new Color3f(Color.YELLOW));
         add(box3);
                 
-        //add robots to the environment (have to add here, or cherries won't work)
-        add(new MyRobot(new Vector3d(0,0,0), "R1"));
+        //add robots to the environment (have to add here, or cherries won't work), TESTING MISSIONS ADDED HERE
+        MyRobot r1 = new MyRobot(new Vector3d(0,0,0), "inky");
+        r1.setColor(new Color3f(Color.BLUE));
+        //TESTING make mission
+        ArrayList<Vector3d> r1Mission = new ArrayList<Vector3d>();
+        for(int i = 0; i <= 4; i++){
+        	for(int j = 0; j <= 4; j++){
+        		r1Mission.add(new Vector3d(i, 0, j));
+        	}
+        }
+        r1.setMission(r1Mission);
+        add(r1);
+        
+        MyRobot r2 = new MyRobot(new Vector3d(-1,0,0), "blinky");
+        r2.setColor(new Color3f(Color.RED));
+        //TESTING make mission
+        ArrayList<Vector3d> r2Mission = new ArrayList<Vector3d>();
+        for(int i = -4; i <= -1; i++){
+        	for(int j = 0; j <= 4; j++){
+        		r2Mission.add(new Vector3d(i, 0, j));
+        	}
+        }
+        r2.setMission(r2Mission);
+        add(r2);
+        
+        MyRobot r3 = new MyRobot(new Vector3d(-1,0,-1), "pinky");
+        r3.setColor(new Color3f(Color.PINK));
+        //TESTING make mission
+        ArrayList<Vector3d> r3Mission = new ArrayList<Vector3d>();
+        for(int i = -4; i <= -1; i++){
+        	for(int j = -4; j <= -1; j++){
+        		r3Mission.add(new Vector3d(i, 0, j));
+        	}
+        }
+        r3.setMission(r3Mission);
+        add(r3);
+        
+        MyRobot r4 = new MyRobot(new Vector3d(0,0,-1), "clyde");
+        r4.setColor(new Color3f(Color.ORANGE));
+        //TESTING make mission
+        ArrayList<Vector3d> r4Mission = new ArrayList<Vector3d>();
+        for(int i = 0; i <= 4; i++){
+        	for(int j = -4; j <= -1; j++){
+        		r4Mission.add(new Vector3d(i, 0, j));
+        	}
+        }
+        r4.setMission(r4Mission);
+        add(r4);
         
         // create all instances of cherry
         for(int i = -4; i <= 4; i++){
         	for(int j = -4; j <= 4; j++){
         		String cherryName = "Cherry("+i+", "+j+")";
-        		if(Math.abs(i) <= 1 && Math.abs(j) <= 1){
+        		if(Math.abs(i) <= 2 && Math.abs(j) <= 2){
         			continue;
         		}
-        		if(true){
+        		if(true){//! CHANGE ME IF CRASHES DUE TO NULLPOINTER
                 	add(new CherryAgent(new Vector3d(i, 0, j), cherryName, 0.15f));
         		}
         	}

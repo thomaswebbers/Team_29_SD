@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_KiqjsBe_EeiV_eHT2IykSQ" name="RootElement">
+  <packagedElement xmi:type="uml:Package" xmi:id="_2O4E8Be_EeiV_eHT2IykSQ" name="Search &amp; rescue system">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_QQIVcBfCEeiV_eHT2IykSQ" annotatedElement="_Hqk04BfCEeiV_eHT2IykSQ">
+      <body>Condition:&#xD;
+No mission set</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_jSwHQBfBEeiV_eHT2IykSQ" name="Activate System">
+      <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_HqqUcBfCEeiV_eHT2IykSQ" name="ExtensionPoint1"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_nx4lABfBEeiV_eHT2IykSQ" name="Give new mission">
+      <ownedUseCase xmi:type="uml:UseCase" xmi:id="_vSjhIBfBEeiV_eHT2IykSQ" name="Give new mission"/>
+      <extend xmi:type="uml:Extend" xmi:id="_Hqk04BfCEeiV_eHT2IykSQ" extendedCase="_jSwHQBfBEeiV_eHT2IykSQ" extensionLocation="_HqqUcBfCEeiV_eHT2IykSQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_v8vGkBfBEeiV_eHT2IykSQ" name="Deactivate System"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_nR3ywBfCEeiV_eHT2IykSQ" name="Get data"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_qfpWUBfCEeiV_eHT2IykSQ" name="Manage rover"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_vyl2oBfCEeiV_eHT2IykSQ" name="Get supplies">
+      <include xmi:type="uml:Include" xmi:id="_JbA68BfGEeiV_eHT2IykSQ" addition="_xVDu8BfCEeiV_eHT2IykSQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_xVDu8BfCEeiV_eHT2IykSQ" name="Send message"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="__Y6LkBe_EeiV_eHT2IykSQ" name="Supervisor">
+    <generalization xmi:type="uml:Generalization" xmi:id="_M3LSEBfBEeiV_eHT2IykSQ" general="_AfFJcBfAEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_AfFJcBfAEeiV_eHT2IykSQ" name="SAR personnel"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_RjBLkBfAEeiV_eHT2IykSQ" name="Searcher">
+    <generalization xmi:type="uml:Generalization" xmi:id="_YMeWYBfBEeiV_eHT2IykSQ" general="_AfFJcBfAEeiV_eHT2IykSQ"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_fREagBfBEeiV_eHT2IykSQ" general="_uLjSQBfAEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_uLjSQBfAEeiV_eHT2IykSQ" name="Person inside AO"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_D3wgABfBEeiV_eHT2IykSQ" name="Victim">
+    <generalization xmi:type="uml:Generalization" xmi:id="_g8HnEBfBEeiV_eHT2IykSQ" general="_uLjSQBfAEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_4o3JMBfBEeiV_eHT2IykSQ" memberEnd="_4qDcABfBEeiV_eHT2IykSQ _4qMl8BfBEeiV_eHT2IykSQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4pTOEBfBEeiV_eHT2IykSQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4pc_EBfBEeiV_eHT2IykSQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_4qDcABfBEeiV_eHT2IykSQ" name="initialize system" type="_jSwHQBfBEeiV_eHT2IykSQ" association="_4o3JMBfBEeiV_eHT2IykSQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_4qMl8BfBEeiV_eHT2IykSQ" name="supervisor" type="__Y6LkBe_EeiV_eHT2IykSQ" association="_4o3JMBfBEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_6YLxwBfBEeiV_eHT2IykSQ" memberEnd="_6YU7shfBEeiV_eHT2IykSQ _6YU7sxfBEeiV_eHT2IykSQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6YU7sBfBEeiV_eHT2IykSQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6YU7sRfBEeiV_eHT2IykSQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_6YU7shfBEeiV_eHT2IykSQ" name="give new mission" type="_nx4lABfBEeiV_eHT2IykSQ" association="_6YLxwBfBEeiV_eHT2IykSQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_6YU7sxfBEeiV_eHT2IykSQ" name="supervisor" type="__Y6LkBe_EeiV_eHT2IykSQ" association="_6YLxwBfBEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_7ZTQgBfBEeiV_eHT2IykSQ" memberEnd="_7ZTQgxfBEeiV_eHT2IykSQ _7ZTQhBfBEeiV_eHT2IykSQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7ZTQgRfBEeiV_eHT2IykSQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7ZTQghfBEeiV_eHT2IykSQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_7ZTQgxfBEeiV_eHT2IykSQ" name="turn off system" type="_v8vGkBfBEeiV_eHT2IykSQ" association="_7ZTQgBfBEeiV_eHT2IykSQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_7ZTQhBfBEeiV_eHT2IykSQ" name="supervisor" type="__Y6LkBe_EeiV_eHT2IykSQ" association="_7ZTQgBfBEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_pHIrQBfCEeiV_eHT2IykSQ" memberEnd="_pHScQhfCEeiV_eHT2IykSQ _pHScQxfCEeiV_eHT2IykSQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pHScQBfCEeiV_eHT2IykSQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pHScQRfCEeiV_eHT2IykSQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_pHScQhfCEeiV_eHT2IykSQ" name="get data" type="_nR3ywBfCEeiV_eHT2IykSQ" association="_pHIrQBfCEeiV_eHT2IykSQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_pHScQxfCEeiV_eHT2IykSQ" name="sar member" type="_AfFJcBfAEeiV_eHT2IykSQ" association="_pHIrQBfCEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_tLIFIBfCEeiV_eHT2IykSQ" memberEnd="_tLR2IhfCEeiV_eHT2IykSQ _tLR2IxfCEeiV_eHT2IykSQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tLR2IBfCEeiV_eHT2IykSQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tLR2IRfCEeiV_eHT2IykSQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tLR2IhfCEeiV_eHT2IykSQ" name="manage robot" type="_qfpWUBfCEeiV_eHT2IykSQ" association="_tLIFIBfCEeiV_eHT2IykSQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tLR2IxfCEeiV_eHT2IykSQ" name="searcher" type="_RjBLkBfAEeiV_eHT2IykSQ" association="_tLIFIBfCEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_1xzAABfCEeiV_eHT2IykSQ" memberEnd="_1xzAAxfCEeiV_eHT2IykSQ _1xzABBfCEeiV_eHT2IykSQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_1xzAARfCEeiV_eHT2IykSQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_1xzAAhfCEeiV_eHT2IykSQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_1xzAAxfCEeiV_eHT2IykSQ" name="get supplies" type="_vyl2oBfCEeiV_eHT2IykSQ" association="_1xzAABfCEeiV_eHT2IykSQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_1xzABBfCEeiV_eHT2IykSQ" name="person inside sar area" type="_uLjSQBfAEeiV_eHT2IykSQ" association="_1xzAABfCEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_7JePUBfCEeiV_eHT2IykSQ" memberEnd="_7JoAURfCEeiV_eHT2IykSQ _7JoAUhfCEeiV_eHT2IykSQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7JePURfCEeiV_eHT2IykSQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7JoAUBfCEeiV_eHT2IykSQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_7JoAURfCEeiV_eHT2IykSQ" name="person inside sar area" type="_uLjSQBfAEeiV_eHT2IykSQ" association="_7JePUBfCEeiV_eHT2IykSQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_7JoAUhfCEeiV_eHT2IykSQ" name="contact team" type="_xVDu8BfCEeiV_eHT2IykSQ" association="_7JePUBfCEeiV_eHT2IykSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Fp9tUBiZEeiD7OuE69glMg" name="ControlCenter">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_LHxH4BibEeiD7OuE69glMg" name="testAtt"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_IGKC8BiZEeiD7OuE69glMg" name="Rover"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_JIRAMBiZEeiD7OuE69glMg" name="Mission"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_OylesBiZEeiD7OuE69glMg" name="Image"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_OylesRiZEeiD7OuE69glMg" name="AbstractDevice">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_ATDoIBibEeiD7OuE69glMg" name="property1"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_S5jeoBiaEeiD7OuE69glMg" name="getName">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_S5jeoRiaEeiD7OuE69glMg" name="retVal" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_OyleshiZEeiD7OuE69glMg" name="Environment Map"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Vub2gBiZEeiD7OuE69glMg" name="EdgeMap"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_YIHqsBiZEeiD7OuE69glMg" name="Message"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_aZOKoBiZEeiD7OuE69glMg" name="SupplyBox"/>
+</uml:Model>

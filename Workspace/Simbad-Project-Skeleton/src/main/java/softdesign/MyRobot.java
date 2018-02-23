@@ -67,19 +67,9 @@ public class MyRobot extends Agent {
         // initialize angle & path;
         currentAngle = 0;
         myPath = new ArrayList<Vector3d>();
-        toVisit = new ArrayList<Vector3d>();
         visited = new ArrayList<Vector3d>();
         obstacles = new ArrayList<Vector3d>();
-        
-        //TESTING make toVisit
-        for(int i = -4; i <= 4; i++){
-        	for(int j = -4; j <= 4; j++){
-        		toVisit.add(new Vector3d(i, 0, j));
-        	}
-        }
-        //TESTING shuffle toVisit list
-        Collections.shuffle(toVisit);
-                        
+                                
 		//go back to start
 		this.moveToStartPosition();
 		
@@ -95,7 +85,11 @@ public class MyRobot extends Agent {
     /** This method is call cyclically (20 times per second) by the simulator engine. */
     public void performBehavior() {
     	if(currentMode == "Inactive"){
-    		return;
+    		if(toVisit != null && toVisit.size() > 0){
+    			currentMode = "Active";
+    		}else{
+        		return;	
+    		}
     	}
     	
     	//If I am touching a cherry, detach (delete) that cherry
@@ -334,6 +328,16 @@ public class MyRobot extends Agent {
     		}
     	}
     	return obstacleFound;
+    }
+    
+    public boolean setMission(ArrayList<Vector3d> inputMission){ //! change arraylist to mission object
+    	boolean missionSet = false;
+    	if(true){ //! if(environmentMap.reachable(inputMission)
+    		toVisit = inputMission;
+    		missionSet = true;
+    	}
+    	System.out.println("new mission set: "+missionSet);
+    	return missionSet;
     }
     
     private void pointTowards(Vector3d input){
