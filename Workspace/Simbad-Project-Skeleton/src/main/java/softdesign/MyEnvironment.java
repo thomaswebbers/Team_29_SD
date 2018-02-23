@@ -72,8 +72,8 @@ public class MyEnvironment extends EnvironmentDescription {
         r1.setMission(r1Mission);
         add(r1);
         
-        MyRobot r2 = new MyRobot(new Vector3d(-1,0,0), "blinky");
-        r2.setColor(new Color3f(Color.RED));
+        MyRobot r2 = new MyRobot(new Vector3d(-1,0,0), "pinky");
+        r2.setColor(new Color3f(Color.MAGENTA));
         //TESTING make mission
         ArrayList<Vector3d> r2Mission = new ArrayList<Vector3d>();
         for(int i = -4; i <= -1; i++){
@@ -84,8 +84,8 @@ public class MyEnvironment extends EnvironmentDescription {
         r2.setMission(r2Mission);
         add(r2);
         
-        MyRobot r3 = new MyRobot(new Vector3d(-1,0,-1), "pinky");
-        r3.setColor(new Color3f(Color.PINK));
+        MyRobot r3 = new MyRobot(new Vector3d(-1,0,-1), "blinky");
+        r3.setColor(new Color3f(Color.RED));
         //TESTING make mission
         ArrayList<Vector3d> r3Mission = new ArrayList<Vector3d>();
         for(int i = -4; i <= -1; i++){
@@ -97,7 +97,7 @@ public class MyEnvironment extends EnvironmentDescription {
         add(r3);
         
         MyRobot r4 = new MyRobot(new Vector3d(0,0,-1), "clyde");
-        r4.setColor(new Color3f(Color.ORANGE));
+        r4.setColor(new Color3f(Color.PINK));
         //TESTING make mission
         ArrayList<Vector3d> r4Mission = new ArrayList<Vector3d>();
         for(int i = 0; i <= 4; i++){
