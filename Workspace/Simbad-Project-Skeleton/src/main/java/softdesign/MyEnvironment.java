@@ -1,8 +1,6 @@
 package main.java.softdesign;
 
 import java.awt.Color;
-import java.util.ArrayList;
-
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
@@ -10,7 +8,6 @@ import javax.vecmath.Vector3f;
 import simbad.sim.Box;
 import simbad.sim.CherryAgent;
 import simbad.sim.EnvironmentDescription;
-import simbad.sim.Wall;
 
 public class MyEnvironment extends EnvironmentDescription {
 	public MyEnvironment() {
@@ -66,28 +63,33 @@ public class MyEnvironment extends EnvironmentDescription {
         		testMission.add(new Vector3d(i, 0, j));
         	}
         }
-        ArrayList<Mission> missionList = testMission.splitMission(4);
                 
         //add robots to the environment (have to add here, or cherries won't work)
+        ControlCenter cc = new ControlCenter(new Vector3d(6,0,6), "KingBoo");
+        add(cc);
+        
         MyRobot r1 = new MyRobot(new Vector3d(0,0,0), "inky");
         r1.setColor(new Color3f(Color.BLUE));
-        r1.setMission(missionList.get(0));
         add(r1);
         
         MyRobot r2 = new MyRobot(new Vector3d(-1,0,0), "pinky");
         r2.setColor(new Color3f(Color.MAGENTA));
-        r2.setMission(missionList.get(1));
         add(r2);
         
         MyRobot r3 = new MyRobot(new Vector3d(-1,0,-1), "blinky");
         r3.setColor(new Color3f(Color.RED));
-        r3.setMission(missionList.get(2));
         add(r3);
         
         MyRobot r4 = new MyRobot(new Vector3d(0,0,-1), "clyde");
         r4.setColor(new Color3f(Color.PINK));
-        r4.setMission(missionList.get(3));
         add(r4);
+        
+        cc.addRobot(r1);
+        cc.addRobot(r2);
+        cc.addRobot(r3);
+        cc.addRobot(r4);
+        
+        cc.setMission(testMission);
         
         // create all instances of cherry
         for(int i = -4; i <= 4; i++){
@@ -96,7 +98,7 @@ public class MyEnvironment extends EnvironmentDescription {
         		if(Math.abs(i) <= 2 && Math.abs(j) <= 2){
         			continue;
         		}
-        		if(true){//! CHANGE ME IF CRASHES DUE TO NULLPOINTER
+        		if(false){//! CHANGE ME IF CRASHES DUE TO NULLPOINTER
                 	add(new CherryAgent(new Vector3d(i, 0, j), cherryName, 0.15f));
         		}
         	}

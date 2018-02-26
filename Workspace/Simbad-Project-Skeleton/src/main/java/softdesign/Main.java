@@ -4,10 +4,6 @@ package main.java.softdesign;
 import simbad.gui.*;
 import simbad.sim.*;
 
-import java.util.ArrayList;
-
-import javax.vecmath.Vector3d;
-
 public class Main {
 
     public static void main(String[] args) {

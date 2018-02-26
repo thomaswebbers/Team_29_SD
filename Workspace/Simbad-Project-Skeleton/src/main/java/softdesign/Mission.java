@@ -138,5 +138,31 @@ public class Mission {
 		ArrayList<Vector3d> inputMissions = input.getAll();
 		return toVisit.addAll(inputMissions);
 	}
+	
+	//Check if the environment has mission targets which are visited/obstacles/unreachable
+	public void checkEnvironment(EnvironmentData inputEnvironment){
+		int missionSize = toVisit.size();
+		ArrayList<Vector3d> toRemove = new ArrayList<Vector3d>();
+		int toRemoveSize = 0;
+		
+		ArrayList<Vector3d> visited = inputEnvironment.getVisited();
+		ArrayList<Vector3d> obstacles = inputEnvironment.getObstacles();
+		ArrayList<Vector3d> unreachable = inputEnvironment.getUnreachable();
+		
+		//Determine which can be removed from the mission target list
+		for(int i = 0; i < missionSize; i++){
+			Vector3d target = toVisit.get(i);
+			if(visited.contains(target)|| obstacles.contains(target) || unreachable.contains(target)){
+				toRemove.add(target);
+				toRemoveSize++;
+			}
+		}
+		
+		//Remove the tagets alreadly checked
+		for(int i = 0; i < toRemoveSize; i++){
+			Vector3d target = toRemove.get(i);
+			toVisit.remove(target);
+		}
+	}
 
 }

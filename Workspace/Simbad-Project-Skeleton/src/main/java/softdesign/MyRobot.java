@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JPanel;
 import javax.vecmath.*;
@@ -22,16 +22,20 @@ import simbad.sim.SimpleAgent;
 public class MyRobot extends Agent {
 	
 	private int SENSOR_AMOUNT = 12;
+	private int NO_MISSION_AVAILABLE = -1;
 
-	private String currentMode;
+
+	private DeviceMode currentMode;
 	private double currentAngle;
 	
 	private EnvironmentData myEnvironmentData;
 	private Mission myMission;
 	
 	//supervisor variables, always lock
-	public ControlCenter mySupervisor;
+	private ReentrantLock lock;
+	private ControlCenter mySupervisor;
 	private int supervisorMission;
+	private UpdateStatus updateStatus;
 	
 	private ArrayList<Vector3d> myPath;
 	private Vector3d finalTarget;
@@ -67,6 +71,8 @@ public class MyRobot extends Agent {
         myPath = new ArrayList<Vector3d>();
         myEnvironmentData = new EnvironmentData();
         myMission = new Mission();
+        supervisorMission = NO_MISSION_AVAILABLE;
+        updateStatus = UpdateStatus.Done;
     }
 
     /** This method is called by the simulator engine on reset. */
@@ -74,19 +80,43 @@ public class MyRobot extends Agent {
 		//go back to start
 		this.moveToStartPosition();
         System.out.println("I exist and my name is " + this.name);
-        currentMode = "Inactive";
+        currentMode = DeviceMode.Inactive;
     }
 
     /** This method is call cyclically (20 times per second) by the simulator engine. */
     public void performBehavior() {
-    	if(currentMode == "Inactive"){
+    	//check if the supervisor left a message
+    	if(mySupervisor == null){
+    		return;
+    	}
+    	try{
+    		lock.lock();
+    		if(supervisorMission != NO_MISSION_AVAILABLE){
+    			myMission = mySupervisor.getMission(supervisorMission);
+    			System.out.printf("%s accepted mission %d\n", this.getName(), supervisorMission);
+    			supervisorMission = NO_MISSION_AVAILABLE;
+    		}
+    		
+    		if(updateStatus == UpdateStatus.Sending){
+    			mySupervisor.updateEnvironmentData(myEnvironmentData);
+    			updateStatus = UpdateStatus.Done;
+    		}else if(updateStatus == UpdateStatus.Receiving){
+    			myEnvironmentData = mySupervisor.sendEnvironmentData();
+    			myMission.checkEnvironment(myEnvironmentData);
+    		}
+    	} finally {
+    		lock.unlock();
+    	}
+    	
+    	//make change to current mode if applicable
+    	if(currentMode == DeviceMode.Inactive){
     		if(!myMission.isEmpty()){
     			previousTarget = getLocation();
     			registerObstacles();
     			Vector3d newTarget = myMission.getTarget();
     	        myPath = getPath(previousTarget, newTarget);
     	        currentTarget = myPath.get(0);
-    			currentMode = "Active";
+    			currentMode = DeviceMode.Active;
     			setTranslationalVelocity(0.5);
     		}else{
     			setTranslationalVelocity(0);
@@ -94,12 +124,12 @@ public class MyRobot extends Agent {
     		}
     	}
     	
+    	
     	//If I am touching a cherry, detach (delete) that cherry
 		if(anOtherAgentIsVeryNear()){
 			SimpleAgent nearAgent = getVeryNearAgent();
 			if (nearAgent instanceof CherryAgent){
 				nearAgent.detach();	
-				String foundCherryName = nearAgent.getName();
 			}
 		}
     	
@@ -126,7 +156,7 @@ public class MyRobot extends Agent {
     					//current mission is over, shutting down.
     					setTranslationalVelocity(0);
     					System.out.println(this.getName() + " VISITED EVERYTHING, SHUTTING DOWN");
-    					currentMode = "Inactive";
+    					currentMode = DeviceMode.Inactive;
     					return;
     				}
     				//set new target of current mission
@@ -380,9 +410,27 @@ public class MyRobot extends Agent {
     	return;
     }
     
+    //set the supervisor for the robot
+    public void setSupervisor(ControlCenter input){
+    	mySupervisor = input;
+    }
+    
+    //change the lock used by the robot, SHOULD ALWAYS BE THE SAME LOCK AS ITS SUPERVISOR. Change to make this always the case?
+    public void changeLock(ReentrantLock input){
+    	lock = input;
+    }
+    
     //tell the robot it needs to retrieve a mission at the supervisor. and at what index to find it.
     public void getSupervisorMission(int input){
     	supervisorMission = input;
+    }
+    
+    public void getUpdate(){
+    	updateStatus = UpdateStatus.Receiving;
+    }
+    
+    public void sendUpdate(){
+    	updateStatus = UpdateStatus.Sending;
     }
     
     class ImagerPanel extends JPanel {
