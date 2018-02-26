@@ -26,9 +26,12 @@ public class MyRobot extends Agent {
 	private String currentMode;
 	private double currentAngle;
 	
-	public ArrayList<Vector3d> visited;
-	public ArrayList<Vector3d> toVisit; 
-	public ArrayList<Vector3d> obstacles;
+	private EnvironmentData myEnvironmentData;
+	private Mission myMission;
+	
+	//supervisor variables, always lock
+	public ControlCenter mySupervisor;
+	private int supervisorMission;
 	
 	private ArrayList<Vector3d> myPath;
 	private Vector3d finalTarget;
@@ -58,36 +61,35 @@ public class MyRobot extends Agent {
         cameraPanel.setPreferredSize(dim);
         cameraPanel.setMinimumSize(dim);
         setUIPanel(cameraPanel);
+        
+        // initialize environment information
+        currentAngle = 0;
+        myPath = new ArrayList<Vector3d>();
+        myEnvironmentData = new EnvironmentData();
+        myMission = new Mission();
     }
 
     /** This method is called by the simulator engine on reset. */
     public void initBehavior() {
-        System.out.println("I exist and my name is " + this.name);
-        currentMode = "Active";
-        // initialize angle & path;
-        currentAngle = 0;
-        myPath = new ArrayList<Vector3d>();
-        visited = new ArrayList<Vector3d>();
-        obstacles = new ArrayList<Vector3d>();
-                                
 		//go back to start
 		this.moveToStartPosition();
-		
-        //set current target
-		previousTarget = getLocation();
-        myPath = getPath(previousTarget, toVisit.get(0));
-        currentTarget = myPath.get(0);
-
-        //start moving
-		setTranslationalVelocity(0.5);
+        System.out.println("I exist and my name is " + this.name);
+        currentMode = "Inactive";
     }
 
     /** This method is call cyclically (20 times per second) by the simulator engine. */
     public void performBehavior() {
     	if(currentMode == "Inactive"){
-    		if(toVisit != null && toVisit.size() > 0){
+    		if(!myMission.isEmpty()){
+    			previousTarget = getLocation();
+    			registerObstacles();
+    			Vector3d newTarget = myMission.getTarget();
+    	        myPath = getPath(previousTarget, newTarget);
+    	        currentTarget = myPath.get(0);
     			currentMode = "Active";
+    			setTranslationalVelocity(0.5);
     		}else{
+    			setTranslationalVelocity(0);
         		return;	
     		}
     	}
@@ -98,53 +100,45 @@ public class MyRobot extends Agent {
 			if (nearAgent instanceof CherryAgent){
 				nearAgent.detach();	
 				String foundCherryName = nearAgent.getName();
-				System.out.printf("Found %s\n", foundCherryName);
 			}
 		}
     	
     	if(getCounter() % 5 == 0){
     		//If I am currently less than 0.1 units away from my target
-    		if (getDistance(this.getLocation(), currentTarget) < 0.1){
-    			//System.out.printf("arrived at: %.1f, %.1f\n", currentTarget.x, currentTarget.z);
-    			    			
+    		if (getDistance(this.getLocation(), currentTarget) < 0.1){    			    			
     			//take a picture and select a new target
-    			myCamera.copyVisionImage(luminanceMatrix);
+    			myCamera.copyVisionImage(luminanceMatrix); //! store image in EnvironmentData
     			cameraPanel.repaint();
     			
     			//get next location and add current location to visited
-    			toVisit.remove(currentTarget);
-    			if(!visited.contains(currentTarget)){
-    				System.out.println("VISITED: "+currentTarget.toString());
-    				
+    			myMission.remove(currentTarget);
+    			if(!myEnvironmentData.isVisited(currentTarget)){    				
     				registerObstacles(); //new place visited, register possible obstacles
-    				
-    				visited.add(currentTarget);
+    				myEnvironmentData.addVisited(currentTarget);
     			}
     			
-    			myPath.remove(currentTarget); //currentTarget should be at position 0
+    			myPath.remove(currentTarget); //currentTarget should be at position 0 in the myPath array
     			previousTarget = currentTarget;
     			
     			//generate a new path if it is null, empty, or blocked
-    			while(myPath == null || myPath.size() == 0 || obstacles.contains(myPath.get(0))){
-    				if(toVisit.size() == 0){
+    			while(myPath == null || myPath.size() == 0 || myEnvironmentData.isObstacle(myPath.get(0))){
+    				if(myMission.isEmpty()){
+    					//current mission is over, shutting down.
     					setTranslationalVelocity(0);
     					System.out.println(this.getName() + " VISITED EVERYTHING, SHUTTING DOWN");
     					currentMode = "Inactive";
     					return;
     				}
-    				
-    				finalTarget = toVisit.get(0);
-    				System.out.println("NEW TARGET: "+finalTarget.toString());
-    				myPath = getPath(previousTarget, toVisit.get(0));
+    				//set new target of current mission
+    				finalTarget = myMission.getTarget();
+    				myPath = getPath(previousTarget, finalTarget);
     				if(myPath == null){
-    					//add something as an 'obstacle' if it is unreachable
-    					obstacles.add(finalTarget);
-    					toVisit.remove(finalTarget);
-    					System.out.println("UNREACHABLE: "+finalTarget.toString());
+    					//add that it is unreachable
+    					myEnvironmentData.addUnreachable(finalTarget);
+    					myMission.remove(finalTarget);
     				}
     			}
-    			
-        		currentTarget = myPath.get(0);
+        		currentTarget = myPath.get(0); 
     		}
     		
     		pointTowards(currentTarget);
@@ -202,7 +196,7 @@ public class MyRobot extends Agent {
     					//don't add an edge if there is already an edge to it
     					continue;
     				}
-    				if(obstacles.contains(neighbour)){
+    				if(myEnvironmentData.isObstacle(neighbour)){
     					//don't add new edge if neighbour is blocked.
     					continue;
     				}
@@ -247,7 +241,7 @@ public class MyRobot extends Agent {
     					//don't add an edge if there is already an edge to it
     					continue;
     				}
-    				if(obstacles.contains(neighbour)){
+    				if(myEnvironmentData.isObstacle(neighbour)){
     					//don't add new edge if neighbour is blocked.
     					continue;
     				}
@@ -320,24 +314,17 @@ public class MyRobot extends Agent {
     		rightMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset + 1) % SENSOR_AMOUNT);
     		
     		//0.4 because its the distance to the neighbour in the worst case scenario, a 45 degree angle
-    		if(leftMeasurement <= 0.4 && centerMeasurement <= 0.4 && rightMeasurement <= 0.4 && !obstacles.contains(neighbour)){
-    			obstacles.add(neighbour);
-    			toVisit.remove(neighbour);
-    			System.out.println("OBSTACLES ADDED: "+neighbour.toString());
+    		if(leftMeasurement <= 0.4 && centerMeasurement <= 0.4 && rightMeasurement <= 0.4 && !myEnvironmentData.isObstacle(neighbour)){
+    			myEnvironmentData.addObstacle(neighbour);
+    			myMission.remove(neighbour);
     			obstacleFound = true;
     		}
     	}
     	return obstacleFound;
     }
     
-    public boolean setMission(ArrayList<Vector3d> inputMission){ //! change arraylist to mission object
-    	boolean missionSet = false;
-    	if(true){ //! if(environmentMap.reachable(inputMission)
-    		toVisit = inputMission;
-    		missionSet = true;
-    	}
-    	System.out.println("new mission set: "+missionSet);
-    	return missionSet;
+    public void setMission(Mission inputMission){
+    	myMission = inputMission;
     }
     
     private void pointTowards(Vector3d input){
@@ -391,6 +378,11 @@ public class MyRobot extends Agent {
 		this.rotateY(angleChange);
 		currentAngle = targetAngle;
     	return;
+    }
+    
+    //tell the robot it needs to retrieve a mission at the supervisor. and at what index to find it.
+    public void getSupervisorMission(int input){
+    	supervisorMission = input;
     }
     
     class ImagerPanel extends JPanel {

@@ -58,54 +58,35 @@ public class MyEnvironment extends EnvironmentDescription {
         Box box3 = new Box(new Vector3d(-2, 0, 3), new Vector3f(1,1,1), this);
         box3.setColor(new Color3f(Color.YELLOW));
         add(box3);
-                
-        //add robots to the environment (have to add here, or cherries won't work), TESTING MISSIONS ADDED HERE
-        MyRobot r1 = new MyRobot(new Vector3d(0,0,0), "inky");
-        r1.setColor(new Color3f(Color.BLUE));
-        //TESTING make mission
-        ArrayList<Vector3d> r1Mission = new ArrayList<Vector3d>();
-        for(int i = 0; i <= 4; i++){
-        	for(int j = 0; j <= 4; j++){
-        		r1Mission.add(new Vector3d(i, 0, j));
+        
+        //test mission
+        Mission testMission = new Mission();
+        for(int i = -4; i <= 4; i++){
+        	for(int j = -4; j <= 4; j++){
+        		testMission.add(new Vector3d(i, 0, j));
         	}
         }
-        r1.setMission(r1Mission);
+        ArrayList<Mission> missionList = testMission.splitMission(4);
+                
+        //add robots to the environment (have to add here, or cherries won't work)
+        MyRobot r1 = new MyRobot(new Vector3d(0,0,0), "inky");
+        r1.setColor(new Color3f(Color.BLUE));
+        r1.setMission(missionList.get(0));
         add(r1);
         
         MyRobot r2 = new MyRobot(new Vector3d(-1,0,0), "pinky");
         r2.setColor(new Color3f(Color.MAGENTA));
-        //TESTING make mission
-        ArrayList<Vector3d> r2Mission = new ArrayList<Vector3d>();
-        for(int i = -4; i <= -1; i++){
-        	for(int j = 0; j <= 4; j++){
-        		r2Mission.add(new Vector3d(i, 0, j));
-        	}
-        }
-        r2.setMission(r2Mission);
+        r2.setMission(missionList.get(1));
         add(r2);
         
         MyRobot r3 = new MyRobot(new Vector3d(-1,0,-1), "blinky");
         r3.setColor(new Color3f(Color.RED));
-        //TESTING make mission
-        ArrayList<Vector3d> r3Mission = new ArrayList<Vector3d>();
-        for(int i = -4; i <= -1; i++){
-        	for(int j = -4; j <= -1; j++){
-        		r3Mission.add(new Vector3d(i, 0, j));
-        	}
-        }
-        r3.setMission(r3Mission);
+        r3.setMission(missionList.get(2));
         add(r3);
         
         MyRobot r4 = new MyRobot(new Vector3d(0,0,-1), "clyde");
         r4.setColor(new Color3f(Color.PINK));
-        //TESTING make mission
-        ArrayList<Vector3d> r4Mission = new ArrayList<Vector3d>();
-        for(int i = 0; i <= 4; i++){
-        	for(int j = -4; j <= -1; j++){
-        		r4Mission.add(new Vector3d(i, 0, j));
-        	}
-        }
-        r4.setMission(r4Mission);
+        r4.setMission(missionList.get(3));
         add(r4);
         
         // create all instances of cherry
