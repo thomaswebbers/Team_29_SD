@@ -1,0 +1,1515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_D-YWABueEeiIBMjVLNyRQw" name="RootElement">
+    <packagedElement xmi:type="uml:Package" xmi:id="_PkrDsBueEeiIBMjVLNyRQw" name="Search &amp; rescue system">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_H-SEoBufEeiIBMjVLNyRQw" annotatedElement="__M2EMBueEeiIBMjVLNyRQw">
+        <body>Condition:&#xD;
+no mission set</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_kpgIYBueEeiIBMjVLNyRQw" name="Activate System">
+        <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="__M_1MBueEeiIBMjVLNyRQw" name="ExtensionPoint1"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_pzSFoBueEeiIBMjVLNyRQw" name="Deactivate System"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_uHRDUBueEeiIBMjVLNyRQw" name="Give new mission">
+        <extend xmi:type="uml:Extend" xmi:id="__M2EMBueEeiIBMjVLNyRQw" extendedCase="_kpgIYBueEeiIBMjVLNyRQw" extensionLocation="__M_1MBueEeiIBMjVLNyRQw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_v2u10BueEeiIBMjVLNyRQw" name="Get Data"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_ybQoEBueEeiIBMjVLNyRQw" name="Manage Rover"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_0SBVYBueEeiIBMjVLNyRQw" name="Get Supplies">
+        <include xmi:type="uml:Include" xmi:id="_7wAJ4BueEeiIBMjVLNyRQw" addition="_2ZoiIBueEeiIBMjVLNyRQw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_2ZoiIBueEeiIBMjVLNyRQw" name="Send Message"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_R2jmwBueEeiIBMjVLNyRQw" name="Supervisor">
+      <generalization xmi:type="uml:Generalization" xmi:id="_fxdbYBueEeiIBMjVLNyRQw" general="_TZNsUBueEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_TZNsUBueEeiIBMjVLNyRQw" name="SAR personnel"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_UzNlIBueEeiIBMjVLNyRQw" name="Searcher">
+      <generalization xmi:type="uml:Generalization" xmi:id="_gwDKkBueEeiIBMjVLNyRQw" general="_TZNsUBueEeiIBMjVLNyRQw"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="_h2FlkBueEeiIBMjVLNyRQw" general="_Vt7g8BueEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_Vt7g8BueEeiIBMjVLNyRQw" name="Person inside AO"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_WxIqYBueEeiIBMjVLNyRQw" name="Victim">
+      <generalization xmi:type="uml:Generalization" xmi:id="_i4jIIBueEeiIBMjVLNyRQw" general="_Vt7g8BueEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_ZKmmsBufEeiIBMjVLNyRQw" memberEnd="_ZKvwohufEeiIBMjVLNyRQw _ZKvwoxufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZKvwoBufEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ZKvwoRufEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_ZKvwohufEeiIBMjVLNyRQw" name="activate system" type="_kpgIYBueEeiIBMjVLNyRQw" association="_ZKmmsBufEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_ZKvwoxufEeiIBMjVLNyRQw" name="supervisor" type="_R2jmwBueEeiIBMjVLNyRQw" association="_ZKmmsBufEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_aCdbwBufEeiIBMjVLNyRQw" memberEnd="_aCmlshufEeiIBMjVLNyRQw _aCmlsxufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_aCmlsBufEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aCmlsRufEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_aCmlshufEeiIBMjVLNyRQw" name="supervisor" type="_R2jmwBueEeiIBMjVLNyRQw" association="_aCdbwBufEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_aCmlsxufEeiIBMjVLNyRQw" name="give new mission" type="_uHRDUBueEeiIBMjVLNyRQw" association="_aCdbwBufEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_bIwVcBufEeiIBMjVLNyRQw" memberEnd="_bI6GchufEeiIBMjVLNyRQw _bI6GcxufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bI6GcBufEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bI6GcRufEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_bI6GchufEeiIBMjVLNyRQw" name="supervisor" type="_R2jmwBueEeiIBMjVLNyRQw" association="_bIwVcBufEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_bI6GcxufEeiIBMjVLNyRQw" name="deactivate system" type="_pzSFoBueEeiIBMjVLNyRQw" association="_bIwVcBufEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_eXKLIBufEeiIBMjVLNyRQw" memberEnd="_eXTVEhufEeiIBMjVLNyRQw _eXTVExufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eXTVEBufEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eXTVERufEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_eXTVEhufEeiIBMjVLNyRQw" name="get data" type="_v2u10BueEeiIBMjVLNyRQw" association="_eXKLIBufEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_eXTVExufEeiIBMjVLNyRQw" name="sar personnel" type="_TZNsUBueEeiIBMjVLNyRQw" association="_eXKLIBufEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_fMB9oBufEeiIBMjVLNyRQw" memberEnd="_fMB9oxufEeiIBMjVLNyRQw _fMB9pBufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fMB9oRufEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fMB9ohufEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_fMB9oxufEeiIBMjVLNyRQw" name="manage rover" type="_ybQoEBueEeiIBMjVLNyRQw" association="_fMB9oBufEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_fMB9pBufEeiIBMjVLNyRQw" name="searcher" type="_UzNlIBueEeiIBMjVLNyRQw" association="_fMB9oBufEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_gQ1pkBufEeiIBMjVLNyRQw" memberEnd="_gQ_akhufEeiIBMjVLNyRQw _gQ_akxufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_gQ_akBufEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gQ_akRufEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_gQ_akhufEeiIBMjVLNyRQw" name="get supplies" type="_0SBVYBueEeiIBMjVLNyRQw" association="_gQ1pkBufEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_gQ_akxufEeiIBMjVLNyRQw" name="person inside ao" type="_Vt7g8BueEeiIBMjVLNyRQw" association="_gQ1pkBufEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_hUA90BufEeiIBMjVLNyRQw" memberEnd="_hUA90xufEeiIBMjVLNyRQw _hUA91BufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_hUA90RufEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_hUA90hufEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_hUA90xufEeiIBMjVLNyRQw" name="send message" type="_2ZoiIBueEeiIBMjVLNyRQw" association="_hUA90BufEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_hUA91BufEeiIBMjVLNyRQw" name="person inside ao" type="_Vt7g8BueEeiIBMjVLNyRQw" association="_hUA90BufEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_pv498BufEeiIBMjVLNyRQw" name="Simbad-Project-Skeleton">
+      <packagedElement xmi:type="uml:Package" xmi:id="_q02a4BufEeiIBMjVLNyRQw" name="main">
+        <packagedElement xmi:type="uml:Package" xmi:id="_q02a4RufEeiIBMjVLNyRQw" name="java">
+          <packagedElement xmi:type="uml:Package" xmi:id="_q1AL4BufEeiIBMjVLNyRQw" name="softdesign">
+            <packagedElement xmi:type="uml:Class" xmi:id="_q5xXIBufEeiIBMjVLNyRQw" name="Mission" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_q6ODERufEeiIBMjVLNyRQw" name="toVisit" visibility="private" type="_q5xXIxufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_q6ODEhufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_q6XNABufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_q6z48RufEeiIBMjVLNyRQw" name="Mission" specification="_q6XNARufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    toVisit = new ArrayList&lt;Vector3d>();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_q_uOIBufEeiIBMjVLNyRQw" name="setNewMission" specification="_q7Gz4BufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (newMission == null) {&#xD;
+        return false;&#xD;
+    }&#xD;
+    toVisit = newMission;&#xD;
+    return true;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rAK6EBufEeiIBMjVLNyRQw" name="splitMission" specification="_q_3_IBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    ArrayList&lt;Mission> result = new ArrayList&lt;Mission>();&#xD;
+    if (toVisit == null || toVisit.size() == 0) {&#xD;
+        return null;&#xD;
+    }&#xD;
+    //first determine the size of the square that covers all mission targets&#xD;
+    Vector3d currentTarget = toVisit.get(0);&#xD;
+    int targetAmount = toVisit.size();&#xD;
+    double topLeftX = currentTarget.getX();&#xD;
+    double topLeftZ = currentTarget.getZ();&#xD;
+    double bottomRightX = currentTarget.getX();&#xD;
+    double bottomRightZ = currentTarget.getZ();&#xD;
+    for (int i = 1; i &lt; targetAmount; i++) {&#xD;
+        currentTarget = toVisit.get(i);&#xD;
+        topLeftX = Math.max(topLeftX, currentTarget.getX());&#xD;
+        topLeftZ = Math.min(topLeftZ, currentTarget.getZ());&#xD;
+        bottomRightX = Math.min(bottomRightX, currentTarget.getX());&#xD;
+        bottomRightZ = Math.max(bottomRightZ, currentTarget.getZ());&#xD;
+    }&#xD;
+    //now divide this square into the correct amount of cells&#xD;
+    int rows, collumns, cells;&#xD;
+    double rootOfSplitAmount = Math.sqrt(splitAmount);&#xD;
+    double roundedRoot = Math.round(rootOfSplitAmount);&#xD;
+    if (rootOfSplitAmount > roundedRoot) {&#xD;
+        rows = (int) roundedRoot;&#xD;
+        collumns = (int) (roundedRoot + 1);&#xD;
+    } else {&#xD;
+        rows = (int) roundedRoot;&#xD;
+        collumns = (int) roundedRoot;&#xD;
+    }&#xD;
+    cells = rows * collumns;&#xD;
+    //initialize the new list of missions&#xD;
+    for (int i = 0; i &lt; cells; i++) {&#xD;
+        result.add(new Mission());&#xD;
+    }&#xD;
+    //divide mission targets over new mission list depending on which cell they fall in&#xD;
+    int targetRow, targetCollumn, targetCell, currentX, currentZ;&#xD;
+    double distanceToTopX, distanceToTopZ;&#xD;
+    double rowLength, collumnLength;&#xD;
+    rowLength = Math.abs(topLeftX - bottomRightX) / rows;&#xD;
+    collumnLength = Math.abs(topLeftZ - bottomRightZ) / collumns;&#xD;
+    for (int i = 0; i &lt; targetAmount; i++) {&#xD;
+        currentTarget = toVisit.get(i);&#xD;
+        currentX = (int) currentTarget.getX();&#xD;
+        currentZ = (int) currentTarget.getZ();&#xD;
+        distanceToTopX = Math.abs(topLeftX - currentX);&#xD;
+        distanceToTopZ = Math.abs(topLeftZ - currentZ);&#xD;
+        targetRow = (int) (distanceToTopX / rowLength);&#xD;
+        targetCollumn = (int) (distanceToTopZ / collumnLength);&#xD;
+        //edge case, to prevent out of bounds at edges of search area&#xD;
+        if (targetRow >= rows) {&#xD;
+            targetRow = rows - 1;&#xD;
+        }&#xD;
+        if (targetCollumn >= collumns) {&#xD;
+            targetCollumn = collumns - 1;&#xD;
+        }&#xD;
+        targetCell = (targetRow * collumns) + targetCollumn;&#xD;
+        result.get(targetCell).add(currentTarget);&#xD;
+    }&#xD;
+    //if needed, merge missions to return correct splitAmount&#xD;
+    int mergeCounter = 0;&#xD;
+    //merger, which merges. mergee, which will be merged&#xD;
+    Mission merger, mergee;&#xD;
+    while (result.size() != splitAmount) {&#xD;
+        merger = result.get(mergeCounter);&#xD;
+        mergee = result.get(mergeCounter + 1);&#xD;
+        merger.addAll(mergee);&#xD;
+        result.remove(mergee);&#xD;
+        mergeCounter++;&#xD;
+    }&#xD;
+    return result;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rA6g8BufEeiIBMjVLNyRQw" name="contains" specification="_rAecEBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return toVisit.contains(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rBOC8BufEeiIBMjVLNyRQw" name="remove" specification="_rBER8BufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return toVisit.remove(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rBg94hufEeiIBMjVLNyRQw" name="getTarget" specification="_rBg94BufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return toVisit.get(0);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rBg95hufEeiIBMjVLNyRQw" name="add" specification="_rBg94xufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return toVisit.add(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rBg96RufEeiIBMjVLNyRQw" name="isEmpty" specification="_rBg95xufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return toVisit.size() == 0;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rBqu5BufEeiIBMjVLNyRQw" name="getAll" specification="_rBqu4BufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return toVisit;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rCjfsBufEeiIBMjVLNyRQw" name="addAll" specification="_rBqu5RufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    ArrayList&lt;Vector3d> inputMissions = input.getAll();&#xD;
+    return toVisit.addAll(inputMissions);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rDJ8oRufEeiIBMjVLNyRQw" name="checkEnvironment" specification="_rDALoRufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    int missionSize = toVisit.size();&#xD;
+    ArrayList&lt;Vector3d> toRemove = new ArrayList&lt;Vector3d>();&#xD;
+    int toRemoveSize = 0;&#xD;
+    ArrayList&lt;Vector3d> visited = inputEnvironment.getVisited();&#xD;
+    ArrayList&lt;Vector3d> obstacles = inputEnvironment.getObstacles();&#xD;
+    ArrayList&lt;Vector3d> unreachable = inputEnvironment.getUnreachable();&#xD;
+    //Determine which can be removed from the mission target list&#xD;
+    for (int i = 0; i &lt; missionSize; i++) {&#xD;
+        Vector3d target = toVisit.get(i);&#xD;
+        if (visited.contains(target) || obstacles.contains(target) || unreachable.contains(target)) {&#xD;
+            toRemove.add(target);&#xD;
+            toRemoveSize++;&#xD;
+        }&#xD;
+    }&#xD;
+    //Remove the tagets alreadly checked&#xD;
+    for (int i = 0; i &lt; toRemoveSize; i++) {&#xD;
+        Vector3d target = toRemove.get(i);&#xD;
+        toVisit.remove(target);&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_q6XNARufEeiIBMjVLNyRQw" name="Mission" visibility="public" method="_q6z48RufEeiIBMjVLNyRQw"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_q7Gz4BufEeiIBMjVLNyRQw" name="setNewMission" visibility="public" method="_q_uOIBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_q_SJQBufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_q_bTMBufEeiIBMjVLNyRQw" name="newMission" type="_q5xXIxufEeiIBMjVLNyRQw">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_q_lEMBufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_q_lEMRufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_q_3_IBufEeiIBMjVLNyRQw" name="splitMission" visibility="public" method="_rAK6EBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_q_3_IRufEeiIBMjVLNyRQw" type="_q5xXIBufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rABwIBufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rABwIRufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rABwIhufEeiIBMjVLNyRQw" name="splitAmount">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rAecEBufEeiIBMjVLNyRQw" name="contains" visibility="public" method="_rA6g8BufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rAnmABufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rAxXABufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rBER8BufEeiIBMjVLNyRQw" name="remove" visibility="public" method="_rBOC8BufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rBER8RufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rBER8hufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rBg94BufEeiIBMjVLNyRQw" name="getTarget" visibility="public" method="_rBg94hufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rBg94RufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rBg94xufEeiIBMjVLNyRQw" name="add" visibility="public" method="_rBg95hufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rBg95BufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rBg95RufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rBg95xufEeiIBMjVLNyRQw" name="isEmpty" visibility="public" method="_rBg96RufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rBg96BufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rBqu4BufEeiIBMjVLNyRQw" name="getAll" visibility="public" method="_rBqu5BufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rBqu4RufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rBqu4hufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rBqu4xufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rBqu5RufEeiIBMjVLNyRQw" name="addAll" visibility="public" method="_rCjfsBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rB9p0BufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rB9p0RufEeiIBMjVLNyRQw" name="input" type="_q5xXIBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rDALoRufEeiIBMjVLNyRQw" name="checkEnvironment" visibility="public" method="_rDJ8oRufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rDJ8oBufEeiIBMjVLNyRQw" name="inputEnvironment" type="_rDALoBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rDALoBufEeiIBMjVLNyRQw" name="EnvData" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rbSIwBufEeiIBMjVLNyRQw" name="visited" visibility="private" type="_q5xXIxufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rbSIwRufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rbSIwhufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rbSIwxufEeiIBMjVLNyRQw" name="obstacles" visibility="private" type="_q5xXIxufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rbSIxBufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rbSIxRufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rbbSsBufEeiIBMjVLNyRQw" name="unreachable" visibility="private" type="_q5xXIxufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rbbSsRufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rbbSshufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rbbSsxufEeiIBMjVLNyRQw" name="imageList" visibility="private" type="_rHeb8hufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rbbStBufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rbbStRufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rblDsRufEeiIBMjVLNyRQw" name="EnvironmentData" specification="_rbbSthufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    //initialize object variables&#xD;
+    visited = new ArrayList&lt;Vector3d>();&#xD;
+    obstacles = new ArrayList&lt;Vector3d>();&#xD;
+    unreachable = new ArrayList&lt;Vector3d>();&#xD;
+    imageList = new ArrayList&lt;Image>();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rblDtRufEeiIBMjVLNyRQw" name="isVisited" specification="_rblDshufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return visited.contains(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rbu0sxufEeiIBMjVLNyRQw" name="addVisited" specification="_rbu0sBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return visited.add(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rcebkBufEeiIBMjVLNyRQw" name="isObstacle" specification="_rcK5kBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return obstacles.contains(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rdOCcBufEeiIBMjVLNyRQw" name="addObstacle" specification="_rcxWgBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return obstacles.add(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rdXMYxufEeiIBMjVLNyRQw" name="addUnreachable" specification="_rdXMYBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return unreachable.add(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rd9pURufEeiIBMjVLNyRQw" name="isUnreachable" specification="_rdquYBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return unreachable.contains(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_reQkQxufEeiIBMjVLNyRQw" name="getVisited" specification="_reGzQBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return visited;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_reQkSBufEeiIBMjVLNyRQw" name="getObstacles" specification="_reQkRBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return obstacles;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_reaVQhufEeiIBMjVLNyRQw" name="getUnreachable" specification="_reQkSRufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return unreachable;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_reaVRxufEeiIBMjVLNyRQw" name="getImages" specification="_reaVQxufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return imageList;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_retQMBufEeiIBMjVLNyRQw" name="mergeData" specification="_reaVSBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    ArrayList&lt;Vector3d> inputVisited = inputData.getVisited();&#xD;
+    int inputVisitedSize = inputVisited.size();&#xD;
+    for (int i = 0; i &lt; inputVisitedSize; i++) {&#xD;
+        Vector3d inputNode = inputVisited.get(i);&#xD;
+        if (!isVisited(inputNode)) {&#xD;
+            addVisited(inputNode);&#xD;
+        }&#xD;
+    }&#xD;
+    ArrayList&lt;Vector3d> inputObstacles = inputData.getObstacles();&#xD;
+    int inputObstaclesSize = inputObstacles.size();&#xD;
+    for (int i = 0; i &lt; inputObstaclesSize; i++) {&#xD;
+        Vector3d inputNode = inputObstacles.get(i);&#xD;
+        if (!isObstacle(inputNode)) {&#xD;
+            addObstacle(inputNode);&#xD;
+        }&#xD;
+    }&#xD;
+    ArrayList&lt;Vector3d> inputUnreachables = inputData.getUnreachable();&#xD;
+    int inputUnreachablesSize = inputUnreachables.size();&#xD;
+    for (int i = 0; i &lt; inputUnreachablesSize; i++) {&#xD;
+        Vector3d inputNode = inputUnreachables.get(i);&#xD;
+        if (!isUnreachable(inputNode)) {&#xD;
+            addUnreachable(inputNode);&#xD;
+        }&#xD;
+    }&#xD;
+    imageList.addAll(inputData.getImages());&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rfTGERufEeiIBMjVLNyRQw" name="printEnvironment" specification="_rfALIBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    int fromX = (int) from.getX();&#xD;
+    int fromZ = (int) from.getZ();&#xD;
+    int toX = (int) to.getX();&#xD;
+    int toZ = (int) to.getZ();&#xD;
+    for (int i = fromX; i >= toX; i--) {&#xD;
+        for (int j = fromZ; j &lt;= toZ; j++) {&#xD;
+            Vector3d currentNode = new Vector3d(i, 0, j);&#xD;
+            if (visited.contains(currentNode)) {&#xD;
+                System.out.printf(&quot;V &quot;);&#xD;
+            } else if (obstacles.contains(currentNode)) {&#xD;
+                System.out.printf(&quot;O &quot;);&#xD;
+            } else if (unreachable.contains(currentNode)) {&#xD;
+                System.out.printf(&quot;U &quot;);&#xD;
+            } else {&#xD;
+                System.out.printf(&quot;X &quot;);&#xD;
+            }&#xD;
+        }&#xD;
+        System.out.println();&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rbbSthufEeiIBMjVLNyRQw" name="EnvironmentData" visibility="public" method="_rblDsRufEeiIBMjVLNyRQw"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rblDshufEeiIBMjVLNyRQw" name="isVisited" visibility="public" method="_rblDtRufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rblDsxufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rblDtBufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rbu0sBufEeiIBMjVLNyRQw" name="addVisited" visibility="public" method="_rbu0sxufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rbu0sRufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rbu0shufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rcK5kBufEeiIBMjVLNyRQw" name="isObstacle" visibility="public" method="_rcebkBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rcK5kRufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rcK5khufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rcxWgBufEeiIBMjVLNyRQw" name="addObstacle" visibility="public" method="_rdOCcBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rc7HgBufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rdERcBufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rdXMYBufEeiIBMjVLNyRQw" name="addUnreachable" visibility="public" method="_rdXMYxufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rdXMYRufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rdXMYhufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rdquYBufEeiIBMjVLNyRQw" name="isUnreachable" visibility="public" method="_rd9pURufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rdz4UBufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rd9pUBufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_reGzQBufEeiIBMjVLNyRQw" name="getVisited" visibility="public" method="_reQkQxufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_reQkQBufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_reQkQRufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_reQkQhufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_reQkRBufEeiIBMjVLNyRQw" name="getObstacles" visibility="public" method="_reQkSBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_reQkRRufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_reQkRhufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_reQkRxufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_reQkSRufEeiIBMjVLNyRQw" name="getUnreachable" visibility="public" method="_reaVQhufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_reQkShufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_reaVQBufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_reaVQRufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_reaVQxufEeiIBMjVLNyRQw" name="getImages" visibility="public" method="_reaVRxufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_reaVRBufEeiIBMjVLNyRQw" type="_rHeb8hufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_reaVRRufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_reaVRhufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_reaVSBufEeiIBMjVLNyRQw" name="mergeData" visibility="public" method="_retQMBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_reaVSRufEeiIBMjVLNyRQw" name="inputData" type="_rDALoBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rfALIBufEeiIBMjVLNyRQw" name="printEnvironment" visibility="public" method="_rfTGERufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rfJ8IBufEeiIBMjVLNyRQw" name="from" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rfTGEBufEeiIBMjVLNyRQw" name="to" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rDc3kBufEeiIBMjVLNyRQw" name="SupplyBox" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rD5jgRufEeiIBMjVLNyRQw" name="supplies" visibility="private" type="_rDmokhufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rD5jghufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rD5jgxufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rEMecBufEeiIBMjVLNyRQw" name="PathEdge" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rEMecRufEeiIBMjVLNyRQw" name="from" visibility="private" type="_q5xXIxufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rEWPcBufEeiIBMjVLNyRQw" name="to" visibility="private" type="_q5xXIxufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rFPAQRufEeiIBMjVLNyRQw" name="PathEdge" specification="_rEWPcRufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.from = from;&#xD;
+    this.to = to;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rFYxQhufEeiIBMjVLNyRQw" name="returnFrom" specification="_rFYxQBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return from;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rF1dMBufEeiIBMjVLNyRQw" name="returnTo" specification="_rFrsMBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return to;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rGSJIBufEeiIBMjVLNyRQw" name="toString" specification="_rF-nIBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return &quot;from: &quot; + from.toString() + &quot;, to: &quot; + to.toString();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rGlEERufEeiIBMjVLNyRQw" name="contains" specification="_rGbTEBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (input.equals(from)) {&#xD;
+        return 0;&#xD;
+    }&#xD;
+    if (input.equals(to)) {&#xD;
+        return 1;&#xD;
+    }&#xD;
+    return -1;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rHeb8RufEeiIBMjVLNyRQw" name="equals" specification="_rHUq8BufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (obj == null) {&#xD;
+        return false;&#xD;
+    }&#xD;
+    if (!PathEdge.class.isAssignableFrom(obj.getClass())) {&#xD;
+        return false;&#xD;
+    }&#xD;
+    PathEdge input = (PathEdge) obj;&#xD;
+    if (this.from.equals(input.from) &amp;&amp; this.to.equals(input.to)) {&#xD;
+        return true;&#xD;
+    }&#xD;
+    return false;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rEWPcRufEeiIBMjVLNyRQw" name="PathEdge" visibility="public" method="_rFPAQRufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rFF2UBufEeiIBMjVLNyRQw" name="from" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rFPAQBufEeiIBMjVLNyRQw" name="to" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rFYxQBufEeiIBMjVLNyRQw" name="returnFrom" visibility="private" method="_rFYxQhufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rFYxQRufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rFrsMBufEeiIBMjVLNyRQw" name="returnTo" visibility="private" method="_rF1dMBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rFrsMRufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rF-nIBufEeiIBMjVLNyRQw" name="toString" visibility="public" method="_rGSJIBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rGIYIBufEeiIBMjVLNyRQw" type="_rDmokhufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rGbTEBufEeiIBMjVLNyRQw" name="contains" visibility="public" method="_rGlEERufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rGbTERufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rGlEEBufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rHUq8BufEeiIBMjVLNyRQw" name="equals" visibility="public" method="_rHeb8RufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rHUq8RufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rHeb8BufEeiIBMjVLNyRQw" name="obj" type="_rG3_ABufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rHeb8hufEeiIBMjVLNyRQw" name="Image" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rHxW4RufEeiIBMjVLNyRQw" name="ImageData" visibility="private" type="_rHeb8xufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rH6g0BufEeiIBMjVLNyRQw" name="direction" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rIXMwBufEeiIBMjVLNyRQw" name="origin" visibility="private" type="_rDmokhufEeiIBMjVLNyRQw" isUnique="false"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Enumeration" xmi:id="_rIg9wBufEeiIBMjVLNyRQw" name="DeviceMode" visibility="public">
+              <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_rIg9wRufEeiIBMjVLNyRQw" name="Active"/>
+              <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_rIquwBufEeiIBMjVLNyRQw" name="Inactive"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rIz4sBufEeiIBMjVLNyRQw" name="EdgeArray" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rI9psBufEeiIBMjVLNyRQw" name="myData" visibility="private" type="_rEMecBufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rJGzoBufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rJQkoBufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rJjfkBufEeiIBMjVLNyRQw" name="EdgeArray" specification="_rJQkoRufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    myData = new ArrayList&lt;PathEdge>();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rJtQkxufEeiIBMjVLNyRQw" name="edgeTo" specification="_rJtQkBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    int dataLength = myData.size();&#xD;
+    for (int i = 0; i &lt; dataLength; i++) {&#xD;
+        PathEdge currentEdge = myData.get(i);&#xD;
+        if (currentEdge.contains(input) == 1) {&#xD;
+            return currentEdge;&#xD;
+        }&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rKmocBufEeiIBMjVLNyRQw" name="getPathTo" specification="_rKALgBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    Vector3d lastNode = input;&#xD;
+    PathEdge lastEdge = edgeTo(lastNode);&#xD;
+    ArrayList&lt;Vector3d> result = new ArrayList&lt;Vector3d>();&#xD;
+    while (lastEdge != null) {&#xD;
+        result.add(lastNode);&#xD;
+        lastNode = lastEdge.returnFrom();&#xD;
+        lastEdge = edgeTo(lastNode);&#xD;
+    }&#xD;
+    Collections.reverse(result);&#xD;
+    return result;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rKvyYRufEeiIBMjVLNyRQw" name="addEdge" specification="_rKmocRufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return myData.add(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rKvyZRufEeiIBMjVLNyRQw" name="removeEdge" specification="_rKvyYhufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return myData.remove(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rJQkoRufEeiIBMjVLNyRQw" name="EdgeArray" visibility="public" method="_rJjfkBufEeiIBMjVLNyRQw"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rJtQkBufEeiIBMjVLNyRQw" name="edgeTo" visibility="private" method="_rJtQkxufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rJtQkRufEeiIBMjVLNyRQw" type="_rEMecBufEeiIBMjVLNyRQw" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rJtQkhufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rKALgBufEeiIBMjVLNyRQw" name="getPathTo" visibility="private" method="_rKmocBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rKJ8gBufEeiIBMjVLNyRQw" type="_q5xXIxufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rKTGcBufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rKTGcRufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rKc3cBufEeiIBMjVLNyRQw" name="input" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rKmocRufEeiIBMjVLNyRQw" name="addEdge" visibility="private" method="_rKvyYRufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rKmochufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rKvyYBufEeiIBMjVLNyRQw" name="input" type="_rEMecBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rKvyYhufEeiIBMjVLNyRQw" name="removeEdge" visibility="private" method="_rKvyZRufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rKvyYxufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rKvyZBufEeiIBMjVLNyRQw" name="input" type="_rEMecBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Enumeration" xmi:id="_rKvyZhufEeiIBMjVLNyRQw" name="UpdateStatus" visibility="public">
+              <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_rKvyZxufEeiIBMjVLNyRQw" name="Done"/>
+              <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_rLMeUBufEeiIBMjVLNyRQw" name="Receiving"/>
+              <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_rLMeURufEeiIBMjVLNyRQw" name="Sending"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rLpKQBufEeiIBMjVLNyRQw" name="ControlCenter" visibility="public">
+              <generalization xmi:type="uml:Generalization" xmi:id="_rMrsEBufEeiIBMjVLNyRQw" general="_rLy7QBufEeiIBMjVLNyRQw"/>
+              <generalization xmi:type="uml:Generalization" xmi:id="_WUgG0BugEeiIBMjVLNyRQw" general="_2qhoYBufEeiIBMjVLNyRQw"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rM-nABufEeiIBMjVLNyRQw" name="lastUpdate" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rM-nARufEeiIBMjVLNyRQw" name="updatesReceived" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rNIYABufEeiIBMjVLNyRQw" name="updatesSent" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rNlD8BufEeiIBMjVLNyRQw" name="myMission" visibility="private" type="_q5xXIBufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rNu08BufEeiIBMjVLNyRQw" name="missionList" visibility="private" type="_q5xXIBufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rN3-4BufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rOBv4BufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rOBv4RufEeiIBMjVLNyRQw" name="myEnvironmentData" visibility="private" type="_rDALoBufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rOUq0RufEeiIBMjVLNyRQw" name="myRobots" visibility="private" type="_rOUq0BufEeiIBMjVLNyRQw" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rOeb0BufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rOeb0RufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rOeb0hufEeiIBMjVLNyRQw" name="robotAmount" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rPERsBufEeiIBMjVLNyRQw" name="lock" visibility="public" type="_rOnlwxufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9OeoIxugEeiIBMjVLNyRQw" name="myrobot" type="_rOUq0BufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i63U8BuhEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i7BF8BuhEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rPz4kBufEeiIBMjVLNyRQw" name="ControlCenter" specification="_rPOCsBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    super(position, name);&#xD;
+    //Initialise ControlCenter variables&#xD;
+    currentMode = DeviceMode.Inactive;&#xD;
+    updateStatus = UpdateStatus.Done;&#xD;
+    myMission = new Mission();&#xD;
+    myEnvironmentData = new EnvironmentData();&#xD;
+    myRobots = new ArrayList&lt;MyRobot>();&#xD;
+    robotAmount = 0;&#xD;
+    lock = new ReentrantLock();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rQ3BcRufEeiIBMjVLNyRQw" name="initBehavior" specification="_rQ3BcBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    System.out.println(&quot;I exist and my name is &quot; + this.name);&#xD;
+    currentMode = DeviceMode.Active;&#xD;
+    delegateMyMission();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rQ3BcxufEeiIBMjVLNyRQw" name="performBehavior" specification="_rQ3BchufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    try {&#xD;
+        lock.lock();&#xD;
+        //if it has been 3 seconds since the last finished update start a new one&#xD;
+        if (getCounter() >= lastUpdate + 60 &amp;&amp; updateStatus == UpdateStatus.Done) {&#xD;
+            System.out.printf(&quot;Update Started!\n&quot;);&#xD;
+            updateStatus = UpdateStatus.Receiving;&#xD;
+            updatesReceived = 0;&#xD;
+            for (int i = 0; i &lt; robotAmount; i++) {&#xD;
+                MyRobot robot = myRobots.get(i);&#xD;
+                robot.sendUpdate();&#xD;
+            }&#xD;
+        //if we're still receiving, check if all robots have sent their map yet.&#xD;
+        } else if (updateStatus == UpdateStatus.Receiving) {&#xD;
+            if (updatesReceived >= robotAmount) {&#xD;
+                updateStatus = UpdateStatus.Sending;&#xD;
+                updatesSent = 0;&#xD;
+                for (int i = 0; i &lt; robotAmount; i++) {&#xD;
+                    MyRobot robot = myRobots.get(i);&#xD;
+                    robot.getUpdate();&#xD;
+                }&#xD;
+            }&#xD;
+        //if we're done receiving check if all robots have gotten the updated map&#xD;
+        } else if (updateStatus == UpdateStatus.Sending) {&#xD;
+            if (updatesSent >= robotAmount) {&#xD;
+                updateStatus = UpdateStatus.Done;&#xD;
+                lastUpdate = getCounter();&#xD;
+                System.out.printf(&quot;Succesful update!\n&quot;);&#xD;
+                myEnvironmentData.printEnvironment(new Vector3d(5, 0, -5), new Vector3d(-5, 0, 5));&#xD;
+            }&#xD;
+        }&#xD;
+    } finally {&#xD;
+        lock.unlock();&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rQ3BdhufEeiIBMjVLNyRQw" name="setMission" specification="_rQ3BdBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    myMission = inputMission;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rQ3BeRufEeiIBMjVLNyRQw" name="delegateMyMission" specification="_rQ3BdxufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    int robotAmount = myRobots.size();&#xD;
+    //if I have no robots, I can't delegate my mission&#xD;
+    if (robotAmount &lt;= 0) {&#xD;
+        return false;&#xD;
+    }&#xD;
+    try {&#xD;
+        lock.lock();&#xD;
+        missionList = myMission.splitMission(robotAmount);&#xD;
+        for (int i = 0; i &lt; robotAmount; i++) {&#xD;
+            MyRobot robot = myRobots.get(i);&#xD;
+            robot.getSupervisorMission(i);&#xD;
+        }&#xD;
+    } finally {&#xD;
+        lock.unlock();&#xD;
+    }&#xD;
+    return true;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rRALYxufEeiIBMjVLNyRQw" name="getMission" specification="_rRALYBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    return missionList.get(missionNr);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rRALZhufEeiIBMjVLNyRQw" name="updateEnvironmentData" specification="_rRALZBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    updatesReceived++;&#xD;
+    myEnvironmentData.mergeData(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rRALaRufEeiIBMjVLNyRQw" name="sendEnvironmentData" specification="_rRALZxufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    updatesSent++;&#xD;
+    return myEnvironmentData;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rRJ8YBufEeiIBMjVLNyRQw" name="addRobot" specification="_rRALahufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    try {&#xD;
+        lock.lock();&#xD;
+        myRobots.add(input);&#xD;
+        input.setSupervisor(this);&#xD;
+        input.changeLock(lock);&#xD;
+        robotAmount++;&#xD;
+        System.out.printf(&quot;%s supervises: %s\n&quot;, this.getName(), input.getName());&#xD;
+    } finally {&#xD;
+        lock.unlock();&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rPOCsBufEeiIBMjVLNyRQw" name="ControlCenter" visibility="public" method="_rPz4kBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rPg9oBufEeiIBMjVLNyRQw" name="position" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rPquoBufEeiIBMjVLNyRQw" name="name" type="_rDmokhufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rQ3BdxufEeiIBMjVLNyRQw" name="delegateMyMission" visibility="public" method="_rQ3BeRufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rQ3BeBufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rRALYBufEeiIBMjVLNyRQw" name="getMission" visibility="public" method="_rRALYxufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALYRufEeiIBMjVLNyRQw" type="_q5xXIBufEeiIBMjVLNyRQw" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALYhufEeiIBMjVLNyRQw" name="missionNr">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rRALZBufEeiIBMjVLNyRQw" name="updateEnvironmentData" visibility="public" method="_rRALZhufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALZRufEeiIBMjVLNyRQw" name="input" type="_rDALoBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rRALZxufEeiIBMjVLNyRQw" name="sendEnvironmentData" visibility="public" method="_rRALaRufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALaBufEeiIBMjVLNyRQw" type="_rDALoBufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rRALahufEeiIBMjVLNyRQw" name="addRobot" visibility="public" method="_rRJ8YBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALaxufEeiIBMjVLNyRQw" name="input" type="_rOUq0BufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rOUq0BufEeiIBMjVLNyRQw" name="MyRobot" visibility="public">
+              <generalization xmi:type="uml:Generalization" xmi:id="_rTF2EBufEeiIBMjVLNyRQw" general="_rLy7QBufEeiIBMjVLNyRQw"/>
+              <generalization xmi:type="uml:Generalization" xmi:id="_XfRQ0BugEeiIBMjVLNyRQw" general="_2qhoYBufEeiIBMjVLNyRQw"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rTPAABufEeiIBMjVLNyRQw" name="SENSOR_AMOUNT" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_rTYxABufEeiIBMjVLNyRQw" name="defaultValue">
+                  <language>JAVA</language>
+                  <body>12</body>
+                </defaultValue>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rTYxARufEeiIBMjVLNyRQw" name="NO_MISSION_AVAILABLE" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_rTiiABufEeiIBMjVLNyRQw" name="defaultValue">
+                  <language>JAVA</language>
+                  <body>-1</body>
+                </defaultValue>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rTiiAhufEeiIBMjVLNyRQw" name="currentAngle" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rT1c8BufEeiIBMjVLNyRQw" name="myEnvironmentData" visibility="private" type="_rDALoBufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rT-m4BufEeiIBMjVLNyRQw" name="myMission" visibility="private" type="_q5xXIBufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rUSI4BufEeiIBMjVLNyRQw" name="lock" visibility="private" type="_rOnlwxufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rUbS0BufEeiIBMjVLNyRQw" name="mySupervisor" visibility="private" type="_rLpKQBufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rUbS0RufEeiIBMjVLNyRQw" name="supervisorMission" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rUlD0RufEeiIBMjVLNyRQw" name="myPath" visibility="private" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rVBvwBufEeiIBMjVLNyRQw"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rVK5sBufEeiIBMjVLNyRQw" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rVK5sRufEeiIBMjVLNyRQw" name="finalTarget" visibility="private" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rVebsBufEeiIBMjVLNyRQw" name="currentTarget" visibility="private" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rVnloBufEeiIBMjVLNyRQw" name="previousTarget" visibility="private" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rV7HoBufEeiIBMjVLNyRQw" name="myCamera" visibility="private" type="_rVnloRufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rWXMgBufEeiIBMjVLNyRQw" name="luminanceMatrix" visibility="private" type="_rHeb8xufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rWz4cBufEeiIBMjVLNyRQw" name="cameraPanel" visibility="private" type="_rWg9gRufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rXGzYBufEeiIBMjVLNyRQw" name="mySonarBelt" visibility="private" type="_rWz4cRufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rXjfURufEeiIBMjVLNyRQw" name="MyRobot" specification="_rXQkYBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    super(position, name);&#xD;
+    // Add bumpers&#xD;
+    //RobotFactory.addBumperBeltSensor(this, 12); //! removed bumpers as they don't serve a purpose yet&#xD;
+    // Add sonars&#xD;
+    mySonarBelt = RobotFactory.addSonarBeltSensor(this, SENSOR_AMOUNT);&#xD;
+    // Add camera &amp; prep camera UI&#xD;
+    myCamera = RobotFactory.addCameraSensor(this);&#xD;
+    luminanceMatrix = myCamera.createCompatibleSensorMatrix();&#xD;
+    cameraPanel = new ImagerPanel();&#xD;
+    Dimension dim = new Dimension(luminanceMatrix.getWidth(), luminanceMatrix.getHeight());&#xD;
+    cameraPanel.setPreferredSize(dim);&#xD;
+    cameraPanel.setMinimumSize(dim);&#xD;
+    setUIPanel(cameraPanel);&#xD;
+    // initialize environment information&#xD;
+    currentAngle = 0;&#xD;
+    myPath = new ArrayList&lt;Vector3d>();&#xD;
+    myEnvironmentData = new EnvironmentData();&#xD;
+    myMission = new Mission();&#xD;
+    supervisorMission = NO_MISSION_AVAILABLE;&#xD;
+    updateStatus = UpdateStatus.Done;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rX3BUBufEeiIBMjVLNyRQw" name="initBehavior">
+                <language>JAVA</language>
+                <body>&#xD;
+    //go back to start&#xD;
+    this.moveToStartPosition();&#xD;
+    System.out.println(&quot;I exist and my name is &quot; + this.name);&#xD;
+    currentMode = DeviceMode.Inactive;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rX3BUhufEeiIBMjVLNyRQw" name="performBehavior">
+                <language>JAVA</language>
+                <body>&#xD;
+    //check if the supervisor left a message&#xD;
+    if (mySupervisor == null) {&#xD;
+        return;&#xD;
+    }&#xD;
+    try {&#xD;
+        lock.lock();&#xD;
+        if (supervisorMission != NO_MISSION_AVAILABLE) {&#xD;
+            myMission = mySupervisor.getMission(supervisorMission);&#xD;
+            System.out.printf(&quot;%s accepted mission %d\n&quot;, this.getName(), supervisorMission);&#xD;
+            supervisorMission = NO_MISSION_AVAILABLE;&#xD;
+        }&#xD;
+        if (updateStatus == UpdateStatus.Sending) {&#xD;
+            mySupervisor.updateEnvironmentData(myEnvironmentData);&#xD;
+            updateStatus = UpdateStatus.Done;&#xD;
+        } else if (updateStatus == UpdateStatus.Receiving) {&#xD;
+            myEnvironmentData = mySupervisor.sendEnvironmentData();&#xD;
+            myMission.checkEnvironment(myEnvironmentData);&#xD;
+        }&#xD;
+    } finally {&#xD;
+        lock.unlock();&#xD;
+    }&#xD;
+    //make change to current mode if applicable&#xD;
+    if (currentMode == DeviceMode.Inactive) {&#xD;
+        if (!myMission.isEmpty()) {&#xD;
+            previousTarget = getLocation();&#xD;
+            registerObstacles();&#xD;
+            Vector3d newTarget = myMission.getTarget();&#xD;
+            myPath = getPath(previousTarget, newTarget);&#xD;
+            currentTarget = myPath.get(0);&#xD;
+            currentMode = DeviceMode.Active;&#xD;
+            setTranslationalVelocity(0.5);&#xD;
+        } else {&#xD;
+            setTranslationalVelocity(0);&#xD;
+            return;&#xD;
+        }&#xD;
+    }&#xD;
+    //If I am touching a cherry, detach (delete) that cherry&#xD;
+    if (anOtherAgentIsVeryNear()) {&#xD;
+        SimpleAgent nearAgent = getVeryNearAgent();&#xD;
+        if (nearAgent instanceof CherryAgent) {&#xD;
+            nearAgent.detach();&#xD;
+        }&#xD;
+    }&#xD;
+    if (getCounter() % 5 == 0) {&#xD;
+        //If I am currently less than 0.1 units away from my target&#xD;
+        if (getDistance(this.getLocation(), currentTarget) &lt; 0.1) {&#xD;
+            //take a picture and select a new target&#xD;
+            //! store image in EnvironmentData&#xD;
+            myCamera.copyVisionImage(luminanceMatrix);&#xD;
+            cameraPanel.repaint();&#xD;
+            //get next location and add current location to visited&#xD;
+            myMission.remove(currentTarget);&#xD;
+            if (!myEnvironmentData.isVisited(currentTarget)) {&#xD;
+                //new place visited, register possible obstacles&#xD;
+                registerObstacles();&#xD;
+                myEnvironmentData.addVisited(currentTarget);&#xD;
+            }&#xD;
+            //currentTarget should be at position 0 in the myPath array&#xD;
+            myPath.remove(currentTarget);&#xD;
+            previousTarget = currentTarget;&#xD;
+            //generate a new path if it is null, empty, or blocked&#xD;
+            while (myPath == null || myPath.size() == 0 || myEnvironmentData.isObstacle(myPath.get(0))) {&#xD;
+                if (myMission.isEmpty()) {&#xD;
+                    //current mission is over, shutting down.&#xD;
+                    setTranslationalVelocity(0);&#xD;
+                    System.out.println(this.getName() + &quot; VISITED EVERYTHING, SHUTTING DOWN&quot;);&#xD;
+                    currentMode = DeviceMode.Inactive;&#xD;
+                    return;&#xD;
+                }&#xD;
+                //set new target of current mission&#xD;
+                finalTarget = myMission.getTarget();&#xD;
+                myPath = getPath(previousTarget, finalTarget);&#xD;
+                if (myPath == null) {&#xD;
+                    //add that it is unreachable&#xD;
+                    myEnvironmentData.addUnreachable(finalTarget);&#xD;
+                    myMission.remove(finalTarget);&#xD;
+                }&#xD;
+            }&#xD;
+            currentTarget = myPath.get(0);&#xD;
+        }&#xD;
+        pointTowards(currentTarget);&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rYvyIBufEeiIBMjVLNyRQw" name="getDistance" specification="_rYJ8QRufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    double legX, legZ, hypothenuse;&#xD;
+    legX = Math.abs(from.x - to.x);&#xD;
+    legZ = Math.abs(from.z - to.z);&#xD;
+    hypothenuse = Math.sqrt((legX * legX) + (legZ + legZ));&#xD;
+    return hypothenuse;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rZCtERufEeiIBMjVLNyRQw" name="getLocation" specification="_rY5jIBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    Point3d myPoint = new Point3d(0, 0, 0);&#xD;
+    this.getCoords(myPoint);&#xD;
+    Vector3d myLocation = new Vector3d(myPoint.x, myPoint.y, myPoint.z);&#xD;
+    return myLocation;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rZpKABufEeiIBMjVLNyRQw" name="getPath" specification="_rZMeEBufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    ArrayList&lt;Vector3d> result = new ArrayList&lt;Vector3d>();&#xD;
+    EdgeArray fromEdges = new EdgeArray();&#xD;
+    EdgeArray toEdges = new EdgeArray();&#xD;
+    //Openvectors: vectors which don't have their outgoing edges added yet&#xD;
+    ArrayList&lt;Vector3d> fromOpenVectors = new ArrayList&lt;Vector3d>();&#xD;
+    ArrayList&lt;Vector3d> toOpenVectors = new ArrayList&lt;Vector3d>();&#xD;
+    //more efficient to start looking from both from &amp; to at the same time&#xD;
+    fromOpenVectors.add(from);&#xD;
+    toOpenVectors.add(to);&#xD;
+    boolean pathFound = false;&#xD;
+    //while there are still vectors with possible new paths&#xD;
+    while (fromOpenVectors.size() > 0 &amp;&amp; toOpenVectors.size() > 0 &amp;&amp; !pathFound) {&#xD;
+        //Calculate new edges for open vectors of from&#xD;
+        int fromSize = fromOpenVectors.size();&#xD;
+        for (int i = 0; i &lt; fromSize; i++) {&#xD;
+            //if a path has been found go to the main loop&#xD;
+            if (pathFound) {&#xD;
+                break;&#xD;
+            }&#xD;
+            //for every current open vector get all possible new paths/edges&#xD;
+            Vector3d openVector = fromOpenVectors.get(0);&#xD;
+            fromOpenVectors.remove(openVector);&#xD;
+            ArrayList&lt;Vector3d> neighbours = getAdjacent(openVector);&#xD;
+            //check for all neighbours if there is already a path to them&#xD;
+            for (int j = 0; j &lt; neighbours.size(); j++) {&#xD;
+                Vector3d neighbour = neighbours.get(j);&#xD;
+                if (fromEdges.edgeTo(neighbour) != null || neighbour.equals(from)) {&#xD;
+                    //don't add an edge if there is already an edge to it&#xD;
+                    continue;&#xD;
+                }&#xD;
+                if (myEnvironmentData.isObstacle(neighbour)) {&#xD;
+                    //don't add new edge if neighbour is blocked.&#xD;
+                    continue;&#xD;
+                }&#xD;
+                if (toEdges.edgeTo(neighbour) != null) {&#xD;
+                    //if toEdges has neighbour, a path has been found.&#xD;
+                    result = fromEdges.getPathTo(openVector);&#xD;
+                    ArrayList&lt;Vector3d> toPath = toEdges.getPathTo(neighbour);&#xD;
+                    Collections.reverse(toPath);&#xD;
+                    result.addAll(toPath);&#xD;
+                    result.add(to);&#xD;
+                    pathFound = true;&#xD;
+                    break;&#xD;
+                }&#xD;
+                if (neighbour.equals(to)) {&#xD;
+                    //neighbour is endPoint&#xD;
+                    result = fromEdges.getPathTo(openVector);&#xD;
+                    result.add(neighbour);&#xD;
+                    pathFound = true;&#xD;
+                    break;&#xD;
+                }&#xD;
+                //if none of these things add the neighbour with a new edge &amp; make open&#xD;
+                PathEdge newEdge = new PathEdge(openVector, neighbour);&#xD;
+                fromEdges.addEdge(newEdge);&#xD;
+                fromOpenVectors.add(neighbour);&#xD;
+            }&#xD;
+        }&#xD;
+        //Calculate new edges for open vectors of to&#xD;
+        int toSize = toOpenVectors.size();&#xD;
+        for (int i = 0; i &lt; toSize; i++) {&#xD;
+            //if a path has been found go to the main loop&#xD;
+            if (pathFound) {&#xD;
+                break;&#xD;
+            }&#xD;
+            //for every current open vector get all possible new paths/edges&#xD;
+            Vector3d openVector = toOpenVectors.get(0);&#xD;
+            toOpenVectors.remove(openVector);&#xD;
+            ArrayList&lt;Vector3d> neighbours = getAdjacent(openVector);&#xD;
+            //check for all neighbours if there is already a path to them&#xD;
+            for (int j = 0; j &lt; neighbours.size(); j++) {&#xD;
+                Vector3d neighbour = neighbours.get(j);&#xD;
+                if (toEdges.edgeTo(neighbour) != null || neighbour.equals(to)) {&#xD;
+                    //don't add an edge if there is already an edge to it&#xD;
+                    continue;&#xD;
+                }&#xD;
+                if (myEnvironmentData.isObstacle(neighbour)) {&#xD;
+                    //don't add new edge if neighbour is blocked.&#xD;
+                    continue;&#xD;
+                }&#xD;
+                if (fromEdges.edgeTo(neighbour) != null) {&#xD;
+                    //if fromEdges has neighbour, a path has been found.&#xD;
+                    result = fromEdges.getPathTo(neighbour);&#xD;
+                    ArrayList&lt;Vector3d> toPath = toEdges.getPathTo(openVector);&#xD;
+                    Collections.reverse(toPath);&#xD;
+                    result.addAll(toPath);&#xD;
+                    result.add(to);&#xD;
+                    pathFound = true;&#xD;
+                    break;&#xD;
+                }&#xD;
+                if (neighbour.equals(from)) {&#xD;
+                    //neighbour is start point&#xD;
+                    result.add(from);&#xD;
+                    ArrayList&lt;Vector3d> toPath = toEdges.getPathTo(openVector);&#xD;
+                    Collections.reverse(toPath);&#xD;
+                    result.addAll(toPath);&#xD;
+                    pathFound = true;&#xD;
+                    break;&#xD;
+                }&#xD;
+                //if none of these things add the neighbour with a new edge &amp; make open&#xD;
+                PathEdge newEdge = new PathEdge(openVector, neighbour);&#xD;
+                toEdges.addEdge(newEdge);&#xD;
+                toOpenVectors.add(neighbour);&#xD;
+            }&#xD;
+        }&#xD;
+    }&#xD;
+    if (pathFound) {&#xD;
+        return result;&#xD;
+    }&#xD;
+    //no path was found;&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_raF18hufEeiIBMjVLNyRQw" name="getAdjacent" specification="_rZy7ABufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    long inputX = Math.round(input.x);&#xD;
+    long inputZ = Math.round(input.z);&#xD;
+    ArrayList&lt;Vector3d> result = new ArrayList&lt;Vector3d>();&#xD;
+    result.add(new Vector3d(inputX + 1, 0, inputZ));&#xD;
+    result.add(new Vector3d(inputX, 0, inputZ - 1));&#xD;
+    result.add(new Vector3d(inputX - 1, 0, inputZ));&#xD;
+    result.add(new Vector3d(inputX, 0, inputZ + 1));&#xD;
+    return result;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_raF19RufEeiIBMjVLNyRQw" name="registerObstacles" specification="_raF18xufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    boolean obstacleFound = false;&#xD;
+    //distance (radian) between sensors&#xD;
+    double sensorDistance = (Math.PI * 2) / SENSOR_AMOUNT;&#xD;
+    //the offset from sensor 0 to the northernmost sensor (sensor which points to x)&#xD;
+    int northOffset = (int) ((SENSOR_AMOUNT - Math.round(currentAngle / sensorDistance)) % SENSOR_AMOUNT);&#xD;
+    ArrayList&lt;Vector3d> neighbours = getAdjacent(this.getLocation());&#xD;
+    double centerMeasurement, leftMeasurement, rightMeasurement;&#xD;
+    for (int i = 0; i &lt; neighbours.size(); i++) {&#xD;
+        Vector3d neighbour = neighbours.get(i);&#xD;
+        leftMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset + 1) % SENSOR_AMOUNT);&#xD;
+        centerMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset) % SENSOR_AMOUNT);&#xD;
+        rightMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset + 1) % SENSOR_AMOUNT);&#xD;
+        //0.4 because its the distance to the neighbour in the worst case scenario, a 45 degree angle&#xD;
+        if (leftMeasurement &lt;= 0.4 &amp;&amp; centerMeasurement &lt;= 0.4 &amp;&amp; rightMeasurement &lt;= 0.4 &amp;&amp; !myEnvironmentData.isObstacle(neighbour)) {&#xD;
+            myEnvironmentData.addObstacle(neighbour);&#xD;
+            myMission.remove(neighbour);&#xD;
+            obstacleFound = true;&#xD;
+        }&#xD;
+    }&#xD;
+    return obstacleFound;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_raF1-BufEeiIBMjVLNyRQw" name="setMission">
+                <language>JAVA</language>
+                <body>&#xD;
+    myMission = inputMission;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_raih4RufEeiIBMjVLNyRQw" name="pointTowards" specification="_raF1-RufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    Vector3d currentPoint = this.getLocation();&#xD;
+    double inputX = input.x;&#xD;
+    double inputZ = input.z;&#xD;
+    double currentX = currentPoint.x;&#xD;
+    double currentZ = currentPoint.z;&#xD;
+    double adjacentSide = 0, oppositeSide = 0;&#xD;
+    double quadrantAngle = 0, targetAngle = 0, angleChange = 0;&#xD;
+    if (currentZ >= inputZ &amp;&amp; currentX &lt; inputX) {&#xD;
+        //top left quadrant&#xD;
+        adjacentSide = Math.abs(currentX - inputX);&#xD;
+        oppositeSide = Math.abs(currentZ - inputZ);&#xD;
+        quadrantAngle = Math.atan(oppositeSide / adjacentSide);&#xD;
+        targetAngle = quadrantAngle;&#xD;
+    } else if (currentZ > inputZ &amp;&amp; currentX >= inputX) {&#xD;
+        //bottom left quadrant&#xD;
+        adjacentSide = Math.abs(currentZ - inputZ);&#xD;
+        oppositeSide = Math.abs(currentX - inputX);&#xD;
+        quadrantAngle = Math.atan(oppositeSide / adjacentSide);&#xD;
+        targetAngle = quadrantAngle + (Math.PI * 0.5);&#xD;
+    } else if (currentZ &lt;= inputZ &amp;&amp; currentX > inputX) {&#xD;
+        //bottom right quadrant&#xD;
+        adjacentSide = Math.abs(currentX - inputX);&#xD;
+        oppositeSide = Math.abs(currentZ - inputZ);&#xD;
+        quadrantAngle = Math.atan(oppositeSide / adjacentSide);&#xD;
+        targetAngle = quadrantAngle + (Math.PI);&#xD;
+    } else if (currentZ &lt; inputZ &amp;&amp; currentX &lt;= inputX) {&#xD;
+        //top right quadrant&#xD;
+        adjacentSide = Math.abs(currentZ - inputZ);&#xD;
+        oppositeSide = Math.abs(currentX - inputX);&#xD;
+        quadrantAngle = Math.atan(oppositeSide / adjacentSide);&#xD;
+        targetAngle = quadrantAngle + (Math.PI * 1.5);&#xD;
+    }&#xD;
+    //target angle calculated, rotate robot to target angle.&#xD;
+    angleChange = targetAngle - currentAngle;&#xD;
+    this.rotateY(angleChange);&#xD;
+    currentAngle = targetAngle;&#xD;
+    return;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_raih5BufEeiIBMjVLNyRQw" name="setSupervisor" specification="_raih4hufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    mySupervisor = input;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rarr0RufEeiIBMjVLNyRQw" name="changeLock" specification="_raih5RufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    lock = input;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rarr1BufEeiIBMjVLNyRQw" name="getSupervisorMission" specification="_rarr0hufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    supervisorMission = input;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rarr1hufEeiIBMjVLNyRQw" name="getUpdate" specification="_rarr1RufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    updateStatus = UpdateStatus.Receiving;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rarr2BufEeiIBMjVLNyRQw" name="sendUpdate" specification="_rarr1xufEeiIBMjVLNyRQw">
+                <language>JAVA</language>
+                <body>&#xD;
+    updateStatus = UpdateStatus.Sending;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rXQkYBufEeiIBMjVLNyRQw" name="MyRobot" visibility="public" method="_rXjfURufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rXaVYRufEeiIBMjVLNyRQw" name="position"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rXjfUBufEeiIBMjVLNyRQw" name="name" type="_rDmokhufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rYJ8QRufEeiIBMjVLNyRQw" name="getDistance" visibility="private" method="_rYvyIBufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rYTGMBufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rYc3MBufEeiIBMjVLNyRQw" name="from"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rYmoMBufEeiIBMjVLNyRQw" name="to"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rY5jIBufEeiIBMjVLNyRQw" name="getLocation" visibility="private" method="_rZCtERufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rZCtEBufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rZMeEBufEeiIBMjVLNyRQw" name="getPath" visibility="private" method="_rZpKABufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rZMeERufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rZMeEhufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rZMeExufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rZWPEBufEeiIBMjVLNyRQw" name="from"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rZfZABufEeiIBMjVLNyRQw" name="to"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rZy7ABufEeiIBMjVLNyRQw" name="getAdjacent" visibility="private" method="_raF18hufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rZ8E8BufEeiIBMjVLNyRQw" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rZ8E8RufEeiIBMjVLNyRQw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_raF18BufEeiIBMjVLNyRQw" value="*"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_raF18RufEeiIBMjVLNyRQw" name="input"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_raF18xufEeiIBMjVLNyRQw" name="registerObstacles" visibility="private" method="_raF19RufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_raF19BufEeiIBMjVLNyRQw" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_raF1-RufEeiIBMjVLNyRQw" name="pointTowards" visibility="private" method="_raih4RufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_raih4BufEeiIBMjVLNyRQw" name="input"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_raih4hufEeiIBMjVLNyRQw" name="setSupervisor" visibility="public" method="_raih5BufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_raih4xufEeiIBMjVLNyRQw" name="input" type="_rLpKQBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_raih5RufEeiIBMjVLNyRQw" name="changeLock" visibility="public" method="_rarr0RufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rarr0BufEeiIBMjVLNyRQw" name="input" type="_rOnlwxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rarr0hufEeiIBMjVLNyRQw" name="getSupervisorMission" visibility="public" method="_rarr1BufEeiIBMjVLNyRQw">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rarr0xufEeiIBMjVLNyRQw" name="input">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rarr1RufEeiIBMjVLNyRQw" name="getUpdate" visibility="public" method="_rarr1hufEeiIBMjVLNyRQw"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rarr1xufEeiIBMjVLNyRQw" name="sendUpdate" visibility="public" method="_rarr2BufEeiIBMjVLNyRQw"/>
+              <nestedClassifier xmi:type="uml:Class" xmi:id="_rarr2RufEeiIBMjVLNyRQw" name="ImagerPanel">
+                <generalization xmi:type="uml:Generalization" xmi:id="_ra1c0BufEeiIBMjVLNyRQw" general="_rWg9gRufEeiIBMjVLNyRQw"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_ra1c0RufEeiIBMjVLNyRQw" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" isUnique="false">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_8heigBydEduyofBvg4RL2w"/>
+                  <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_ra1c0hufEeiIBMjVLNyRQw" name="defaultValue">
+                    <language>JAVA</language>
+                    <body>1L</body>
+                  </defaultValue>
+                </ownedAttribute>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rbIXwhufEeiIBMjVLNyRQw" name="paintComponent" specification="_rbIXwBufEeiIBMjVLNyRQw">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    int width = luminanceMatrix.getWidth();&#xD;
+    int height = luminanceMatrix.getHeight();&#xD;
+    super.paintComponent(g);&#xD;
+    g.setColor(Color.WHITE);&#xD;
+    g.fillRect(0, 0, width, height);&#xD;
+    g.setColor(Color.BLACK);&#xD;
+    for (int y = 0; y &lt; height; y += 4) {&#xD;
+        for (int x = 0; x &lt; width; x += 4) {&#xD;
+            float level = luminanceMatrix.get(x, y);&#xD;
+            if (level &lt; 0.5) {&#xD;
+                g.fillRect(x, y, 4, 4);&#xD;
+            }&#xD;
+        }&#xD;
+    }&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_rbIXwBufEeiIBMjVLNyRQw" name="paintComponent" visibility="protected" method="_rbIXwhufEeiIBMjVLNyRQw">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_rbIXwRufEeiIBMjVLNyRQw" name="g" type="_ra1c1BufEeiIBMjVLNyRQw"/>
+                </ownedOperation>
+              </nestedClassifier>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_N2a1UBuiEeiIBMjVLNyRQw" name="Message" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_N2kmUBuiEeiIBMjVLNyRQw" name="data" visibility="public" type="_rDmokhufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_N2kmURuiEeiIBMjVLNyRQw" name="originName" visibility="public" type="_rDmokhufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_N2kmUhuiEeiIBMjVLNyRQw" name="originLocation" visibility="public" type="_q5xXIxufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_N2kmUxuiEeiIBMjVLNyRQw" name="receivedAt" visibility="public" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+            </packagedElement>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_q1TG0BufEeiIBMjVLNyRQw" name="importedTypes">
+      <packagedElement xmi:type="uml:Package" xmi:id="_q1c30BufEeiIBMjVLNyRQw" name="simbad">
+        <packagedElement xmi:type="uml:Package" xmi:id="_q1c30RufEeiIBMjVLNyRQw" name="sim">
+          <packagedElement xmi:type="uml:Class" xmi:id="_q1mBwBufEeiIBMjVLNyRQw" name="EnvironmentDescription"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_rHeb8xufEeiIBMjVLNyRQw" name="SensorMatrix"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_rLy7QBufEeiIBMjVLNyRQw" name="Agent"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_rVnloRufEeiIBMjVLNyRQw" name="CameraSensor"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_rWz4cRufEeiIBMjVLNyRQw" name="RangeSensorBelt"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_q5xXIRufEeiIBMjVLNyRQw" name="javax">
+        <packagedElement xmi:type="uml:Package" xmi:id="_q5xXIhufEeiIBMjVLNyRQw" name="vecmath">
+          <packagedElement xmi:type="uml:Class" xmi:id="_q5xXIxufEeiIBMjVLNyRQw" name="Vector3d"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_rWg9gBufEeiIBMjVLNyRQw" name="swing">
+          <packagedElement xmi:type="uml:Class" xmi:id="_rWg9gRufEeiIBMjVLNyRQw" name="JPanel"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_rDc3kRufEeiIBMjVLNyRQw" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_rDmokBufEeiIBMjVLNyRQw" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_rDmokRufEeiIBMjVLNyRQw" name="lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_rDmokhufEeiIBMjVLNyRQw" name="String"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_rG3_ABufEeiIBMjVLNyRQw" name="Object"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_rOnlwBufEeiIBMjVLNyRQw" name="util">
+          <packagedElement xmi:type="uml:Package" xmi:id="_rOnlwRufEeiIBMjVLNyRQw" name="concurrent">
+            <packagedElement xmi:type="uml:Package" xmi:id="_rOnlwhufEeiIBMjVLNyRQw" name="locks">
+              <packagedElement xmi:type="uml:Class" xmi:id="_rOnlwxufEeiIBMjVLNyRQw" name="ReentrantLock"/>
+            </packagedElement>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_ra1c0xufEeiIBMjVLNyRQw" name="awt">
+          <packagedElement xmi:type="uml:Class" xmi:id="_ra1c1BufEeiIBMjVLNyRQw" name="Graphics"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2qhoYBufEeiIBMjVLNyRQw" name="Device">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_rTiiARufEeiIBMjVLNyRQw" name="currentMode" visibility="private" type="_rIg9wBufEeiIBMjVLNyRQw" isUnique="false"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_rUbS0hufEeiIBMjVLNyRQw" name="updateStatus" visibility="private" type="_rKvyZhufEeiIBMjVLNyRQw" isUnique="false"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_rQ3BcBufEeiIBMjVLNyRQw" name="initBehavior" visibility="public" method="_rQ3BcRufEeiIBMjVLNyRQw"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_rQ3BchufEeiIBMjVLNyRQw" name="performBehavior" visibility="public" method="_rQ3BcxufEeiIBMjVLNyRQw"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_rQ3BdBufEeiIBMjVLNyRQw" name="setMission" visibility="public" method="_rQ3BdhufEeiIBMjVLNyRQw">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rQ3BdRufEeiIBMjVLNyRQw" name="inputMission" type="_q5xXIBufEeiIBMjVLNyRQw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_jFno4BugEeiIBMjVLNyRQw" memberEnd="_jFno4xugEeiIBMjVLNyRQw _jFwy0BugEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jFno4RugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jFno4hugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_jFwy0BugEeiIBMjVLNyRQw" name="supplybox" type="_rDc3kBufEeiIBMjVLNyRQw" aggregation="composite" association="_jFno4BugEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_jFno4xugEeiIBMjVLNyRQw" name="myrobot" type="_rOUq0BufEeiIBMjVLNyRQw" association="_jFno4BugEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_4wzi8BugEeiIBMjVLNyRQw" memberEnd="_4w8s4hugEeiIBMjVLNyRQw _4w8s4xugEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4w8s4BugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4w8s4RugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_4w8s4xugEeiIBMjVLNyRQw" name="mission" type="_q5xXIBufEeiIBMjVLNyRQw" aggregation="composite" association="_4wzi8BugEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_4w8s4hugEeiIBMjVLNyRQw" name="device" type="_2qhoYBufEeiIBMjVLNyRQw" association="_4wzi8BugEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_6KnOgBugEeiIBMjVLNyRQw" memberEnd="_6Kw_ghugEeiIBMjVLNyRQw _6Kw_gxugEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6Kw_gBugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6Kw_gRugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_6Kw_gxugEeiIBMjVLNyRQw" name="envData" type="_rDALoBufEeiIBMjVLNyRQw" aggregation="composite" association="_6KnOgBugEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_6Kw_ghugEeiIBMjVLNyRQw" name="device" type="_2qhoYBufEeiIBMjVLNyRQw" association="_6KnOgBugEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_7UoxoBugEeiIBMjVLNyRQw" memberEnd="_7UoxoxugEeiIBMjVLNyRQw _7UoxpBugEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7UoxoRugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7UoxohugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_7UoxpBugEeiIBMjVLNyRQw" name="image" type="_rHeb8hufEeiIBMjVLNyRQw" aggregation="shared" association="_7UoxoBugEeiIBMjVLNyRQw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RxYEcBuhEeiIBMjVLNyRQw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Rxh1cBuhEeiIBMjVLNyRQw" value="*"/>
+      </ownedEnd>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_7UoxoxugEeiIBMjVLNyRQw" name="envData" type="_rDALoBufEeiIBMjVLNyRQw" association="_7UoxoBugEeiIBMjVLNyRQw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PquhABuhEeiIBMjVLNyRQw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Prn44BuhEeiIBMjVLNyRQw" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_9OeoIBugEeiIBMjVLNyRQw" name="supervisorOf >" memberEnd="_9OeoIxugEeiIBMjVLNyRQw _9OeoJBugEeiIBMjVLNyRQw" navigableOwnedEnd="_9OeoJBugEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9OeoIRugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9OeoIhugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_9OeoJBugEeiIBMjVLNyRQw" name="controlcenter" type="_rLpKQBufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_WeL8YBuiEeiIBMjVLNyRQw" memberEnd="_WeVGUhuiEeiIBMjVLNyRQw _WeVGUxuiEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_WeVGUBuiEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_WeVGURuiEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_WeVGUxuiEeiIBMjVLNyRQw" name="controlcenter" type="_rLpKQBufEeiIBMjVLNyRQw" association="_WeL8YBuiEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_WeVGUhuiEeiIBMjVLNyRQw" name="message" type="_N2a1UBuiEeiIBMjVLNyRQw" aggregation="composite" association="_WeL8YBuiEeiIBMjVLNyRQw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_byKXcBuiEeiIBMjVLNyRQw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bydSYBuiEeiIBMjVLNyRQw" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_qttREBufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qt2bABufEeiIBMjVLNyRQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_qxbTcBufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qxlEcBufEeiIBMjVLNyRQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_qxlEcRufEeiIBMjVLNyRQw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qxuOYBufEeiIBMjVLNyRQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <PapyrusJava:External xmi:id="_q28FkBufEeiIBMjVLNyRQw" name="simbad.sim.EnvironmentDescription" base_Classifier="_q1mBwBufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_q6ODEBufEeiIBMjVLNyRQw" name="javax.vecmath.Vector3d" base_Classifier="_q5xXIxufEeiIBMjVLNyRQw"/>
+  <standard:Create xmi:id="_q6z48BufEeiIBMjVLNyRQw" base_BehavioralFeature="_q6XNARufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rD5jgBufEeiIBMjVLNyRQw" name="java.lang.String" base_Classifier="_rDmokhufEeiIBMjVLNyRQw"/>
+  <standard:Create xmi:id="_rEpKYBufEeiIBMjVLNyRQw" base_BehavioralFeature="_rEWPcRufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rHK58BufEeiIBMjVLNyRQw" name="java.lang.Object" base_Classifier="_rG3_ABufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rHxW4BufEeiIBMjVLNyRQw" name="simbad.sim.SensorMatrix" base_Classifier="_rHeb8xufEeiIBMjVLNyRQw"/>
+  <standard:Create xmi:id="_rJaVoBufEeiIBMjVLNyRQw" base_BehavioralFeature="_rJQkoRufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rMYxIBufEeiIBMjVLNyRQw" name="simbad.sim.Agent" base_Classifier="_rLy7QBufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rOxWwBufEeiIBMjVLNyRQw" name="java.util.concurrent.locks.ReentrantLock" base_Classifier="_rOnlwxufEeiIBMjVLNyRQw"/>
+  <standard:Create xmi:id="_rPXMoBufEeiIBMjVLNyRQw" base_BehavioralFeature="_rPOCsBufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rVxWoBufEeiIBMjVLNyRQw" name="simbad.sim.CameraSensor" base_Classifier="_rVnloRufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rWqugBufEeiIBMjVLNyRQw" name="javax.swing.JPanel" base_Classifier="_rWg9gRufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_rW9pcBufEeiIBMjVLNyRQw" name="simbad.sim.RangeSensorBelt" base_Classifier="_rWz4cRufEeiIBMjVLNyRQw"/>
+  <standard:Create xmi:id="_rXaVYBufEeiIBMjVLNyRQw" base_BehavioralFeature="_rXQkYBufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_ra_N0BufEeiIBMjVLNyRQw" name="java.awt.Graphics" base_Classifier="_ra1c1BufEeiIBMjVLNyRQw"/>
+  <standard:Create xmi:id="_rblDsBufEeiIBMjVLNyRQw" base_BehavioralFeature="_rbbSthufEeiIBMjVLNyRQw"/>
+</xmi:XMI>
