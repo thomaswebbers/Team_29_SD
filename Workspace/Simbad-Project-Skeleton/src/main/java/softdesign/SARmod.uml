@@ -725,10 +725,6 @@ no mission set</body>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rPERsBufEeiIBMjVLNyRQw" name="lock" visibility="public" type="_rOnlwxufEeiIBMjVLNyRQw" isUnique="false"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_9OeoIxugEeiIBMjVLNyRQw" name="myrobot" type="_rOUq0BufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw">
-                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i63U8BuhEeiIBMjVLNyRQw"/>
-                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i7BF8BuhEeiIBMjVLNyRQw" value="*"/>
-              </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rPz4kBufEeiIBMjVLNyRQw" name="ControlCenter" specification="_rPOCsBufEeiIBMjVLNyRQw">
                 <language>JAVA</language>
                 <body>&#xD;
@@ -1460,11 +1456,15 @@ no mission set</body>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Prn44BuhEeiIBMjVLNyRQw" value="*"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_9OeoIBugEeiIBMjVLNyRQw" name="supervisorOf >" memberEnd="_9OeoIxugEeiIBMjVLNyRQw _9OeoJBugEeiIBMjVLNyRQw" navigableOwnedEnd="_9OeoJBugEeiIBMjVLNyRQw">
+    <packagedElement xmi:type="uml:Association" xmi:id="_9OeoIBugEeiIBMjVLNyRQw" name="supervisorOf >" memberEnd="_9OeoIxugEeiIBMjVLNyRQw _9OeoJBugEeiIBMjVLNyRQw" navigableOwnedEnd="_9OeoJBugEeiIBMjVLNyRQw _9OeoIxugEeiIBMjVLNyRQw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9OeoIRugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9OeoIhugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_9OeoJBugEeiIBMjVLNyRQw" name="controlcenter" type="_rLpKQBufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_9OeoIxugEeiIBMjVLNyRQw" name="myrobot" type="_rOUq0BufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i63U8BuhEeiIBMjVLNyRQw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i7BF8BuhEeiIBMjVLNyRQw" value="*"/>
+      </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_WeL8YBuiEeiIBMjVLNyRQw" memberEnd="_WeVGUhuiEeiIBMjVLNyRQw _WeVGUxuiEeiIBMjVLNyRQw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_WeVGUBuiEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
