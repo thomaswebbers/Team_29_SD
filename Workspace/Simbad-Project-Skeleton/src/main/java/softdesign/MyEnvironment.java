@@ -65,22 +65,24 @@ public class MyEnvironment extends EnvironmentDescription {
         }
                 
         //add robots to the environment (have to add here, or cherries won't work)
-        ControlCenter cc = new ControlCenter(new Vector3d(6,0,6), "KingBoo");
+        ControlCenter cc = ControlCenter.getInstance();
         add(cc);
         
-        MyRobot r1 = new MyRobot(new Vector3d(0,0,0), "inky");
+        RobotFactory robotFactory = RobotFactory.getinstance();
+        
+        Robot r1 = robotFactory.getRobot("MYROBOT", new Vector3d(0,0,0), "inky");
         r1.setColor(new Color3f(Color.BLUE));
         add(r1);
         
-        MyRobot r2 = new MyRobot(new Vector3d(-1,0,0), "pinky");
+        Robot r2 = robotFactory.getRobot("MYROBOT", new Vector3d(-1,0,0), "pinky");
         r2.setColor(new Color3f(Color.MAGENTA));
         add(r2);
         
-        MyRobot r3 = new MyRobot(new Vector3d(-1,0,-1), "blinky");
+        Robot r3 = robotFactory.getRobot("MYROBOT", new Vector3d(-1,0,-1), "blinky");
         r3.setColor(new Color3f(Color.RED));
         add(r3);
         
-        MyRobot r4 = new MyRobot(new Vector3d(0,0,-1), "clyde");
+        Robot r4 = robotFactory.getRobot("MYROBOT", new Vector3d(0,0,-1), "clyde");
         r4.setColor(new Color3f(Color.PINK));
         add(r4);
         

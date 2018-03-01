@@ -19,7 +19,7 @@ import simbad.sim.RobotFactory;
 import simbad.sim.SensorMatrix;
 import simbad.sim.SimpleAgent;
 
-public class MyRobot extends Agent {
+public class MyRobot extends Agent implements Robot{
 	
 	private int SENSOR_AMOUNT = 12;
 	private int NO_MISSION_AVAILABLE = -1;

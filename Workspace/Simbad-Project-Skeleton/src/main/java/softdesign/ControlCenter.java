@@ -7,7 +7,9 @@ import javax.vecmath.Vector3d;
 
 import simbad.sim.Agent;
 
-public class ControlCenter extends Agent{
+public class ControlCenter extends Agent implements Device{
+	private static ControlCenter instance = new ControlCenter(new Vector3d(0,1,0), "KingBoo"); //Singleton
+	
 	private UpdateStatus updateStatus;
 	private int lastUpdate;
 	private int updatesReceived;
@@ -20,20 +22,20 @@ public class ControlCenter extends Agent{
 	
 	private EnvironmentData myEnvironmentData;
 	
-	private ArrayList<MyRobot> myRobots;
+	private ArrayList<Robot> myRobots;
 	private int robotAmount;
 	
 	public ReentrantLock lock; //using reentrantlock because Lock constructor does not seem to be public in Simbad
 
-	public ControlCenter(Vector3d position, String name){
+	private ControlCenter(Vector3d position, String name){
         super(position, name);
 
 		//Initialise ControlCenter variables
 		currentMode = DeviceMode.Inactive;
 		updateStatus = UpdateStatus.Done;
 		myMission = new Mission();
-		myEnvironmentData = new EnvironmentData();
-		myRobots = new ArrayList<MyRobot>();
+		myEnvironmentData = new EnvironmentData();		
+		myRobots = new ArrayList<Robot>();
 		robotAmount = 0;
 		lock = new ReentrantLock();
 	}
@@ -55,7 +57,7 @@ public class ControlCenter extends Agent{
 	    		updateStatus = UpdateStatus.Receiving;
 	    		updatesReceived = 0;
 	    		for(int i = 0; i < robotAmount; i++){
-	    			MyRobot robot = myRobots.get(i);
+	    			Robot robot = myRobots.get(i);
 	    			robot.sendUpdate();
 	    		}
 	    	//if we're still receiving, check if all robots have sent their map yet.
@@ -64,7 +66,7 @@ public class ControlCenter extends Agent{
 	    			updateStatus = UpdateStatus.Sending;
 	    			updatesSent = 0;
 	    			for(int i = 0; i < robotAmount; i++){
-		    			MyRobot robot = myRobots.get(i);
+		    			Robot robot = myRobots.get(i);
 		    			robot.getUpdate();
 		    		}
 	    		}
@@ -96,7 +98,7 @@ public class ControlCenter extends Agent{
 			lock.lock();
 			missionList = myMission.splitMission(robotAmount);
 			for(int i = 0; i < robotAmount; i++){
-				MyRobot robot = myRobots.get(i);
+				Robot robot = myRobots.get(i);
 				robot.getSupervisorMission(i);
 			}
 		} finally {
@@ -120,8 +122,12 @@ public class ControlCenter extends Agent{
 		return myEnvironmentData;
 	}
 	
+	public static ControlCenter getInstance(){
+		return instance;
+	}
+	
 	//set a robot under the supervision of this supervisor, and make sure it's using the same lock
-	public void addRobot(MyRobot input){
+	public void addRobot(Robot input){
 		try{
 			lock.lock();
 			myRobots.add(input);

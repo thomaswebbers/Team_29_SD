@@ -874,7 +874,6 @@ no mission set</body>
             </packagedElement>
             <packagedElement xmi:type="uml:Class" xmi:id="_rOUq0BufEeiIBMjVLNyRQw" name="MyRobot" visibility="public">
               <generalization xmi:type="uml:Generalization" xmi:id="_rTF2EBufEeiIBMjVLNyRQw" general="_rLy7QBufEeiIBMjVLNyRQw"/>
-              <generalization xmi:type="uml:Generalization" xmi:id="_XfRQ0BugEeiIBMjVLNyRQw" general="_2qhoYBufEeiIBMjVLNyRQw"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rTPAABufEeiIBMjVLNyRQw" name="SENSOR_AMOUNT" visibility="private" isUnique="false">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
                 <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_rTYxABufEeiIBMjVLNyRQw" name="defaultValue">
@@ -1372,6 +1371,69 @@ no mission set</body>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
               </ownedAttribute>
             </packagedElement>
+            <packagedElement xmi:type="uml:Interface" xmi:id="_9K3o0B10EeivMtdbuhfkFg" name="Robot" visibility="public">
+              <generalization xmi:type="uml:Generalization" xmi:id="_9qKz8B10EeivMtdbuhfkFg" general="_9NQOcB10EeivMtdbuhfkFg"/>
+              <generalization xmi:type="uml:Generalization" xmi:id="_XfRQ0BugEeiIBMjVLNyRQw" general="_2qhoYBufEeiIBMjVLNyRQw"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9q6a0R10EeivMtdbuhfkFg" name="setColor" visibility="private">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rDkwB10EeivMtdbuhfkFg" name="color3f" type="_9qT94B10EeivMtdbuhfkFg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwB10EeivMtdbuhfkFg" name="getUpdate" visibility="private"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwR10EeivMtdbuhfkFg" name="sendUpdate" visibility="private"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwh10EeivMtdbuhfkFg" name="getSupervisorMission" visibility="private">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rXGwB10EeivMtdbuhfkFg" name="i">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBsB10EeivMtdbuhfkFg" name="setSupervisor" visibility="private">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rqBsR10EeivMtdbuhfkFg" name="controlCenter" type="_rLpKQBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBsh10EeivMtdbuhfkFg" name="changeLock" visibility="private">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rqBsx10EeivMtdbuhfkFg" name="lock" type="_rOnlwxufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBtB10EeivMtdbuhfkFg" name="getName" visibility="private">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rqBtR10EeivMtdbuhfkFg" type="_rDmokhufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Interface" xmi:id="_9NQOcB10EeivMtdbuhfkFg" name="Device"/>
+            <packagedElement xmi:type="uml:Dependency" xmi:id="_g1erIB11EeivMtdbuhfkFg" client="_rOUq0BufEeiIBMjVLNyRQw" supplier="_9K3o0B10EeivMtdbuhfkFg"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_117mIB11EeivMtdbuhfkFg" name="RobotFactory" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_117mIR11EeivMtdbuhfkFg" name="instance" visibility="private" isStatic="true" type="_117mIB11EeivMtdbuhfkFg" isUnique="false">
+                <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_12EwEB11EeivMtdbuhfkFg" name="defaultValue">
+                  <language>JAVA</language>
+                  <body>new RobotFactory()</body>
+                </defaultValue>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_12YSER11EeivMtdbuhfkFg" name="RobotFactory" specification="_12EwER11EeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_120-AR11EeivMtdbuhfkFg" name="getinstance" specification="_12YSEh11EeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return instance;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_13kk4R11EeivMtdbuhfkFg" name="getRobot" specification="_12-H8B11EeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (robotType.equalsIgnoreCase(&quot;MYROBOT&quot;)) {&#xD;
+        return new MyRobot(pos, name);&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_12EwER11EeivMtdbuhfkFg" name="RobotFactory" visibility="private" method="_12YSER11EeivMtdbuhfkFg"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_12YSEh11EeivMtdbuhfkFg" name="getinstance" visibility="public" isStatic="true" method="_120-AR11EeivMtdbuhfkFg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_120-AB11EeivMtdbuhfkFg" type="_117mIB11EeivMtdbuhfkFg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_12-H8B11EeivMtdbuhfkFg" name="getRobot" visibility="public" method="_13kk4R11EeivMtdbuhfkFg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_13H48R11EeivMtdbuhfkFg" type="_9K3o0B10EeivMtdbuhfkFg" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_13az4B11EeivMtdbuhfkFg" name="robotType" type="_rDmokhufEeiIBMjVLNyRQw"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_13az4R11EeivMtdbuhfkFg" name="pos" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_13kk4B11EeivMtdbuhfkFg" name="name" type="_rDmokhufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+            </packagedElement>
           </packagedElement>
         </packagedElement>
       </packagedElement>
@@ -1389,6 +1451,7 @@ no mission set</body>
       <packagedElement xmi:type="uml:Package" xmi:id="_q5xXIRufEeiIBMjVLNyRQw" name="javax">
         <packagedElement xmi:type="uml:Package" xmi:id="_q5xXIhufEeiIBMjVLNyRQw" name="vecmath">
           <packagedElement xmi:type="uml:Class" xmi:id="_q5xXIxufEeiIBMjVLNyRQw" name="Vector3d"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9qT94B10EeivMtdbuhfkFg" name="Color3f"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_rWg9gBufEeiIBMjVLNyRQw" name="swing">
           <packagedElement xmi:type="uml:Class" xmi:id="_rWg9gRufEeiIBMjVLNyRQw" name="JPanel"/>
@@ -1427,7 +1490,7 @@ no mission set</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jFno4hugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_jFwy0BugEeiIBMjVLNyRQw" name="supplybox" type="_rDc3kBufEeiIBMjVLNyRQw" aggregation="composite" association="_jFno4BugEeiIBMjVLNyRQw"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_jFno4xugEeiIBMjVLNyRQw" name="myrobot" type="_rOUq0BufEeiIBMjVLNyRQw" association="_jFno4BugEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_jFno4xugEeiIBMjVLNyRQw" name="myrobot" type="_9K3o0B10EeivMtdbuhfkFg" association="_jFno4BugEeiIBMjVLNyRQw"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_4wzi8BugEeiIBMjVLNyRQw" memberEnd="_4w8s4hugEeiIBMjVLNyRQw _4w8s4xugEeiIBMjVLNyRQw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4w8s4BugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
@@ -1460,8 +1523,8 @@ no mission set</body>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9OeoIRugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9OeoIhugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
       </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_9OeoJBugEeiIBMjVLNyRQw" name="controlcenter" type="_rLpKQBufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_9OeoIxugEeiIBMjVLNyRQw" name="myrobot" type="_rOUq0BufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_9OeoJBugEeiIBMjVLNyRQw" name="Supervisor" type="_rLpKQBufEeiIBMjVLNyRQw" association="_9OeoIBugEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_9OeoIxugEeiIBMjVLNyRQw" name="Subject" type="_9K3o0B10EeivMtdbuhfkFg" association="_9OeoIBugEeiIBMjVLNyRQw">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i63U8BuhEeiIBMjVLNyRQw"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i7BF8BuhEeiIBMjVLNyRQw" value="*"/>
       </ownedEnd>
@@ -1512,4 +1575,9 @@ no mission set</body>
   <standard:Create xmi:id="_rXaVYBufEeiIBMjVLNyRQw" base_BehavioralFeature="_rXQkYBufEeiIBMjVLNyRQw"/>
   <PapyrusJava:External xmi:id="_ra_N0BufEeiIBMjVLNyRQw" name="java.awt.Graphics" base_Classifier="_ra1c1BufEeiIBMjVLNyRQw"/>
   <standard:Create xmi:id="_rblDsBufEeiIBMjVLNyRQw" base_BehavioralFeature="_rbbSthufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_9qBC8B10EeivMtdbuhfkFg" name="Device" base_Classifier="_9NQOcB10EeivMtdbuhfkFg"/>
+  <PapyrusJava:External xmi:id="_9q6a0B10EeivMtdbuhfkFg" name="javax.vecmath.Color3f" base_Classifier="_9qT94B10EeivMtdbuhfkFg"/>
+  <PapyrusJava:External xmi:id="_9rgQsB10EeivMtdbuhfkFg" name="ControlCenter" base_Classifier="_rLpKQBufEeiIBMjVLNyRQw"/>
+  <standard:Create xmi:id="_12YSEB11EeivMtdbuhfkFg" base_BehavioralFeature="_12EwER11EeivMtdbuhfkFg"/>
+  <PapyrusJava:External xmi:id="_13H48B11EeivMtdbuhfkFg" name="Robot" base_Classifier="_9K3o0B10EeivMtdbuhfkFg"/>
 </xmi:XMI>
