@@ -1477,23 +1477,23 @@ no mission set</body>
             <packagedElement xmi:type="uml:Interface" xmi:id="_9K3o0B10EeivMtdbuhfkFg" name="Robot" visibility="public">
               <generalization xmi:type="uml:Generalization" xmi:id="_9qKz8B10EeivMtdbuhfkFg" general="_9NQOcB10EeivMtdbuhfkFg"/>
               <generalization xmi:type="uml:Generalization" xmi:id="_XfRQ0BugEeiIBMjVLNyRQw" general="_2qhoYBufEeiIBMjVLNyRQw"/>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_9q6a0R10EeivMtdbuhfkFg" name="setColor" visibility="private">
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9q6a0R10EeivMtdbuhfkFg" name="setColor" visibility="public">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rDkwB10EeivMtdbuhfkFg" name="color3f" type="_9qT94B10EeivMtdbuhfkFg"/>
               </ownedOperation>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwB10EeivMtdbuhfkFg" name="getUpdate" visibility="private"/>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwR10EeivMtdbuhfkFg" name="sendUpdate" visibility="private"/>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwh10EeivMtdbuhfkFg" name="getSupervisorMission" visibility="private">
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwB10EeivMtdbuhfkFg" name="getUpdate" visibility="public"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwR10EeivMtdbuhfkFg" name="sendUpdate" visibility="public"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rNVwh10EeivMtdbuhfkFg" name="getSupervisorMission" visibility="public">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rXGwB10EeivMtdbuhfkFg" name="i">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
                 </ownedParameter>
               </ownedOperation>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBsB10EeivMtdbuhfkFg" name="setSupervisor" visibility="private">
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBsB10EeivMtdbuhfkFg" name="setSupervisor" visibility="public">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rqBsR10EeivMtdbuhfkFg" name="controlCenter" type="_rLpKQBufEeiIBMjVLNyRQw"/>
               </ownedOperation>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBsh10EeivMtdbuhfkFg" name="changeLock" visibility="private">
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBsh10EeivMtdbuhfkFg" name="changeLock" visibility="public">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rqBsx10EeivMtdbuhfkFg" name="lock" type="_rOnlwxufEeiIBMjVLNyRQw"/>
               </ownedOperation>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBtB10EeivMtdbuhfkFg" name="getName" visibility="private">
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_9rqBtB10EeivMtdbuhfkFg" name="getName" visibility="public">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_9rqBtR10EeivMtdbuhfkFg" type="_rDmokhufEeiIBMjVLNyRQw" direction="return"/>
               </ownedOperation>
             </packagedElement>
