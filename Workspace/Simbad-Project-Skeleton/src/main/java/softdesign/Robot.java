@@ -8,17 +8,17 @@ import simbad.sim.Agent;
 
 public interface Robot extends Device {
 
-	void setColor(Color3f color3f);
+	public void setColor(Color3f color3f);
 
-	void getUpdate();
+	public void getUpdate();
 
-	void sendUpdate();
+	public void sendUpdate();
 
-	void getSupervisorMission(int i);
+	public void getSupervisorMission(int i);
 
-	void setSupervisor(ControlCenter controlCenter);
+	public void setSupervisor(ControlCenter controlCenter);
 
-	void changeLock(ReentrantLock lock);
+	public void changeLock(ReentrantLock lock);
 
-	String getName();
+	public String getName();
 }

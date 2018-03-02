@@ -716,8 +716,8 @@ no mission set</body>
                 <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rN3-4BufEeiIBMjVLNyRQw"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rOBv4BufEeiIBMjVLNyRQw" value="*"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_rOBv4RufEeiIBMjVLNyRQw" name="myEnvironmentData" visibility="private" type="_rDALoBufEeiIBMjVLNyRQw" isUnique="false"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_rOUq0RufEeiIBMjVLNyRQw" name="myRobots" visibility="private" type="_rOUq0BufEeiIBMjVLNyRQw" isUnique="false">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rOBv4RufEeiIBMjVLNyRQw" name="myEnvironmentData" visibility="private" type="_KOJfYR4ZEeivMtdbuhfkFg" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_rOUq0RufEeiIBMjVLNyRQw" name="myRobots" visibility="private" type="_9K3o0B10EeivMtdbuhfkFg" isUnique="false">
                 <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rOeb0BufEeiIBMjVLNyRQw"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rOeb0RufEeiIBMjVLNyRQw" value="*"/>
               </ownedAttribute>
@@ -725,6 +725,15 @@ no mission set</body>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rPERsBufEeiIBMjVLNyRQw" name="lock" visibility="public" type="_rOnlwxufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_KMggoB4ZEeivMtdbuhfkFg" name="instance" visibility="private" isStatic="true" type="_rLpKQBufEeiIBMjVLNyRQw" isUnique="false">
+                <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_KMqRoB4ZEeivMtdbuhfkFg" name="defaultValue">
+                  <language>JAVA</language>
+                  <body>new ControlCenter(new Vector3d(0, 1, 0), &quot;KingBoo&quot;)</body>
+                </defaultValue>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_KNG9kB4ZEeivMtdbuhfkFg" name="updateStatus" visibility="private" type="_rKvyZhufEeiIBMjVLNyRQw" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_KOAVcR4ZEeivMtdbuhfkFg" name="currentMode" visibility="private" type="_rIg9wBufEeiIBMjVLNyRQw" isUnique="false"/>
+              <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_KMNlsB4ZEeivMtdbuhfkFg" name="ControlCenter implements Device" client="_rLpKQBufEeiIBMjVLNyRQw" supplier="_9NQOcB10EeivMtdbuhfkFg" contract="_9NQOcB10EeivMtdbuhfkFg"/>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_rPz4kBufEeiIBMjVLNyRQw" name="ControlCenter" specification="_rPOCsBufEeiIBMjVLNyRQw">
                 <language>JAVA</language>
                 <body>&#xD;
@@ -734,7 +743,7 @@ no mission set</body>
     updateStatus = UpdateStatus.Done;&#xD;
     myMission = new Mission();&#xD;
     myEnvironmentData = new EnvironmentData();&#xD;
-    myRobots = new ArrayList&lt;MyRobot>();&#xD;
+    myRobots = new ArrayList&lt;Robot>();&#xD;
     robotAmount = 0;&#xD;
     lock = new ReentrantLock();&#xD;
 </body>
@@ -803,7 +812,7 @@ no mission set</body>
         lock.lock();&#xD;
         missionList = myMission.splitMission(robotAmount);&#xD;
         for (int i = 0; i &lt; robotAmount; i++) {&#xD;
-            MyRobot robot = myRobots.get(i);&#xD;
+            Robot robot = myRobots.get(i);&#xD;
             robot.getSupervisorMission(i);&#xD;
         }&#xD;
     } finally {&#xD;
@@ -847,7 +856,87 @@ no mission set</body>
     }&#xD;
 </body>
               </ownedBehavior>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_rPOCsBufEeiIBMjVLNyRQw" name="ControlCenter" visibility="public" method="_rPz4kBufEeiIBMjVLNyRQw">
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_KO5GQB4ZEeivMtdbuhfkFg" name="initBehavior" specification="_KOmLUB4ZEeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    System.out.println(&quot;I exist and my name is &quot; + this.name);&#xD;
+    currentMode = DeviceMode.Active;&#xD;
+    delegateMyMission();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_KPC3QB4ZEeivMtdbuhfkFg" name="performBehavior" specification="_KO5GQR4ZEeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    try {&#xD;
+        lock.lock();&#xD;
+        //if it has been 3 seconds since the last finished update start a new one&#xD;
+        if (getCounter() >= lastUpdate + 60 &amp;&amp; updateStatus == UpdateStatus.Done) {&#xD;
+            System.out.printf(&quot;Update Started!\n&quot;);&#xD;
+            updateStatus = UpdateStatus.Receiving;&#xD;
+            updatesReceived = 0;&#xD;
+            for (int i = 0; i &lt; robotAmount; i++) {&#xD;
+                Robot robot = myRobots.get(i);&#xD;
+                robot.sendUpdate();&#xD;
+            }&#xD;
+        //if we're still receiving, check if all robots have sent their map yet.&#xD;
+        } else if (updateStatus == UpdateStatus.Receiving) {&#xD;
+            if (updatesReceived >= robotAmount) {&#xD;
+                updateStatus = UpdateStatus.Sending;&#xD;
+                updatesSent = 0;&#xD;
+                for (int i = 0; i &lt; robotAmount; i++) {&#xD;
+                    Robot robot = myRobots.get(i);&#xD;
+                    robot.getUpdate();&#xD;
+                }&#xD;
+            }&#xD;
+        //if we're done receiving check if all robots have gotten the updated map&#xD;
+        } else if (updateStatus == UpdateStatus.Sending) {&#xD;
+            if (updatesSent >= robotAmount) {&#xD;
+                updateStatus = UpdateStatus.Done;&#xD;
+                lastUpdate = getCounter();&#xD;
+                System.out.printf(&quot;Succesful update!\n&quot;);&#xD;
+                myEnvironmentData.printEnvironment(new Vector3d(5, 0, -5), new Vector3d(-5, 0, 5));&#xD;
+            }&#xD;
+        }&#xD;
+    } finally {&#xD;
+        lock.unlock();&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_KPMoQB4ZEeivMtdbuhfkFg" name="setMission" specification="_KPC3QR4ZEeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    myMission = inputMission;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_KPVyMB4ZEeivMtdbuhfkFg" name="updateEnvironmentData" specification="_KPMoQR4ZEeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    updatesReceived++;&#xD;
+    myEnvironmentData.mergeData(input);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_KPVyMx4ZEeivMtdbuhfkFg" name="getInstance" specification="_KPVyMR4ZEeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return instance;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_KPfjMh4ZEeivMtdbuhfkFg" name="addRobot" specification="_KPfjMB4ZEeivMtdbuhfkFg">
+                <language>JAVA</language>
+                <body>&#xD;
+    try {&#xD;
+        lock.lock();&#xD;
+        myRobots.add(input);&#xD;
+        input.setSupervisor(this);&#xD;
+        input.changeLock(lock);&#xD;
+        robotAmount++;&#xD;
+        System.out.printf(&quot;%s supervises: %s\n&quot;, this.getName(), input.getName());&#xD;
+    } finally {&#xD;
+        lock.unlock();&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_rPOCsBufEeiIBMjVLNyRQw" name="ControlCenter" visibility="private" method="_rPz4kBufEeiIBMjVLNyRQw">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_rPg9oBufEeiIBMjVLNyRQw" name="position" type="_q5xXIxufEeiIBMjVLNyRQw"/>
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_rPquoBufEeiIBMjVLNyRQw" name="name" type="_rDmokhufEeiIBMjVLNyRQw"/>
               </ownedOperation>
@@ -866,10 +955,24 @@ no mission set</body>
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALZRufEeiIBMjVLNyRQw" name="input" type="_rDALoBufEeiIBMjVLNyRQw"/>
               </ownedOperation>
               <ownedOperation xmi:type="uml:Operation" xmi:id="_rRALZxufEeiIBMjVLNyRQw" name="sendEnvironmentData" visibility="public" method="_rRALaRufEeiIBMjVLNyRQw">
-                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALaBufEeiIBMjVLNyRQw" type="_rDALoBufEeiIBMjVLNyRQw" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALaBufEeiIBMjVLNyRQw" type="_KOJfYR4ZEeivMtdbuhfkFg" direction="return"/>
               </ownedOperation>
               <ownedOperation xmi:type="uml:Operation" xmi:id="_rRALahufEeiIBMjVLNyRQw" name="addRobot" visibility="public" method="_rRJ8YBufEeiIBMjVLNyRQw">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_rRALaxufEeiIBMjVLNyRQw" name="input" type="_rOUq0BufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_KOmLUB4ZEeivMtdbuhfkFg" name="initBehavior" visibility="public" method="_KO5GQB4ZEeivMtdbuhfkFg"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_KO5GQR4ZEeivMtdbuhfkFg" name="performBehavior" visibility="public" method="_KPC3QB4ZEeivMtdbuhfkFg"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_KPC3QR4ZEeivMtdbuhfkFg" name="setMission" visibility="public" method="_KPMoQB4ZEeivMtdbuhfkFg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_KPC3Qh4ZEeivMtdbuhfkFg" name="inputMission" type="_q5xXIBufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_KPMoQR4ZEeivMtdbuhfkFg" name="updateEnvironmentData" visibility="public" method="_KPVyMB4ZEeivMtdbuhfkFg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_KPMoQh4ZEeivMtdbuhfkFg" name="input" type="_KOJfYR4ZEeivMtdbuhfkFg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_KPVyMR4ZEeivMtdbuhfkFg" name="getInstance" visibility="public" isStatic="true" method="_KPVyMx4ZEeivMtdbuhfkFg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_KPVyMh4ZEeivMtdbuhfkFg" type="_rLpKQBufEeiIBMjVLNyRQw" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_KPfjMB4ZEeivMtdbuhfkFg" name="addRobot" visibility="public" method="_KPfjMh4ZEeivMtdbuhfkFg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_KPfjMR4ZEeivMtdbuhfkFg" name="input" type="_9K3o0B10EeivMtdbuhfkFg"/>
               </ownedOperation>
             </packagedElement>
             <packagedElement xmi:type="uml:Class" xmi:id="_rOUq0BufEeiIBMjVLNyRQw" name="MyRobot" visibility="public">
@@ -1434,6 +1537,7 @@ no mission set</body>
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_13kk4B11EeivMtdbuhfkFg" name="name" type="_rDmokhufEeiIBMjVLNyRQw"/>
               </ownedOperation>
             </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_KOJfYR4ZEeivMtdbuhfkFg" name="EnvironmentData"/>
           </packagedElement>
         </packagedElement>
       </packagedElement>
@@ -1490,7 +1594,7 @@ no mission set</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jFno4hugEeiIBMjVLNyRQw" key="nature" value="UML_Nature"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_jFwy0BugEeiIBMjVLNyRQw" name="supplybox" type="_rDc3kBufEeiIBMjVLNyRQw" aggregation="composite" association="_jFno4BugEeiIBMjVLNyRQw"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_jFno4xugEeiIBMjVLNyRQw" name="myrobot" type="_9K3o0B10EeivMtdbuhfkFg" association="_jFno4BugEeiIBMjVLNyRQw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_jFno4xugEeiIBMjVLNyRQw" name="myrobot" type="_rOUq0BufEeiIBMjVLNyRQw" association="_jFno4BugEeiIBMjVLNyRQw"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_4wzi8BugEeiIBMjVLNyRQw" memberEnd="_4w8s4hugEeiIBMjVLNyRQw _4w8s4xugEeiIBMjVLNyRQw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4w8s4BugEeiIBMjVLNyRQw" source="org.eclipse.papyrus">
@@ -1580,4 +1684,8 @@ no mission set</body>
   <PapyrusJava:External xmi:id="_9rgQsB10EeivMtdbuhfkFg" name="ControlCenter" base_Classifier="_rLpKQBufEeiIBMjVLNyRQw"/>
   <standard:Create xmi:id="_12YSEB11EeivMtdbuhfkFg" base_BehavioralFeature="_12EwER11EeivMtdbuhfkFg"/>
   <PapyrusJava:External xmi:id="_13H48B11EeivMtdbuhfkFg" name="Robot" base_Classifier="_9K3o0B10EeivMtdbuhfkFg"/>
+  <PapyrusJava:External xmi:id="_KM9MkB4ZEeivMtdbuhfkFg" name="UpdateStatus" base_Classifier="_rKvyZhufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_KOAVcB4ZEeivMtdbuhfkFg" name="DeviceMode" base_Classifier="_rIg9wBufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_KOJfYB4ZEeivMtdbuhfkFg" name="Mission" base_Classifier="_q5xXIBufEeiIBMjVLNyRQw"/>
+  <PapyrusJava:External xmi:id="_KOTQYB4ZEeivMtdbuhfkFg" name="EnvironmentData" base_Classifier="_KOJfYR4ZEeivMtdbuhfkFg"/>
 </xmi:XMI>
