@@ -25,7 +25,7 @@ public class MyRobot extends Agent implements Robot{
 	private int NO_MISSION_AVAILABLE = -1;
 
 
-	private DeviceMode currentMode;
+	private DeviceMode myMode;
 	private double currentAngle;
 	
 	private EnvironmentData myEnvironmentData;
@@ -35,7 +35,7 @@ public class MyRobot extends Agent implements Robot{
 	private ReentrantLock lock;
 	private ControlCenter mySupervisor;
 	private int supervisorMission;
-	private UpdateStatus updateStatus;
+	private UpdateStatus myStatus;
 	
 	private ArrayList<Vector3d> myPath;
 	private Vector3d finalTarget;
@@ -50,9 +50,6 @@ public class MyRobot extends Agent implements Robot{
 	
     public MyRobot(Vector3d position, String name) {
         super(position, name);
-        
-        // Add bumpers
-        //RobotFactory.addBumperBeltSensor(this, 12); //! removed bumpers as they don't serve a purpose yet
         
         // Add sonars
         mySonarBelt = RobotFactory.addSonarBeltSensor(this, SENSOR_AMOUNT);  
@@ -72,7 +69,7 @@ public class MyRobot extends Agent implements Robot{
         myEnvironmentData = new EnvironmentData();
         myMission = new Mission();
         supervisorMission = NO_MISSION_AVAILABLE;
-        updateStatus = UpdateStatus.Done;
+        myStatus = UpdateStatus.Done;
     }
 
     /** This method is called by the simulator engine on reset. */
@@ -80,7 +77,7 @@ public class MyRobot extends Agent implements Robot{
 		//go back to start
 		this.moveToStartPosition();
         System.out.println("I exist and my name is " + this.name);
-        currentMode = DeviceMode.Inactive;
+        myMode = DeviceMode.Inactive;
     }
 
     /** This method is call cyclically (20 times per second) by the simulator engine. */
@@ -97,10 +94,10 @@ public class MyRobot extends Agent implements Robot{
     			supervisorMission = NO_MISSION_AVAILABLE;
     		}
     		
-    		if(updateStatus == UpdateStatus.Sending){
+    		if(myStatus == UpdateStatus.Sending){
     			mySupervisor.updateEnvironmentData(myEnvironmentData);
-    			updateStatus = UpdateStatus.Done;
-    		}else if(updateStatus == UpdateStatus.Receiving){
+    			myStatus = UpdateStatus.Done;
+    		}else if(myStatus == UpdateStatus.Receiving){
     			myEnvironmentData = mySupervisor.sendEnvironmentData();
     			myMission.checkEnvironment(myEnvironmentData);
     		}
@@ -109,14 +106,14 @@ public class MyRobot extends Agent implements Robot{
     	}
     	
     	//make change to current mode if applicable
-    	if(currentMode == DeviceMode.Inactive){
+    	if(myMode == DeviceMode.Inactive){
     		if(!myMission.isEmpty()){
     			previousTarget = getLocation();
     			registerObstacles();
-    			Vector3d newTarget = myMission.getTarget();
+    			Vector3d newTarget = myMission.getClosest(previousTarget);
     	        myPath = getPath(previousTarget, newTarget);
     	        currentTarget = myPath.get(0);
-    			currentMode = DeviceMode.Active;
+    			myMode = DeviceMode.Active;
     			setTranslationalVelocity(0.5);
     		}else{
     			setTranslationalVelocity(0);
@@ -156,11 +153,11 @@ public class MyRobot extends Agent implements Robot{
     					//current mission is over, shutting down.
     					setTranslationalVelocity(0);
     					System.out.println(this.getName() + " VISITED EVERYTHING, SHUTTING DOWN");
-    					currentMode = DeviceMode.Inactive;
+    					myMode = DeviceMode.Inactive;
     					return;
     				}
     				//set new target of current mission
-    				finalTarget = myMission.getTarget();
+    				finalTarget = myMission.getClosest(previousTarget);
     				myPath = getPath(previousTarget, finalTarget);
     				if(myPath == null){
     					//add that it is unreachable
@@ -421,17 +418,13 @@ public class MyRobot extends Agent implements Robot{
     }
     
     //tell the robot it needs to retrieve a mission at the supervisor. and at what index to find it.
-    public void getSupervisorMission(int input){
+    public void updateMission(int input){
     	supervisorMission = input;
     }
     
-    public void getUpdate(){
-    	updateStatus = UpdateStatus.Receiving;
-    }
-    
-    public void sendUpdate(){
-    	updateStatus = UpdateStatus.Sending;
-    }
+	public void updateStatus(UpdateStatus input) {
+		myStatus = input;
+	}
     
     class ImagerPanel extends JPanel {
 
@@ -452,7 +445,6 @@ public class MyRobot extends Agent implements Robot{
                     }
                 }
             }
-
         }
     }
 }

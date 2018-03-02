@@ -2,6 +2,8 @@ package main.java.softdesign;
 
 import java.util.ArrayList;
 
+import javax.swing.InputMap;
+import javax.vecmath.Tuple3d;
 import javax.vecmath.Vector3d;
 
 public class Mission {
@@ -118,7 +120,7 @@ public class Mission {
 		return toVisit.remove(input);
 	}
 	
-	public Vector3d getTarget(){
+	public Vector3d getFirstTarget(){
 		return toVisit.get(0);
 	}
 	
@@ -138,6 +140,39 @@ public class Mission {
 		ArrayList<Vector3d> inputMissions = input.getAll();
 		return toVisit.addAll(inputMissions);
 	}
+	
+	public Vector3d getClosest(Vector3d input){
+		if(isEmpty()){
+			return null;
+		}
+		
+		Vector3d closest = toVisit.get(0);
+		double closestDistance = getDistance(input, closest);
+		int toVisitSize = toVisit.size();
+		
+		for(int i = 1; i < toVisitSize; i++){
+			Vector3d target = toVisit.get(i);
+			double targetDistance = getDistance(input, target);
+			if(targetDistance < closestDistance){
+				closest = target;
+				closestDistance = targetDistance;
+			}
+			//if distance is < 1.5 it is one tile away, the smallest distance
+			if(closestDistance < 1.5){ //! make constant? probs
+				return closest;
+			}
+		}
+		return closest;
+	}
+	
+	private double getDistance(Tuple3d from, Tuple3d to){
+    	double legX, legZ, hypothenuse;
+    	legX = Math.abs(from.x - to.x);
+    	legZ = Math.abs(from.z - to.z);
+    	
+    	hypothenuse = Math.sqrt((legX*legX) + (legZ+legZ));
+    	return hypothenuse;
+    }
 	
 	//Check if the environment has mission targets which are visited/obstacles/unreachable
 	public void checkEnvironment(EnvironmentData inputEnvironment){

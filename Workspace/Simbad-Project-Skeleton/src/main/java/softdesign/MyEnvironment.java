@@ -68,28 +68,10 @@ public class MyEnvironment extends EnvironmentDescription {
         ControlCenter cc = ControlCenter.getInstance();
         add(cc);
         
-        RobotFactory robotFactory = RobotFactory.getinstance();
-        
-        Robot r1 = robotFactory.getRobot("MYROBOT", new Vector3d(0,0,0), "inky");
-        r1.setColor(new Color3f(Color.BLUE));
-        add(r1);
-        
-        Robot r2 = robotFactory.getRobot("MYROBOT", new Vector3d(-1,0,0), "pinky");
-        r2.setColor(new Color3f(Color.MAGENTA));
-        add(r2);
-        
-        Robot r3 = robotFactory.getRobot("MYROBOT", new Vector3d(-1,0,-1), "blinky");
-        r3.setColor(new Color3f(Color.RED));
-        add(r3);
-        
-        Robot r4 = robotFactory.getRobot("MYROBOT", new Vector3d(0,0,-1), "clyde");
-        r4.setColor(new Color3f(Color.PINK));
-        add(r4);
-        
-        cc.addRobot(r1);
-        cc.addRobot(r2);
-        cc.addRobot(r3);
-        cc.addRobot(r4);
+        add(cc.addRobot("MYROBOT", new Vector3d(0,0,-1), "inky", new Color3f(Color.BLUE)));
+        add(cc.addRobot("MYROBOT", new Vector3d(0,0,0), "pinky", new Color3f(Color.MAGENTA)));
+        add(cc.addRobot("MYROBOT", new Vector3d(-1,0,-1), "blinky", new Color3f(Color.RED)));
+        add(cc.addRobot("MYROBOT", new Vector3d(-1,0,0), "clyde", new Color3f(Color.PINK)));
         
         cc.setMission(testMission);
         
