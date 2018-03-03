@@ -6,23 +6,15 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
-import simbad.sim.Agent;
-
-public class ControlCenter extends Agent{
+public class ControlCenter extends MissionExecutor{
 	private static ControlCenter instance = new ControlCenter(new Vector3d(0,1,0), "KingBoo");
 	
-	private UpdateStatus myStatus;
 	private int lastUpdate;
 	private int updatesReceived;
 	private int updatesSent;
 	
-	private DeviceMode myMode;
-	
-	private Mission myMission;
 	private ArrayList<Mission> missionList;
-	
-	private EnvironmentData myEnvironmentData;
-	
+		
 	private ArrayList<Observer> myRobots;
 	private int robotAmount;
 	
@@ -78,10 +70,6 @@ public class ControlCenter extends Agent{
     		lock.unlock();
     	}
     }
-    
-	public void setMission(Mission inputMission){
-		myMission = inputMission;
-	}
 	
 	public boolean delegateMyMission(){
 		int robotAmount = myRobots.size();

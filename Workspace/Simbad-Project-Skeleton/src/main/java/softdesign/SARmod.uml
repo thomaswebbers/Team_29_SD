@@ -126,6 +126,7 @@ no mission set</body>
           <packagedElement xmi:type="uml:Package" xmi:id="_SusWwB5eEei9IuplJyDV3g" name="softdesign">
             <packagedElement xmi:type="uml:Class" xmi:id="_SvJCsB5eEei9IuplJyDV3g" name="ControlCenter" visibility="public">
               <generalization xmi:type="uml:Generalization" xmi:id="_SvSzsB5eEei9IuplJyDV3g" general="_rLy7QBufEeiIBMjVLNyRQw"/>
+              <generalization xmi:type="uml:Generalization" xmi:id="_HEBWkB7mEeiHZawkzfIYAg" general="_cIYWoB7lEeiHZawkzfIYAg"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_SvSzsR5eEei9IuplJyDV3g" name="instance" visibility="private" isStatic="true" type="_SvJCsB5eEei9IuplJyDV3g" isUnique="false">
                 <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_SvSzsh5eEei9IuplJyDV3g" name="defaultValue">
                   <language>JAVA</language>
@@ -967,6 +968,7 @@ no mission set</body>
             <packagedElement xmi:type="uml:Class" xmi:id="_TqJSYB5eEei9IuplJyDV3g" name="MyRobot" visibility="public">
               <generalization xmi:type="uml:Generalization" xmi:id="_TqVfoB5eEei9IuplJyDV3g" general="_rLy7QBufEeiIBMjVLNyRQw"/>
               <generalization xmi:type="uml:Generalization" xmi:id="_TqWtwB5eEei9IuplJyDV3g"/>
+              <generalization xmi:type="uml:Generalization" xmi:id="_8Z7LYB7lEeiHZawkzfIYAg" general="_cIYWoB7lEeiHZawkzfIYAg"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_TqZKAB5eEei9IuplJyDV3g" name="SENSOR_AMOUNT" visibility="private" isUnique="false">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
                 <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_Tqc0YB5eEei9IuplJyDV3g" name="defaultValue">
@@ -1638,6 +1640,32 @@ no mission set</body>
               </ownedOperation>
             </packagedElement>
             <packagedElement xmi:type="uml:Dependency" xmi:id="_oyfIoB5fEei9IuplJyDV3g" client="_TqJSYB5eEei9IuplJyDV3g" supplier="_UogYEB5eEei9IuplJyDV3g"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_cIYWoB7lEeiHZawkzfIYAg" name="MissionExecutor" visibility="public" isAbstract="true">
+              <generalization xmi:type="uml:Generalization" xmi:id="_cJkpcB7lEeiHZawkzfIYAg" general="_rLy7QBufEeiIBMjVLNyRQw"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_cjpWUB7lEeiHZawkzfIYAg" name="myStatus" visibility="protected" type="_VDfD4B5eEei9IuplJyDV3g" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_cmB78R7lEeiHZawkzfIYAg" name="myMode" visibility="protected" type="_TLwGMB5eEei9IuplJyDV3g" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_cmoY4R7lEeiHZawkzfIYAg" name="myMission" visibility="protected" type="_SvluoB5eEei9IuplJyDV3g" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_coHmoR7lEeiHZawkzfIYAg" name="myEnvironmentData" visibility="protected" type="_SvlupR5eEei9IuplJyDV3g" isUnique="false"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_cpdDYB7lEeiHZawkzfIYAg" name="MissionExecutor" specification="_coHmoh7lEeiHZawkzfIYAg">
+                <language>JAVA</language>
+                <body>&#xD;
+    super(pos, name);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_cpdDYx7lEeiHZawkzfIYAg" name="setMission" specification="_cpdDYR7lEeiHZawkzfIYAg">
+                <language>JAVA</language>
+                <body>&#xD;
+    myMission = inputMission;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_coHmoh7lEeiHZawkzfIYAg" name="MissionExecutor" visibility="public" method="_cpdDYB7lEeiHZawkzfIYAg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_cpKIcR7lEeiHZawkzfIYAg" name="pos" type="_q5xXIxufEeiIBMjVLNyRQw"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_cpT5cB7lEeiHZawkzfIYAg" name="name" type="_rDmokhufEeiIBMjVLNyRQw"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_cpdDYR7lEeiHZawkzfIYAg" name="setMission" visibility="public" method="_cpdDYx7lEeiHZawkzfIYAg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_cpdDYh7lEeiHZawkzfIYAg" name="inputMission" type="_SvluoB5eEei9IuplJyDV3g"/>
+              </ownedOperation>
+            </packagedElement>
           </packagedElement>
         </packagedElement>
       </packagedElement>
@@ -1661,34 +1689,6 @@ no mission set</body>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LlIoMB5gEei9IuplJyDV3g" value="*"/>
       </ownedEnd>
       <ownedEnd xmi:type="uml:Property" xmi:id="_FDRdsx5gEei9IuplJyDV3g" name="mapOwner" type="_SvJCsB5eEei9IuplJyDV3g" association="_FDRdsB5gEei9IuplJyDV3g"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_Z-DOgB5gEei9IuplJyDV3g" memberEnd="_Z-DOgx5gEei9IuplJyDV3g _Z-MYcB5gEei9IuplJyDV3g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Z-DOgR5gEei9IuplJyDV3g" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Z-DOgh5gEei9IuplJyDV3g" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_Z-MYcB5gEei9IuplJyDV3g" name="mission" type="_SvluoB5eEei9IuplJyDV3g" aggregation="composite" association="_Z-DOgB5gEei9IuplJyDV3g"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_Z-DOgx5gEei9IuplJyDV3g" name="owner" type="_TqJSYB5eEei9IuplJyDV3g" association="_Z-DOgB5gEei9IuplJyDV3g"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_crsggB5gEei9IuplJyDV3g" memberEnd="_crsggx5gEei9IuplJyDV3g _crsghB5gEei9IuplJyDV3g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_crsggR5gEei9IuplJyDV3g" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_crsggh5gEei9IuplJyDV3g" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_crsghB5gEei9IuplJyDV3g" name="mission" type="_SvluoB5eEei9IuplJyDV3g" aggregation="composite" association="_crsggB5gEei9IuplJyDV3g"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_crsggx5gEei9IuplJyDV3g" name="owner" type="_SvJCsB5eEei9IuplJyDV3g" association="_crsggB5gEei9IuplJyDV3g"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_eQiXYB5gEei9IuplJyDV3g" memberEnd="_eQsIYR5gEei9IuplJyDV3g _eQsIYh5gEei9IuplJyDV3g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eQiXYR5gEei9IuplJyDV3g" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eQsIYB5gEei9IuplJyDV3g" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_eQsIYh5gEei9IuplJyDV3g" name="envData" type="_SvlupR5eEei9IuplJyDV3g" aggregation="composite" association="_eQiXYB5gEei9IuplJyDV3g"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_eQsIYR5gEei9IuplJyDV3g" name="owner" type="_TqJSYB5eEei9IuplJyDV3g" association="_eQiXYB5gEei9IuplJyDV3g"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_fUu_UB5gEei9IuplJyDV3g" memberEnd="_fUu_Ux5gEei9IuplJyDV3g _fU4wUB5gEei9IuplJyDV3g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fUu_UR5gEei9IuplJyDV3g" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fUu_Uh5gEei9IuplJyDV3g" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_fU4wUB5gEei9IuplJyDV3g" name="envData" type="_SvlupR5eEei9IuplJyDV3g" aggregation="composite" association="_fUu_UB5gEei9IuplJyDV3g"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_fUu_Ux5gEei9IuplJyDV3g" name="owner" type="_SvJCsB5eEei9IuplJyDV3g" association="_fUu_UB5gEei9IuplJyDV3g"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_8qcVEB5gEei9IuplJyDV3g" memberEnd="_8qcVEx5gEei9IuplJyDV3g _8qcVFB5gEei9IuplJyDV3g">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_8qcVER5gEei9IuplJyDV3g" source="org.eclipse.papyrus">
@@ -1740,6 +1740,20 @@ no mission set</body>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6PTS4B5hEei9IuplJyDV3g" value="*"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_wDjroB7lEeiHZawkzfIYAg" memberEnd="_wDs1kR7lEeiHZawkzfIYAg _wDs1kh7lEeiHZawkzfIYAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_wDjroR7lEeiHZawkzfIYAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wDs1kB7lEeiHZawkzfIYAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_wDs1kh7lEeiHZawkzfIYAg" name="mission" type="_SvluoB5eEei9IuplJyDV3g" aggregation="composite" association="_wDjroB7lEeiHZawkzfIYAg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_wDs1kR7lEeiHZawkzfIYAg" name="owner" type="_cIYWoB7lEeiHZawkzfIYAg" association="_wDjroB7lEeiHZawkzfIYAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_22U_8B7lEeiHZawkzfIYAg" memberEnd="_22eJ4h7lEeiHZawkzfIYAg _22eJ4x7lEeiHZawkzfIYAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_22eJ4B7lEeiHZawkzfIYAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_22eJ4R7lEeiHZawkzfIYAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_22eJ4x7lEeiHZawkzfIYAg" name="envData" type="_SvlupR5eEei9IuplJyDV3g" aggregation="composite" association="_22U_8B7lEeiHZawkzfIYAg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_22eJ4h7lEeiHZawkzfIYAg" name="owner" type="_cIYWoB7lEeiHZawkzfIYAg" association="_22U_8B7lEeiHZawkzfIYAg"/>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_qttREBufEeiIBMjVLNyRQw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qt2bABufEeiIBMjVLNyRQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
@@ -1781,4 +1795,9 @@ no mission set</body>
   <standard:Create xmi:id="_UqcRwB5eEei9IuplJyDV3g" base_BehavioralFeature="_UqAM5R5eEei9IuplJyDV3g"/>
   <standard:Create xmi:id="_UtIZYB5eEei9IuplJyDV3g" base_BehavioralFeature="_Us-oYR5eEei9IuplJyDV3g"/>
   <standard:Create xmi:id="_UuUsMB5eEei9IuplJyDV3g" base_BehavioralFeature="_UuBKNh5eEei9IuplJyDV3g"/>
+  <PapyrusJava:External xmi:id="_cjflUB7lEeiHZawkzfIYAg" name="UpdateStatus" base_Classifier="_VDfD4B5eEei9IuplJyDV3g"/>
+  <PapyrusJava:External xmi:id="_cmB78B7lEeiHZawkzfIYAg" name="DeviceMode" base_Classifier="_TLwGMB5eEei9IuplJyDV3g"/>
+  <PapyrusJava:External xmi:id="_cmoY4B7lEeiHZawkzfIYAg" name="Mission" base_Classifier="_SvluoB5eEei9IuplJyDV3g"/>
+  <PapyrusJava:External xmi:id="_coHmoB7lEeiHZawkzfIYAg" name="EnvironmentData" base_Classifier="_SvlupR5eEei9IuplJyDV3g"/>
+  <standard:Create xmi:id="_cpKIcB7lEeiHZawkzfIYAg" base_BehavioralFeature="_coHmoh7lEeiHZawkzfIYAg"/>
 </xmi:XMI>

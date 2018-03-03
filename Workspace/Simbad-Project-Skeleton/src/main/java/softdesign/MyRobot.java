@@ -11,7 +11,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JPanel;
 import javax.vecmath.*;
 
-import simbad.sim.Agent;
 import simbad.sim.CameraSensor;
 import simbad.sim.CherryAgent;
 import simbad.sim.RangeSensorBelt;
@@ -19,23 +18,17 @@ import simbad.sim.RobotFactory;
 import simbad.sim.SensorMatrix;
 import simbad.sim.SimpleAgent;
 
-public class MyRobot extends Agent implements Robot{
+public class MyRobot extends MissionExecutor implements Robot{
 	
 	private int SENSOR_AMOUNT = 12;
 	private int NO_MISSION_AVAILABLE = -1;
 
-
-	private DeviceMode myMode;
 	private double currentAngle;
-	
-	private EnvironmentData myEnvironmentData;
-	private Mission myMission;
-	
+		
 	//supervisor variables, always lock
 	private ReentrantLock lock;
 	private ControlCenter mySupervisor;
 	private int supervisorMission;
-	private UpdateStatus myStatus;
 	
 	private ArrayList<Vector3d> myPath;
 	private Vector3d finalTarget;
@@ -348,10 +341,6 @@ public class MyRobot extends Agent implements Robot{
     		}
     	}
     	return obstacleFound;
-    }
-    
-    public void setMission(Mission inputMission){
-    	myMission = inputMission;
     }
     
     private void pointTowards(Vector3d input){
