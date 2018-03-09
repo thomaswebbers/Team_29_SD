@@ -616,10 +616,6 @@ no mission set</body>
                 <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TQhRcR5eEei9IuplJyDV3g"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TQhRch5eEei9IuplJyDV3g" value="*"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_TQhRdB5eEei9IuplJyDV3g" name="imageList" visibility="private" type="_TQhRcx5eEei9IuplJyDV3g" isUnique="false">
-                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TQhRdR5eEei9IuplJyDV3g"/>
-                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TQhRdh5eEei9IuplJyDV3g" value="*"/>
-              </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_TRjzQB5eEei9IuplJyDV3g" name="EnvironmentData" specification="_TQhRdx5eEei9IuplJyDV3g">
                 <language>JAVA</language>
                 <body>&#xD;
