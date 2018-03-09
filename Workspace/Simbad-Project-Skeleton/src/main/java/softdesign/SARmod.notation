@@ -996,10 +996,6 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_zSJa4B5eEei9IuplJyDV3g" y="5"/>
       </children>
       <children xmi:type="notation:BasicCompartment" xmi:id="_zSJa4R5eEei9IuplJyDV3g" type="Class_AttributeCompartment">
-        <children xmi:type="notation:Shape" xmi:id="_7_wR_B5jEei9IuplJyDV3g" type="Property_ClassAttributeLabel">
-          <element xmi:type="uml:Property" href="SARmod.uml#_UuBKMR5eEei9IuplJyDV3g"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="_7_wR_R5jEei9IuplJyDV3g"/>
-        </children>
         <children xmi:type="notation:Shape" xmi:id="_7_wR_h5jEei9IuplJyDV3g" type="Property_ClassAttributeLabel">
           <element xmi:type="uml:Property" href="SARmod.uml#_UuBKNB5eEei9IuplJyDV3g"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_7_wR_x5jEei9IuplJyDV3g"/>
