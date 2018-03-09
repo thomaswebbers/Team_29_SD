@@ -206,7 +206,7 @@ no mission set</body>
     }&#xD;
 </body>
               </ownedBehavior>
-              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_SwyBcR5eEei9IuplJyDV3g" name="setMission" specification="_SwfGgB5eEei9IuplJyDV3g">
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_SwyBcR5eEei9IuplJyDV3g" name="setMission">
                 <language>JAVA</language>
                 <body>&#xD;
     myMission = inputMission;&#xD;
@@ -284,9 +284,6 @@ no mission set</body>
               </ownedOperation>
               <ownedOperation xmi:type="uml:Operation" xmi:id="_SwCalB5eEei9IuplJyDV3g" name="initBehavior" visibility="public" method="_SwCalR5eEei9IuplJyDV3g"/>
               <ownedOperation xmi:type="uml:Operation" xmi:id="_SwCalh5eEei9IuplJyDV3g" name="performBehavior" visibility="public" method="_SwVVgB5eEei9IuplJyDV3g"/>
-              <ownedOperation xmi:type="uml:Operation" xmi:id="_SwfGgB5eEei9IuplJyDV3g" name="setMission" visibility="public" method="_SwyBcR5eEei9IuplJyDV3g">
-                <ownedParameter xmi:type="uml:Parameter" xmi:id="_SwyBcB5eEei9IuplJyDV3g" name="inputMission" type="_SvluoB5eEei9IuplJyDV3g"/>
-              </ownedOperation>
               <ownedOperation xmi:type="uml:Operation" xmi:id="_SwyBch5eEei9IuplJyDV3g" name="delegateMyMission" visibility="public" method="_Sw7LYR5eEei9IuplJyDV3g">
                 <ownedParameter xmi:type="uml:Parameter" xmi:id="_Sw7LYB5eEei9IuplJyDV3g" direction="return">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
