@@ -1627,8 +1627,6 @@ no mission set</body>
               <generalization xmi:type="uml:Generalization" xmi:id="_cJkpcB7lEeiHZawkzfIYAg" general="_rLy7QBufEeiIBMjVLNyRQw"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_cjpWUB7lEeiHZawkzfIYAg" name="myStatus" visibility="protected" type="_VDfD4B5eEei9IuplJyDV3g" isUnique="false"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_cmB78R7lEeiHZawkzfIYAg" name="myMode" visibility="protected" type="_TLwGMB5eEei9IuplJyDV3g" isUnique="false"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_cmoY4R7lEeiHZawkzfIYAg" name="myMission" visibility="protected" type="_SvluoB5eEei9IuplJyDV3g" isUnique="false"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_coHmoR7lEeiHZawkzfIYAg" name="myEnvironmentData" visibility="protected" type="_SvlupR5eEei9IuplJyDV3g" isUnique="false"/>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_cpdDYB7lEeiHZawkzfIYAg" name="MissionExecutor" specification="_coHmoh7lEeiHZawkzfIYAg">
                 <language>JAVA</language>
                 <body>&#xD;

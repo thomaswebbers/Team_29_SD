@@ -1070,14 +1070,6 @@
           <element xmi:type="uml:Property" href="SARmod.uml#_cmB78R7lEeiHZawkzfIYAg"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_sj5t4R7lEeiHZawkzfIYAg"/>
         </children>
-        <children xmi:type="notation:Shape" xmi:id="_sj5t4h7lEeiHZawkzfIYAg" type="Property_ClassAttributeLabel">
-          <element xmi:type="uml:Property" href="SARmod.uml#_cmoY4R7lEeiHZawkzfIYAg"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="_sj5t4x7lEeiHZawkzfIYAg"/>
-        </children>
-        <children xmi:type="notation:Shape" xmi:id="_sj5t5B7lEeiHZawkzfIYAg" type="Property_ClassAttributeLabel">
-          <element xmi:type="uml:Property" href="SARmod.uml#_coHmoR7lEeiHZawkzfIYAg"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="_sj5t5R7lEeiHZawkzfIYAg"/>
-        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_lfsEQx7lEeiHZawkzfIYAg"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_lfsERB7lEeiHZawkzfIYAg"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_lfsERR7lEeiHZawkzfIYAg"/>
