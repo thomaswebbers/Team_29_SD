@@ -148,10 +148,6 @@ no mission set</body>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SvlupB5eEei9IuplJyDV3g" value="*"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Svluph5eEei9IuplJyDV3g" name="myEnvironmentData" visibility="private" type="_SvlupR5eEei9IuplJyDV3g" isUnique="false"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_SvluqB5eEei9IuplJyDV3g" name="myRobots" visibility="private" type="_ULNYEB5eEei9IuplJyDV3g" isUnique="false">
-                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SvluqR5eEei9IuplJyDV3g"/>
-                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Svluqh5eEei9IuplJyDV3g" value="*"/>
-              </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Svluqx5eEei9IuplJyDV3g" name="robotAmount" visibility="private" isUnique="false">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
               </ownedAttribute>

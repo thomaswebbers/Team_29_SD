@@ -456,10 +456,6 @@
           <element xmi:type="uml:Property" href="SARmod.uml#_SvSzsR5eEei9IuplJyDV3g"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_7-QdIR5jEei9IuplJyDV3g"/>
         </children>
-        <children xmi:type="notation:Shape" xmi:id="_7-QdJh5jEei9IuplJyDV3g" type="Property_ClassAttributeLabel">
-          <element xmi:type="uml:Property" href="SARmod.uml#_SvluqB5eEei9IuplJyDV3g"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="_7-QdJx5jEei9IuplJyDV3g"/>
-        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_yF0xsR5eEei9IuplJyDV3g"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_yF0xsh5eEei9IuplJyDV3g"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_yF0xsx5eEei9IuplJyDV3g"/>
