@@ -155,7 +155,7 @@ public class MyRobot extends MissionExecutor implements Robot{
 				if(myMission.isEmpty()){
 					//current mission is over, shutting down.
 					setTranslationalVelocity(0);
-					System.out.println(this.getName() + " VISITED EVERYTHING, SHUTTING DOWN");
+					System.out.println(this.getName() + " visited everything, shutting down");
 					myMode = DeviceMode.Inactive;
 					return;
 				}
@@ -216,7 +216,7 @@ public class MyRobot extends MissionExecutor implements Robot{
     private Vector3d getLocation(){
     	Point3d myPoint = new Point3d(0,0,0);
     	this.getCoords(myPoint);
-    	Vector3d myLocation = new Vector3d(myPoint.getX(), 0, myPoint.getZ());
+    	Vector3d myLocation = new Vector3d(myPoint.getX(), myPoint.getY(), myPoint.getZ());
     	return myLocation;
     }
     
@@ -526,7 +526,6 @@ public class MyRobot extends MissionExecutor implements Robot{
 			collider.setMission(temp);
 			this.startMission(previousTarget);
 			collider.startMission(colliderLocation);
-			System.out.println("TRIGGER");
 			return;
 		}
 		
