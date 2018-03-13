@@ -200,4 +200,11 @@ public class Mission {
 		}
 	}
 
+	@Override
+	public Mission clone() {
+		Mission clone = new Mission();
+		clone.addAll(this);
+		return clone;
+	}
+
 }

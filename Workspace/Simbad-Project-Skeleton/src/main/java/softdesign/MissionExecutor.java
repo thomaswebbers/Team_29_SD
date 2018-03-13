@@ -17,4 +17,8 @@ public abstract class MissionExecutor extends Agent {
 	public void setMission(Mission inputMission){
 		myMission = inputMission;
 	}
+	
+	public Mission getMission(){
+		return myMission;
+	}
 }

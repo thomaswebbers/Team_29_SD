@@ -22,11 +22,13 @@ public class MyRobot extends MissionExecutor implements Robot{
 	
 	private int SENSOR_AMOUNT = 12;
 	private int NO_MISSION_AVAILABLE = -1;
+	private int NO_TIMER = -1;
 
 	private double currentAngle;
 		
-	//supervisor variables, always lock
 	private ReentrantLock lock;
+	private boolean collisionResolved;
+	
 	private ControlCenter mySupervisor;
 	private int supervisorMission;
 	
@@ -40,6 +42,9 @@ public class MyRobot extends MissionExecutor implements Robot{
     JPanel cameraPanel;
     
     RangeSensorBelt mySonarBelt;
+    
+    int waitTimer;
+    Vector3d waitLocation;
 	
     public MyRobot(Vector3d position, String name) {
         super(position, name);
@@ -63,6 +68,8 @@ public class MyRobot extends MissionExecutor implements Robot{
         myMission = new Mission();
         supervisorMission = NO_MISSION_AVAILABLE;
         myStatus = UpdateStatus.Done;
+        collisionResolved = true;
+        waitTimer = NO_TIMER;
     }
 
     /** This method is called by the simulator engine on reset. */
@@ -75,10 +82,108 @@ public class MyRobot extends MissionExecutor implements Robot{
 
     /** This method is call cyclically (20 times per second) by the simulator engine. */
     public void performBehavior() {
-    	//check if the supervisor left a message
     	if(mySupervisor == null){
     		return;
     	}
+    	
+    	this.checkUpdateStatus();
+    	
+    	//If I am touching a cherry, detach (delete) that cherry
+		if(anOtherAgentIsVeryNear()){
+			SimpleAgent nearAgent = getVeryNearAgent();
+			if (nearAgent instanceof CherryAgent){
+				nearAgent.detach();	
+			}
+			try{
+				lock.lock();
+			if (nearAgent instanceof Robot && !collisionResolved){
+				Robot nearRobot = (Robot) nearAgent;
+				collisionResolved = true;
+				nearRobot.resolveCollision(this);
+				}
+			}
+			finally{
+				lock.unlock();
+			}
+		}
+
+		
+		//if I am on a timer wait until it passes
+    	if(waitTimer != NO_TIMER){
+    		pointTowards(waitLocation);
+    		if(getDistance(this.getLocation(), waitLocation) < 0.05){
+    			setTranslationalVelocity(0);
+    		}
+    		waitTimer--;
+    		if(waitTimer != 0){
+    			return;
+    		}
+   			waitTimer = NO_TIMER;
+			setTranslationalVelocity(0.5);
+    	}
+    	//make change to current mode if applicable
+    	if(myMode == DeviceMode.Inactive){
+    		if(!myMission.isEmpty()){
+    			previousTarget = getLocation();
+    			startMission(previousTarget);
+    		}else{
+    			setTranslationalVelocity(0);
+        		return;	
+    		}
+    	}
+    	
+		//If I am currently less than 0.05 units away from my target
+		if (getDistance(this.getLocation(), currentTarget) < 0.05){ 
+			//reset collision resolvement
+			collisionResolved = false;
+			
+			//take a picture and select a new target
+			takePicture();
+			
+			//get next location and add current location to visited
+			myMission.remove(currentTarget);
+			if(!myEnvironmentData.isVisited(currentTarget)){    				
+				registerObstacles(); //new place visited, register possible obstacles
+				myEnvironmentData.addVisited(currentTarget);
+			}
+			
+			myPath.remove(currentTarget); //currentTarget should be at position 0 in the myPath array
+			previousTarget = currentTarget;
+			
+			//generate a new path if it is null, empty or blocked
+			while(myPath == null || myPath.size() == 0 || myEnvironmentData.hasObstacle(myPath)){
+				if(myMission.isEmpty()){
+					//current mission is over, shutting down.
+					setTranslationalVelocity(0);
+					System.out.println(this.getName() + " VISITED EVERYTHING, SHUTTING DOWN");
+					myMode = DeviceMode.Inactive;
+					return;
+				}
+				//set new target of current mission
+				finalTarget = myMission.getClosest(previousTarget);
+				myPath = getPath(previousTarget, finalTarget);
+				if(myPath == null){
+					//add that it is unreachable
+					myEnvironmentData.addUnreachable(finalTarget);
+					myMission.remove(finalTarget);
+				}
+			}
+    		currentTarget = myPath.get(0);
+		}
+		pointTowards(currentTarget);
+    }
+    
+    public void startMission(Vector3d startLocation) {
+    	registerObstacles();
+		Vector3d newTarget = myMission.getClosest(startLocation);
+        myPath = getPath(startLocation, newTarget);
+        currentTarget = myPath.get(0);
+		myMode = DeviceMode.Active;
+		pointTowards(currentTarget);
+		setTranslationalVelocity(0.5);
+	}
+
+	private void checkUpdateStatus() {
     	try{
     		lock.lock();
     		if(supervisorMission != NO_MISSION_AVAILABLE){
@@ -97,75 +202,9 @@ public class MyRobot extends MissionExecutor implements Robot{
     	} finally {
     		lock.unlock();
     	}
-    	
-    	//make change to current mode if applicable
-    	if(myMode == DeviceMode.Inactive){
-    		if(!myMission.isEmpty()){
-    			previousTarget = getLocation();
-    			registerObstacles();
-    			Vector3d newTarget = myMission.getClosest(previousTarget);
-    	        myPath = getPath(previousTarget, newTarget);
-    	        currentTarget = myPath.get(0);
-    			myMode = DeviceMode.Active;
-    			setTranslationalVelocity(0.5);
-    		}else{
-    			setTranslationalVelocity(0);
-        		return;	
-    		}
-    	}
-    	
-    	
-    	//If I am touching a cherry, detach (delete) that cherry
-		if(anOtherAgentIsVeryNear()){
-			SimpleAgent nearAgent = getVeryNearAgent();
-			if (nearAgent instanceof CherryAgent){
-				nearAgent.detach();	
-			}
-		}
-    	
-    	if(getCounter() % 5 == 0){
-    		//If I am currently less than 0.1 units away from my target
-    		if (getDistance(this.getLocation(), currentTarget) < 0.1){    			    			
-    			//take a picture and select a new target
-    			myCamera.copyVisionImage(luminanceMatrix); //! store image in EnvironmentData
-    			cameraPanel.repaint();
-    			
-    			//get next location and add current location to visited
-    			myMission.remove(currentTarget);
-    			if(!myEnvironmentData.isVisited(currentTarget)){    				
-    				registerObstacles(); //new place visited, register possible obstacles
-    				myEnvironmentData.addVisited(currentTarget);
-    			}
-    			
-    			myPath.remove(currentTarget); //currentTarget should be at position 0 in the myPath array
-    			previousTarget = currentTarget;
-    			
-    			//generate a new path if it is null, empty, or blocked
-    			while(myPath == null || myPath.size() == 0 || myEnvironmentData.isObstacle(myPath.get(0))){
-    				if(myMission.isEmpty()){
-    					//current mission is over, shutting down.
-    					setTranslationalVelocity(0);
-    					System.out.println(this.getName() + " VISITED EVERYTHING, SHUTTING DOWN");
-    					myMode = DeviceMode.Inactive;
-    					return;
-    				}
-    				//set new target of current mission
-    				finalTarget = myMission.getClosest(previousTarget);
-    				myPath = getPath(previousTarget, finalTarget);
-    				if(myPath == null){
-    					//add that it is unreachable
-    					myEnvironmentData.addUnreachable(finalTarget);
-    					myMission.remove(finalTarget);
-    				}
-    			}
-        		currentTarget = myPath.get(0); 
-    		}
-    		
-    		pointTowards(currentTarget);
-    	}
-    }
-    
-    private double getDistance(Tuple3d from, Tuple3d to){
+	}
+
+	private double getDistance(Tuple3d from, Tuple3d to){
     	double legX, legZ, hypothenuse;
     	legX = Math.abs(from.x - to.x);
     	legZ = Math.abs(from.z - to.z);
@@ -177,7 +216,7 @@ public class MyRobot extends MissionExecutor implements Robot{
     private Vector3d getLocation(){
     	Point3d myPoint = new Point3d(0,0,0);
     	this.getCoords(myPoint);
-    	Vector3d myLocation = new Vector3d(myPoint.x, myPoint.y, myPoint.z);
+    	Vector3d myLocation = new Vector3d(myPoint.getX(), 0, myPoint.getZ());
     	return myLocation;
     }
     
@@ -186,6 +225,12 @@ public class MyRobot extends MissionExecutor implements Robot{
     	ArrayList<Vector3d> result = new ArrayList<Vector3d>();
     	EdgeArray fromEdges = new EdgeArray();
     	EdgeArray toEdges = new EdgeArray();
+    	
+    	//Edge case: from == to
+    	if(from.equals(to)){
+    		result.add(from);
+    		return result;
+    	}
 
     	//Openvectors: vectors which don't have their outgoing edges added yet
     	ArrayList<Vector3d> fromOpenVectors = new ArrayList<Vector3d>();
@@ -301,8 +346,8 @@ public class MyRobot extends MissionExecutor implements Robot{
     
     //returns neighbours starting from 1,0 in counter clock fashion
     private ArrayList<Vector3d> getAdjacent(Tuple3d input){
-    	long inputX = Math.round(input.x);
-    	long inputZ = Math.round(input.z);
+    	long inputX = Math.round(input.getX());
+    	long inputZ = Math.round(input.getZ());
     	    	
     	ArrayList<Vector3d> result = new ArrayList<Vector3d>();
     	
@@ -333,8 +378,7 @@ public class MyRobot extends MissionExecutor implements Robot{
     		centerMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset) % SENSOR_AMOUNT);
     		rightMeasurement = mySonarBelt.getMeasurement(((i*3) + northOffset + 1) % SENSOR_AMOUNT);
     		
-    		//0.4 because its the distance to the neighbour in the worst case scenario, a 45 degree angle
-    		if(leftMeasurement <= 0.4 && centerMeasurement <= 0.4 && rightMeasurement <= 0.4 && !myEnvironmentData.isObstacle(neighbour)){
+    		if(leftMeasurement <= 0.5 && centerMeasurement <= 0.5 && rightMeasurement <= 0.5 && !myEnvironmentData.isObstacle(neighbour)){
     			myEnvironmentData.addObstacle(neighbour);
     			myMission.remove(neighbour);
     			obstacleFound = true;
@@ -343,7 +387,7 @@ public class MyRobot extends MissionExecutor implements Robot{
     	return obstacleFound;
     }
     
-    private void pointTowards(Vector3d input){
+    public void pointTowards(Vector3d input){
     	Vector3d currentPoint = this.getLocation();
     	
     	double inputX = input.x;
@@ -414,6 +458,11 @@ public class MyRobot extends MissionExecutor implements Robot{
 	public void updateStatus(UpdateStatus input) {
 		myStatus = input;
 	}
+	
+	private void takePicture(){
+		myCamera.copyVisionImage(luminanceMatrix); //! store image in EnvironmentData
+		cameraPanel.repaint();
+	}
     
     class ImagerPanel extends JPanel {
 
@@ -436,4 +485,118 @@ public class MyRobot extends MissionExecutor implements Robot{
             }
         }
     }
+
+	@Override
+	public void resolveCollision(Robot collider) { //TODO test all collisions
+		collisionResolved = true;
+		System.out.println(this.getName()+" collisionWith "+collider.getName());
+		
+		Vector3d colliderLocation = collider.getPreviousTarget();
+		ArrayList<Vector3d> colliderPath = collider.getCurrentPath();
+		Mission colliderMission = collider.getMission();
+		DeviceMode colliderMode = collider.getMode();
+		//I am inactive
+		if(myMode == DeviceMode.Inactive){
+			System.out.println("collisionType: I am inactive");
+			this.setMission(colliderMission);
+			Mission newMission = new Mission();
+			newMission.add(colliderLocation);
+			collider.setMission(newMission);
+			collider.startMission(colliderLocation);
+		}
+		
+		//collider is inactive
+		if(colliderMode == DeviceMode.Inactive){
+			System.out.println("collisionType: collider inactive");
+			collider.setMission(myMission);
+			Mission newMission = new Mission();
+			newMission.add(previousTarget);
+			this.setMission(newMission);
+			this.startMission(previousTarget);
+			return;
+		}
+		
+		//collision between visited nodes = exchange mission
+		if(previousTarget.equals(colliderPath.get(0)) || colliderLocation.equals(myPath.get(0))){
+			System.out.println("collisionType: between visited nodes");
+			this.waitAt(10, previousTarget);
+			collider.waitAt(10, colliderLocation);
+			Mission temp = myMission.clone();
+			this.setMission(colliderMission);
+			collider.setMission(temp);
+			this.startMission(previousTarget);
+			collider.startMission(colliderLocation);
+			System.out.println("TRIGGER");
+			return;
+		}
+		
+		//collision on an unvisited node
+		//last node of one robot = let that robot return to its last location
+		myEnvironmentData.addVisited(currentTarget);
+		myMission.remove(currentTarget);
+		colliderMission.remove(currentTarget);
+		//I am that robot
+		if(myPath.size() == 1){
+			System.out.println("collisionType: unvisited is my finalTarget");
+			collider.waitAt(10, colliderLocation);
+			myMission.add(previousTarget);
+			this.startMission(previousTarget);
+			return;
+		}
+		//collider is that robot
+		if(colliderPath.size() == 1){
+			System.out.println("collisionType: unvisited is collider finalTarget");
+			this.waitAt(10, previousTarget);
+			colliderMission.add(colliderLocation);
+			collider.startMission(colliderLocation);
+			return;
+		}
+		//both paths pass = exchange missions
+		if(previousTarget.equals(colliderPath.get(1)) && colliderLocation.equals(myPath.get(1))){
+			System.out.println("collisionType: both paths pass");
+			Mission temp = myMission.clone();
+			this.setMission(colliderMission);
+			collider.setMission(temp);
+			this.startMission(previousTarget);
+			collider.startMission(colliderLocation);
+			return;
+		}
+		
+		//one path passes
+		//the collider's path passes mine
+		if(previousTarget.equals(colliderPath.get(1))){
+			System.out.println("collisionType: collider's path passes");
+			this.waitAt(10, previousTarget);
+			collider.waitAt(80, colliderLocation);
+		}else{
+			//my path passes the collider, or no path passes
+			System.out.println("collisionType: my path passes, or no path passes");
+			collider.waitAt(10, colliderLocation);
+			this.waitAt(80, previousTarget);
+		}
+		
+
+	}
+
+	@Override
+	public Vector3d getPreviousTarget() {
+		return previousTarget;
+	}
+
+	@Override
+	public ArrayList<Vector3d> getCurrentPath() {
+		return myPath;
+	}
+
+	@Override
+	public DeviceMode getMode() {
+		return myMode;
+	}
+
+	@Override
+	public void waitAt(int tim, Vector3d loc) {
+		waitTimer = tim;
+		waitLocation = loc;
+		pointTowards(waitLocation);
+	}
 }

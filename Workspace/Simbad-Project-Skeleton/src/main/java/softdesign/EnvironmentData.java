@@ -112,4 +112,13 @@ public class EnvironmentData {
 			System.out.println();
 		}
 	}
+
+	public boolean hasObstacle(ArrayList<Vector3d> myPath) {
+		for(Vector3d target : myPath){
+			if(isObstacle(target)){
+				return true;
+			}
+		}
+		return false;
+	}
 }
