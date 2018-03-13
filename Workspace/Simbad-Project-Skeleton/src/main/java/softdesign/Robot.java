@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
-public interface Robot extends Observer{
+public interface Robot extends Observer {
 
 	public void setColor(Color3f color3f);
 
