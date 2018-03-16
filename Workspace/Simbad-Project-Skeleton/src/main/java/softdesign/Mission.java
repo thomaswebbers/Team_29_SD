@@ -156,8 +156,8 @@ public class Mission {
 				closest = target;
 				closestDistance = targetDistance;
 			}
-			// if distance is < 1.5 it is one tile away, the smallest distance
-			if (closestDistance < 1.5) {
+			// if distance is < 1 then closest == input
+			if (closestDistance < 1) {
 				return closest;
 			}
 		}

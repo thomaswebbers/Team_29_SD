@@ -1,7 +1,7 @@
 package main.java.softdesign;
 
 import java.util.ArrayList;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Lock;
 
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
@@ -12,7 +12,7 @@ public interface Robot extends Observer {
 
 	public void setSupervisor(ControlCenter controlCenter);
 
-	public void changeLock(ReentrantLock lock);
+	public void changeLock(Lock lock);
 
 	public String getName();
 

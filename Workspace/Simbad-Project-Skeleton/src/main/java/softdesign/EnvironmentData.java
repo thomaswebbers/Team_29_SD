@@ -1,7 +1,6 @@
 package main.java.softdesign;
 
 import java.util.ArrayList;
-
 import javax.vecmath.Vector3d;
 
 public class EnvironmentData {
@@ -86,18 +85,92 @@ public class EnvironmentData {
 				addUnreachable(inputNode);
 			}
 		}
-		imageList.addAll(inputData.getImages());
+		
+		ArrayList<Image> inputImages = inputData.getImages();
+		int inputImagesSize = inputImages.size();
+		for (int i = 0; i < inputImagesSize; i++) {
+			Image inputNode = inputImages.get(i);
+			if (!this.hasImage(inputNode)) {
+				addImage(inputNode);
+			}
+		}
 	}
 
-	//TODO for now only capable top left to bottom right, IMPLEMENT OTHER SCENARIO'S
-	public void printEnvironment(Vector3d from, Vector3d to) {
-		int fromX = (int) from.getX();
-		int fromZ = (int) from.getZ();
-		int toX = (int) to.getX();
-		int toZ = (int) to.getZ();
+	private boolean hasImage(Image input) {
+		for (Image target : imageList) {
+			if (target.equals(input)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-		for (int i = fromX; i >= toX; i--) {
-			for (int j = fromZ; j <= toZ; j++) {
+	public void printEnvironment() {
+		if(this.isEmpty()){
+			System.out.println("X");
+		}
+		
+		//get top left & bottom right of all environmentData
+		Double topLeftX = null, topLeftZ = null, bottomRightX = null, bottomRightZ = null;
+		
+		if(!visited.isEmpty()){ //TODO think of an efficent way not to copy code, if only this was C
+			Vector3d visitedNode = visited.get(0);
+			if(topLeftX == null){
+				topLeftX = visitedNode.getX();
+				topLeftZ = visitedNode.getZ();
+				bottomRightX = visitedNode.getX();
+				bottomRightZ = visitedNode.getZ();
+			}
+			for (int i = 0; i < visited.size(); i++) {
+				visitedNode = visited.get(i);
+
+				topLeftX = Math.max(topLeftX, visitedNode.getX());
+				topLeftZ = Math.min(topLeftZ, visitedNode.getZ());
+
+				bottomRightX = Math.min(bottomRightX, visitedNode.getX());
+				bottomRightZ = Math.max(bottomRightZ, visitedNode.getZ());
+			}
+		}
+		
+		if(!obstacles.isEmpty()){
+			Vector3d obstacleNode = obstacles.get(0);
+			if(topLeftX == null){
+				topLeftX = obstacleNode.getX();
+				topLeftZ = obstacleNode.getZ();
+				bottomRightX = obstacleNode.getX();
+				bottomRightZ = obstacleNode.getZ();
+			}
+			for (int i = 0; i < obstacles.size(); i++) {
+				obstacleNode = obstacles.get(i);
+
+				topLeftX = Math.max(topLeftX, obstacleNode.getX());
+				topLeftZ = Math.min(topLeftZ, obstacleNode.getZ());
+
+				bottomRightX = Math.min(bottomRightX, obstacleNode.getX());
+				bottomRightZ = Math.max(bottomRightZ, obstacleNode.getZ());
+			}
+		}
+		if(!unreachable.isEmpty()){
+			Vector3d unreachableNode = unreachable.get(0);
+			if(topLeftX == null){
+				topLeftX = unreachableNode.getX();
+				topLeftZ = unreachableNode.getZ();
+				bottomRightX = unreachableNode.getX();
+				bottomRightZ = unreachableNode.getZ();
+			}
+			for (int i = 0; i < unreachable.size(); i++) {
+				unreachableNode = unreachable.get(i);
+
+				topLeftX = Math.max(topLeftX, unreachableNode.getX());
+				topLeftZ = Math.min(topLeftZ, unreachableNode.getZ());
+
+				bottomRightX = Math.min(bottomRightX, unreachableNode.getX());
+				bottomRightZ = Math.max(bottomRightZ, unreachableNode.getZ());
+			}
+		}
+
+		for (int i = topLeftX.intValue(); i >= bottomRightX; i--) {
+			for (int j = topLeftZ.intValue(); j <= bottomRightZ; j++) {
 				Vector3d currentNode = new Vector3d(i, 0, j);
 				if (visited.contains(currentNode)) {
 					System.out.printf("V ");
@@ -112,6 +185,10 @@ public class EnvironmentData {
 			System.out.println();
 		}
 	}
+	
+	public boolean isEmpty(){
+		return visited.isEmpty() && obstacles.isEmpty() && unreachable.isEmpty();
+	}
 
 	public boolean hasObstacle(ArrayList<Vector3d> myPath) {
 		for (Vector3d target : myPath) {
@@ -120,5 +197,9 @@ public class EnvironmentData {
 			}
 		}
 		return false;
+	}
+
+	public void addImage(Image input) {
+		imageList.add(input);
 	}
 }

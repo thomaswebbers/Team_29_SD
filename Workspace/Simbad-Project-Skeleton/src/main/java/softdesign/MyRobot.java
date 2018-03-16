@@ -1,11 +1,11 @@
 package main.java.softdesign;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Lock;
 
 import javax.swing.JPanel;
 import javax.vecmath.*;
@@ -14,7 +14,6 @@ import simbad.sim.CameraSensor;
 import simbad.sim.CherryAgent;
 import simbad.sim.RangeSensorBelt;
 import simbad.sim.RobotFactory;
-import simbad.sim.SensorMatrix;
 import simbad.sim.SimpleAgent;
 
 public class MyRobot extends MissionExecutor implements Robot {
@@ -25,7 +24,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 
 	private double currentAngle;
 
-	private ReentrantLock lock;
+	private Lock lock;
 	private boolean collisionResolved;
 
 	private ControlCenter mySupervisor;
@@ -37,7 +36,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 	private Vector3d previousTarget;
 
 	private CameraSensor myCamera;
-	SensorMatrix luminanceMatrix;
+	private BufferedImage cameraImage;
 	JPanel cameraPanel;
 
 	RangeSensorBelt mySonarBelt;
@@ -53,9 +52,9 @@ public class MyRobot extends MissionExecutor implements Robot {
 
 		// Add camera & prep camera UI
 		myCamera = RobotFactory.addCameraSensor(this);
-		luminanceMatrix = myCamera.createCompatibleSensorMatrix();
+		cameraImage = myCamera.createCompatibleImage();
 		cameraPanel = new ImagerPanel();
-		Dimension dim = new Dimension(luminanceMatrix.getWidth(), luminanceMatrix.getHeight());
+		Dimension dim = new Dimension(cameraImage.getWidth(), cameraImage.getHeight());
 		cameraPanel.setPreferredSize(dim);
 		cameraPanel.setMinimumSize(dim);
 		setUIPanel(cameraPanel);
@@ -69,6 +68,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 		myStatus = UpdateStatus.Done;
 		collisionResolved = true;
 		waitTimer = NO_TIMER;
+		previousTarget = this.getLocation();
 	}
 
 	/** This method is called by the simulator engine on reset. */
@@ -76,6 +76,8 @@ public class MyRobot extends MissionExecutor implements Robot {
 		// go back to start
 		this.moveToStartPosition();
 		System.out.println("I exist and my name is " + this.name);
+		myEnvironmentData.addVisited(this.getLocation());
+		takePicture();
 		myMode = DeviceMode.Inactive;
 	}
 
@@ -86,6 +88,11 @@ public class MyRobot extends MissionExecutor implements Robot {
 	public void performBehavior() {
 		if (mySupervisor == null) {
 			return;
+		}
+		
+		//edge case, doesn't work in initBehaviour
+		if(this.getCounter() == 0){
+			registerObstacles();
 		}
 
 		this.checkUpdateStatus();
@@ -130,6 +137,13 @@ public class MyRobot extends MissionExecutor implements Robot {
 				startMission(previousTarget);
 			} else {
 				setTranslationalVelocity(0);
+				return;
+			}
+		}else if(myMode == DeviceMode.Active){
+			if(myMission.isEmpty()){
+				setTranslationalVelocity(0);
+				System.out.println(this.getName() + " no mission, shutting down");
+				myMode = DeviceMode.Inactive;
 				return;
 			}
 		}
@@ -177,12 +191,16 @@ public class MyRobot extends MissionExecutor implements Robot {
 	}
 
 	public void startMission(Vector3d startLocation) {
-		registerObstacles();
+		myMission.checkEnvironment(myEnvironmentData);
+		if(myMission.isEmpty()){
+			return;
+		}
 		Vector3d newTarget = myMission.getClosest(startLocation);
 		myPath = getPath(startLocation, newTarget);
 		currentTarget = myPath.get(0);
-		myMode = DeviceMode.Active;
 		pointTowards(currentTarget);
+		
+		myMode = DeviceMode.Active;
 		setTranslationalVelocity(0.5);
 	}
 
@@ -190,7 +208,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 		try {
 			lock.lock();
 			if (supervisorMission != NO_MISSION_AVAILABLE) {
-				myMission = mySupervisor.getMission(supervisorMission);
+				myMission = mySupervisor.getMissionNr(supervisorMission);
 				System.out.printf("%s accepted mission %d\n", this.getName(), supervisorMission);
 				supervisorMission = NO_MISSION_AVAILABLE;
 			}
@@ -219,7 +237,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 	private Vector3d getLocation() {
 		Point3d myPoint = new Point3d(0, 0, 0);
 		this.getCoords(myPoint);
-		Vector3d myLocation = new Vector3d(myPoint.getX(), myPoint.getY(), myPoint.getZ());
+		Vector3d myLocation = new Vector3d(myPoint.getX(), 0, myPoint.getZ());
 		return myLocation;
 	}
 
@@ -230,8 +248,8 @@ public class MyRobot extends MissionExecutor implements Robot {
 		EdgeArray toEdges = new EdgeArray();
 
 		// Edge case: from == to
-		if (from.equals(to)) {
-			result.add(from);
+		if (getDistance(from, to) < 1) {
+			result.add(to);
 			return result;
 		}
 
@@ -381,17 +399,17 @@ public class MyRobot extends MissionExecutor implements Robot {
 			centerMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset) % SENSOR_AMOUNT);
 			rightMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset + 1) % SENSOR_AMOUNT);
 
-			if (leftMeasurement <= 0.5 && centerMeasurement <= 0.5 && rightMeasurement <= 0.5
-					&& !myEnvironmentData.isObstacle(neighbour)) {
+			if (leftMeasurement <= 0.48 && centerMeasurement <= 0.48 && rightMeasurement <= 0.48 && !myEnvironmentData.isObstacle(neighbour)) {
 				myEnvironmentData.addObstacle(neighbour);
 				myMission.remove(neighbour);
+				
 				obstacleFound = true;
 			}
 		}
 		return obstacleFound;
 	}
 
-	public void pointTowards(Vector3d input) {
+	private void pointTowards(Vector3d input) {
 		Vector3d currentPoint = this.getLocation();
 
 		double inputX = input.x;
@@ -453,7 +471,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 	}
 
 	// change the lock used by the robot
-	public void changeLock(ReentrantLock input) {
+	public void changeLock(Lock input) {
 		lock = input;
 	}
 
@@ -466,8 +484,10 @@ public class MyRobot extends MissionExecutor implements Robot {
 		myStatus = input;
 	}
 
-	private void takePicture() { //TODO store image in EnvironmentData
-		myCamera.copyVisionImage(luminanceMatrix); //TODO change image to color instead of black & white
+	private void takePicture() {
+		myCamera.copyVisionImage(cameraImage);
+		Image image = new Image(cameraImage, this.currentAngle, this.getName(), getLocation());
+		myEnvironmentData.addImage(image);
 		cameraPanel.repaint();
 	}
 
@@ -475,26 +495,15 @@ public class MyRobot extends MissionExecutor implements Robot {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		protected void paintComponent(Graphics g) {
-			int width = luminanceMatrix.getWidth();
-			int height = luminanceMatrix.getHeight();
 			super.paintComponent(g);
-			g.setColor(Color.WHITE);
-			g.fillRect(0, 0, width, height);
-			g.setColor(Color.BLACK);
-			for (int y = 0; y < height; y += 4) {
-				for (int x = 0; x < width; x += 4) {
-					float level = luminanceMatrix.get(x, y);
-					if (level < 0.5) {
-						g.fillRect(x, y, 4, 4);
-					}
-				}
-			}
+			g.drawImage(cameraImage, 0, 0, this);
 		}
 	}
 
 	@Override
-	public void resolveCollision(Robot collider) { // TODO test all collisions
+	public void resolveCollision(Robot collider) {
 		collisionResolved = true;
 		System.out.println(this.getName() + " collisionWith " + collider.getName());
 
@@ -506,28 +515,33 @@ public class MyRobot extends MissionExecutor implements Robot {
 		if (myMode == DeviceMode.Inactive) {
 			System.out.println("collisionType: I am inactive");
 			this.setMission(colliderMission);
+			this.startMission(previousTarget);
 			Mission newMission = new Mission();
 			newMission.add(colliderLocation);
 			collider.setMission(newMission);
 			collider.startMission(colliderLocation);
+			collider.waitAt(30, colliderLocation);
+			return;
 		}
 
 		// collider is inactive
 		if (colliderMode == DeviceMode.Inactive) {
 			System.out.println("collisionType: collider inactive");
 			collider.setMission(myMission);
+			collider.startMission(colliderLocation);
 			Mission newMission = new Mission();
 			newMission.add(previousTarget);
 			this.setMission(newMission);
 			this.startMission(previousTarget);
+			this.waitAt(30, previousTarget);
 			return;
 		}
 
 		// collision between visited nodes = exchange mission
 		if (previousTarget.equals(colliderPath.get(0)) || colliderLocation.equals(myPath.get(0))) {
 			System.out.println("collisionType: between visited nodes");
-			this.waitAt(10, previousTarget);
-			collider.waitAt(10, colliderLocation);
+			this.waitAt(20, previousTarget);
+			collider.waitAt(20, colliderLocation);
 			Mission temp = myMission.clone();
 			this.setMission(colliderMission);
 			collider.setMission(temp);
@@ -537,24 +551,14 @@ public class MyRobot extends MissionExecutor implements Robot {
 		}
 
 		// collision on an unvisited node
-		// last node of one robot = let that robot return to its last location
 		myEnvironmentData.addVisited(currentTarget);
 		myMission.remove(currentTarget);
 		colliderMission.remove(currentTarget);
-		// I am that robot
-		if (myPath.size() == 1) {
-			System.out.println("collisionType: unvisited is my finalTarget");
-			collider.waitAt(10, colliderLocation);
-			myMission.add(previousTarget);
-			this.startMission(previousTarget);
-			return;
-		}
-		// collider is that robot
-		if (colliderPath.size() == 1) {
-			System.out.println("collisionType: unvisited is collider finalTarget");
-			this.waitAt(10, previousTarget);
-			colliderMission.add(colliderLocation);
-			collider.startMission(colliderLocation);
+		// last node of one robot = let that robot return to its last location
+		if (myPath.size() == 1 || colliderPath.size() == 1) {
+			System.out.println("collisionType: unvisited is my/collider finalTarget");
+			this.waitAt(30, previousTarget);
+			collider.waitAt(30, colliderLocation);
 			return;
 		}
 		// both paths pass = exchange missions
@@ -565,6 +569,8 @@ public class MyRobot extends MissionExecutor implements Robot {
 			collider.setMission(temp);
 			this.startMission(previousTarget);
 			collider.startMission(colliderLocation);
+			this.waitAt(30, previousTarget);
+			collider.waitAt(30, colliderLocation);
 			return;
 		}
 
@@ -572,13 +578,13 @@ public class MyRobot extends MissionExecutor implements Robot {
 		// the collider's path passes mine
 		if (previousTarget.equals(colliderPath.get(1))) {
 			System.out.println("collisionType: collider's path passes");
-			this.waitAt(10, previousTarget);
-			collider.waitAt(80, colliderLocation);
+			this.waitAt(20, previousTarget);
+			collider.waitAt(100, colliderLocation);
 		} else {
 			// my path passes the collider, or no path passes
 			System.out.println("collisionType: my path passes, or no path passes");
-			collider.waitAt(10, colliderLocation);
-			this.waitAt(80, previousTarget);
+			collider.waitAt(20, colliderLocation);
+			this.waitAt(100, previousTarget);
 		}
 
 	}

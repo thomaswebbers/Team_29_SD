@@ -35,8 +35,7 @@ public class ControlCenter extends MissionExecutor {
 
 	public void initBehavior() {
 		System.out.println("I exist and my name is " + this.name);
-		myMode = DeviceMode.Active;
-		delegateMyMission();
+		myMode = DeviceMode.Inactive;
 
 	}
 
@@ -44,7 +43,22 @@ public class ControlCenter extends MissionExecutor {
 	 * This method is call cyclically (20 times per second) by the simulator
 	 * engine.
 	 */
-	public void performBehavior() {
+	public void performBehavior() {		
+		if(myMode == DeviceMode.Inactive){
+			if(!myMission.isEmpty()){
+				myMode = DeviceMode.Active;
+				delegateMyMission();
+			}else{
+				return;
+			}
+		}else{
+			if(myMission.isEmpty()){
+				myMode = DeviceMode.Inactive;
+				System.out.println(this.getName()+" CC done, shutting down");
+				return;
+			}
+		}
+		
 		try {
 			lock.lock();
 			// if it has been 3 seconds since the last finished update start a new one
@@ -66,7 +80,8 @@ public class ControlCenter extends MissionExecutor {
 					myStatus = UpdateStatus.Done;
 					lastUpdate = getCounter();
 					System.out.printf("Succesful update!\n");
-					myEnvironmentData.printEnvironment(new Vector3d(5, 0, -5), new Vector3d(-5, 0, 5));
+					myMission.checkEnvironment(myEnvironmentData);
+					myEnvironmentData.printEnvironment();
 				}
 			}
 		} finally {
@@ -94,7 +109,7 @@ public class ControlCenter extends MissionExecutor {
 		return true;
 	}
 
-	public Mission getMission(int missionNr) {
+	public Mission getMissionNr(int missionNr) {
 		return missionList.get(missionNr);
 	}
 
