@@ -16,7 +16,7 @@ public class ControlCenter extends MissionExecutor {
 	private ArrayList<Mission> missionList;
 
 	private ArrayList<Observer> myRobots;
-	private int robotAmount;
+	private int connectedRobotAmount;
 
 	public ReentrantLock lock;
 
@@ -29,7 +29,7 @@ public class ControlCenter extends MissionExecutor {
 		myMission = new Mission();
 		myEnvironmentData = new EnvironmentData();
 		myRobots = new ArrayList<Observer>();
-		robotAmount = 0;
+		connectedRobotAmount = 0;
 		lock = new ReentrantLock();
 	}
 
@@ -54,7 +54,7 @@ public class ControlCenter extends MissionExecutor {
 		}else{
 			if(myMission.isEmpty()){
 				myMode = DeviceMode.Inactive;
-				System.out.println(this.getName()+" CC done, shutting down");
+				System.out.println("CC "+this.getName()+" done, shutting down");
 				return;
 			}
 		}
@@ -69,14 +69,22 @@ public class ControlCenter extends MissionExecutor {
 				updateRobots(UpdateStatus.Sending);
 				// if we're still receiving, check if all robots have sent their map yet
 			} else if (myStatus == UpdateStatus.Receiving) {
-				if (updatesReceived >= robotAmount) {
+				if(getCounter() >= lastUpdate + 20){
+					//timeout of robots, go to next step;
+					updatesReceived = connectedRobotAmount;
+				}
+				if (updatesReceived >= connectedRobotAmount) {
 					myStatus = UpdateStatus.Sending;
 					updatesSent = 0;
 					updateRobots(UpdateStatus.Receiving);
 				}
 				// if we're done receiving check if all robots have gotten the updated map
 			} else if (myStatus == UpdateStatus.Sending) {
-				if (updatesSent >= robotAmount) {
+				if(getCounter() >= lastUpdate + 40){
+					//timeout of robots, go to next step;
+					updatesReceived = connectedRobotAmount;
+				}
+				if (updatesSent >= connectedRobotAmount) {
 					myStatus = UpdateStatus.Done;
 					lastUpdate = getCounter();
 					System.out.printf("Succesful update!\n");
@@ -90,15 +98,15 @@ public class ControlCenter extends MissionExecutor {
 	}
 
 	public boolean delegateMyMission() {
-		int robotAmount = myRobots.size();
+		int connectedRobotAmount = myRobots.size();
 		// if I have no robots, I can't delegate my mission
-		if (robotAmount <= 0) {
+		if (connectedRobotAmount <= 0) {
 			return false;
 		}
 		try {
 			lock.lock();
-			missionList = myMission.splitMission(robotAmount);
-			for (int i = 0; i < robotAmount; i++) {
+			missionList = myMission.splitMission(connectedRobotAmount);
+			for (int i = 0; i < connectedRobotAmount; i++) {
 				Observer robot = myRobots.get(i);
 				robot.updateMission(i);
 			}
@@ -124,9 +132,17 @@ public class ControlCenter extends MissionExecutor {
 	}
 
 	private void updateRobots(UpdateStatus input) {
-		for (int i = 0; i < robotAmount; i++) {
+		for (int i = 0; i < connectedRobotAmount; i++) {
 			Observer robot = myRobots.get(i);
-			robot.updateStatus(input);
+			try{
+				lock.lock();
+				boolean connectionEstablished = robot.updateStatus(input);
+				if(!connectionEstablished){
+					connectedRobotAmount--;
+				}
+			}finally{
+				lock.unlock();
+			}
 		}
 	}
 
@@ -138,7 +154,34 @@ public class ControlCenter extends MissionExecutor {
 		RobotFactory robotFactory = RobotFactory.getInstance();
 		Robot robot = robotFactory.getRobot(robotType, pos, robotName, robotColor);
 		myRobots.add(robot);
-		robotAmount++;
+		try{
+			lock.lock();
+			connectedRobotAmount++;
+		}finally{
+			lock.unlock();
+		}
 		return robot;
+	}
+
+	public boolean reassignMission(int robotMission, Mission input) {
+		missionList.set(robotMission, input);
+		for(Observer robot : myRobots){
+			if(robot.updateMission(robotMission)){
+				return true;
+			}
+		}
+		System.out.println("CC "+this.getName()+" MISSION FAILED, ALL ROBOTS HAVE ERRORS");
+		myMission = new Mission();
+		return false;
+	}
+
+	public boolean acceptConnection() {
+		try{
+			lock.lock();
+			connectedRobotAmount++;
+		}finally{
+			lock.unlock();
+		}
+		return true;
 	}
 }

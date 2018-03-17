@@ -1,5 +1,5 @@
 package main.java.softdesign;
 
 public enum DeviceMode {
-	Active, Inactive
+	Active, Inactive, Returning
 }

@@ -29,11 +29,15 @@ public class MyRobot extends MissionExecutor implements Robot {
 
 	private ControlCenter mySupervisor;
 	private int supervisorMission;
+	private int myMissionNr;
+	private ErrorStatus myErrorStatus;
+	private boolean errorHandled;
 
 	private ArrayList<Vector3d> myPath;
 	private Vector3d finalTarget;
 	private Vector3d currentTarget;
 	private Vector3d previousTarget;
+	private Vector3d startLocation;
 
 	private CameraSensor myCamera;
 	private BufferedImage cameraImage;
@@ -69,6 +73,8 @@ public class MyRobot extends MissionExecutor implements Robot {
 		collisionResolved = true;
 		waitTimer = NO_TIMER;
 		previousTarget = this.getLocation();
+		myErrorStatus = ErrorStatus.NoErrors;
+		errorHandled = false;
 	}
 
 	/** This method is called by the simulator engine on reset. */
@@ -76,7 +82,8 @@ public class MyRobot extends MissionExecutor implements Robot {
 		// go back to start
 		this.moveToStartPosition();
 		System.out.println("I exist and my name is " + this.name);
-		myEnvironmentData.addVisited(this.getLocation());
+		startLocation = this.getLocation();
+		myEnvironmentData.addVisited(startLocation);
 		takePicture();
 		myMode = DeviceMode.Inactive;
 	}
@@ -89,16 +96,23 @@ public class MyRobot extends MissionExecutor implements Robot {
 		if (mySupervisor == null) {
 			return;
 		}
-		
-		//edge case, doesn't work in initBehaviour
+						
+		//edge case, doesn't work in initBehaviour because sensors don't have data yet
 		if(this.getCounter() == 0){
 			registerObstacles();
 		}
 
 		this.checkUpdateStatus();
 
+		
+		//simulate errors happening
+		simulateErrors();
+		
+		//handle possible errors
+		handleErrors();
+		
 		// check if there is a nearby agent
-		if (anOtherAgentIsVeryNear()) {
+		if (anOtherAgentIsVeryNear() && myErrorStatus != ErrorStatus.IRError) {
 			SimpleAgent nearAgent = getVeryNearAgent();
 			//if agent is a cherry remove/detach that cherry
 			if (nearAgent instanceof CherryAgent) {
@@ -120,15 +134,15 @@ public class MyRobot extends MissionExecutor implements Robot {
 		// if I am on a timer wait until it passes
 		if (waitTimer != NO_TIMER) {
 			pointTowards(waitLocation);
-			if (getDistance(this.getLocation(), waitLocation) < 0.05) {
-				setTranslationalVelocity(0);
+			if (getDistance(this.getLocation(), waitLocation) < 0.1) {
+				setSpeed(0);
 			}
 			waitTimer--;
 			if (waitTimer != 0) {
 				return;
 			}
 			waitTimer = NO_TIMER;
-			setTranslationalVelocity(0.5);
+			setSpeed(0.5);
 		}
 		// make change to current mode if applicable
 		if (myMode == DeviceMode.Inactive) {
@@ -136,12 +150,12 @@ public class MyRobot extends MissionExecutor implements Robot {
 				previousTarget = getLocation();
 				startMission(previousTarget);
 			} else {
-				setTranslationalVelocity(0);
+				setSpeed(0);
 				return;
 			}
 		}else if(myMode == DeviceMode.Active){
 			if(myMission.isEmpty()){
-				setTranslationalVelocity(0);
+				setSpeed(0);
 				System.out.println(this.getName() + " no mission, shutting down");
 				myMode = DeviceMode.Inactive;
 				return;
@@ -149,18 +163,16 @@ public class MyRobot extends MissionExecutor implements Robot {
 		}
 
 		// If I am currently less than 0.05 units away from my target
-		if (getDistance(this.getLocation(), currentTarget) < 0.05) {
+		if (getDistance(this.getLocation(), currentTarget) < 0.1) {
 			// reset collision resolvement
 			collisionResolved = false;
-
-			// take a picture and select a new target
-			takePicture();
 
 			// get next location and add current location to visited
 			myMission.remove(currentTarget);
 			if (!myEnvironmentData.isVisited(currentTarget)) {
-				// new place visited, register possible obstacles
+				// new place visited, register possible obstacles and take picture
 				registerObstacles();
+				takePicture();
 				myEnvironmentData.addVisited(currentTarget);
 			}
 
@@ -171,8 +183,25 @@ public class MyRobot extends MissionExecutor implements Robot {
 			while (myPath == null || myPath.size() == 0 || myEnvironmentData.hasObstacle(myPath)) {
 				if (myMission.isEmpty()) {
 					// current mission is over, shutting down.
-					setTranslationalVelocity(0);
-					System.out.println(this.getName() + " visited everything, shutting down");
+					setSpeed(0);
+					//handle RadioError
+					if(myErrorStatus == ErrorStatus.RadioError && myMode != DeviceMode.Returning){
+						this.returnToStart();
+						return;
+					}
+					//robot returned, fix robot;
+					if(myMode == DeviceMode.Returning){
+						myEnvironmentData.addObstacle(previousTarget);
+						if(myErrorStatus == ErrorStatus.RadioError){
+							while(!this.reconnectToSupervisor());
+							mySupervisor.updateEnvironmentData(myEnvironmentData);
+						}
+						myErrorStatus = ErrorStatus.NoErrors;
+						errorHandled = false;
+						System.out.println(this.getName()+" returned back to start and was fixed");
+					}else{
+						System.out.println(this.getName() + " visited everything, shutting down");
+					}
 					myMode = DeviceMode.Inactive;
 					return;
 				}
@@ -190,6 +219,82 @@ public class MyRobot extends MissionExecutor implements Robot {
 		pointTowards(currentTarget);
 	}
 
+	private void handleErrors() {
+		if(myErrorStatus == ErrorStatus.NoErrors || errorHandled == true){
+			return;
+		}else if(myErrorStatus == ErrorStatus.IRError){
+			this.setSpeed(0);
+			mySupervisor.reassignMission(myMissionNr, myMission);
+			myMission = new Mission(); //make mission empty
+			myEnvironmentData.addObstacle(previousTarget);
+			myEnvironmentData.addObstacle(currentTarget);
+			
+		}else if(myErrorStatus == ErrorStatus.RadioError){
+			//handled automatically when the mission ends
+			
+		}else if(myErrorStatus == ErrorStatus.LocomotionError){
+			mySupervisor.reassignMission(myMissionNr, myMission);
+			myMission = new Mission(); //make mission empty
+			myEnvironmentData.addObstacle(previousTarget);
+			myEnvironmentData.addObstacle(currentTarget);
+			
+		}else if(myErrorStatus == ErrorStatus.CameraError){
+			mySupervisor.reassignMission(myMissionNr, myMission);
+			myMission = new Mission();
+			this.returnToStart();
+			
+		}else if(myErrorStatus == ErrorStatus.SensorError){
+			mySupervisor.reassignMission(myMissionNr, myMission);
+			myMission = new Mission();
+			this.returnToStart();
+
+		}
+		System.out.println("ERROR FOUND at "+this.getName()+": "+myErrorStatus.toString());
+		errorHandled = true;
+	}
+
+	private void returnToStart() {
+		waitAt(30, previousTarget);
+		myPath = getPath(previousTarget, startLocation);
+		finalTarget = startLocation;
+		if(myPath == null){
+			setSpeed(0);
+			return;
+		}
+		currentTarget = myPath.get(0);
+		myMode = DeviceMode.Returning;
+	}
+
+	private void simulateErrors() {
+		//if I have an error or are within fixing distance, don't create a new one
+		if(myErrorStatus != ErrorStatus.NoErrors || getDistance(previousTarget, startLocation) < 0.1){
+			return;
+		}
+		double random = Math.random();
+		if(random < 0.0001){
+			myErrorStatus = ErrorStatus.IRError;
+		}else if(random < 0.0002){
+			myErrorStatus = ErrorStatus.RadioError;
+		}else if(random < 0.0003){
+			this.setSpeed(0);
+			myErrorStatus = ErrorStatus.LocomotionError;
+		}else if(random < 0.0004){
+			myErrorStatus = ErrorStatus.CameraError;
+		}else if(random < 0.0005){ 
+			myErrorStatus = ErrorStatus.SensorError;
+		}
+		if(myErrorStatus != ErrorStatus.NoErrors){
+			System.out.println("Error generated at "+this.getName()+": "+myErrorStatus.toString());
+		}
+	}
+
+	private void setSpeed(double d) {
+		if(myErrorStatus == ErrorStatus.LocomotionError){
+			return;
+		}
+		this.setTranslationalVelocity(d);
+	}
+
 	public void startMission(Vector3d startLocation) {
 		myMission.checkEnvironment(myEnvironmentData);
 		if(myMission.isEmpty()){
@@ -197,19 +302,27 @@ public class MyRobot extends MissionExecutor implements Robot {
 		}
 		Vector3d newTarget = myMission.getClosest(startLocation);
 		myPath = getPath(startLocation, newTarget);
+		if(myPath == null){
+			waitAt(30 ,startLocation);
+			return;
+		}
 		currentTarget = myPath.get(0);
 		pointTowards(currentTarget);
 		
 		myMode = DeviceMode.Active;
-		setTranslationalVelocity(0.5);
+		setSpeed(0.5);
 	}
 
 	private void checkUpdateStatus() {
+		if(myErrorStatus == ErrorStatus.RadioError){
+			return;
+		}
 		try {
 			lock.lock();
 			if (supervisorMission != NO_MISSION_AVAILABLE) {
-				myMission = mySupervisor.getMissionNr(supervisorMission);
+				myMission.addAll(mySupervisor.getMissionNr(supervisorMission));
 				System.out.printf("%s accepted mission %d\n", this.getName(), supervisorMission);
+				myMissionNr = supervisorMission;
 				supervisorMission = NO_MISSION_AVAILABLE;
 			}
 
@@ -286,6 +399,10 @@ public class MyRobot extends MissionExecutor implements Robot {
 						// don't add new edge if neighbour is blocked.
 						continue;
 					}
+					if (!myEnvironmentData.isVisited(neighbour) && myErrorStatus == ErrorStatus.SensorError){
+						// don't go over unvisited nodes during errors
+						continue;
+					}
 					if (toEdges.edgeTo(neighbour) != null) {
 						// if toEdges has neighbour, a path has been found.
 						result = fromEdges.getPathTo(openVector);
@@ -329,6 +446,10 @@ public class MyRobot extends MissionExecutor implements Robot {
 					}
 					if (myEnvironmentData.isObstacle(neighbour)) {
 						// don't add new edge if neighbour is blocked.
+						continue;
+					}
+					if (!myEnvironmentData.isVisited(neighbour) && myErrorStatus != ErrorStatus.NoErrors){
+						// don't go over unvisited nodes during errors
 						continue;
 					}
 					if (fromEdges.edgeTo(neighbour) != null) {
@@ -381,6 +502,9 @@ public class MyRobot extends MissionExecutor implements Robot {
 	}
 
 	private boolean registerObstacles() {
+		if(myErrorStatus == ErrorStatus.SensorError){
+			return false;
+		}
 		boolean obstacleFound = false;
 
 		// distance (radian) between sensors
@@ -399,7 +523,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 			centerMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset) % SENSOR_AMOUNT);
 			rightMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset + 1) % SENSOR_AMOUNT);
 
-			if (leftMeasurement <= 0.48 && centerMeasurement <= 0.48 && rightMeasurement <= 0.48 && !myEnvironmentData.isObstacle(neighbour)) {
+			if (leftMeasurement <= 0.5 && centerMeasurement <= 0.5 && rightMeasurement <= 0.5 && !myEnvironmentData.isObstacle(neighbour)) {
 				myEnvironmentData.addObstacle(neighbour);
 				myMission.remove(neighbour);
 				
@@ -476,15 +600,34 @@ public class MyRobot extends MissionExecutor implements Robot {
 	}
 
 	// tell the robot it needs to retrieve a mission at the supervisor. and at what index to find it.
-	public void updateMission(int input) {
-		supervisorMission = input;
+	public boolean updateMission(int input) {
+		if(myErrorStatus == ErrorStatus.NoErrors){
+			supervisorMission = input;
+			return true;
+		}else{
+			return false;
+		}
 	}
 
-	public void updateStatus(UpdateStatus input) {
+	public boolean updateStatus(UpdateStatus input) {
+		if(myErrorStatus == ErrorStatus.RadioError){
+			return false;
+		}
 		myStatus = input;
+		return true;
+	}
+	
+	private boolean reconnectToSupervisor(){
+		if(mySupervisor.acceptConnection()){
+			return true;
+		}
+		return false;
 	}
 
 	private void takePicture() {
+		if(myErrorStatus == ErrorStatus.CameraError){
+			return;
+		}
 		myCamera.copyVisionImage(cameraImage);
 		Image image = new Image(cameraImage, this.currentAngle, this.getName(), getLocation());
 		myEnvironmentData.addImage(image);

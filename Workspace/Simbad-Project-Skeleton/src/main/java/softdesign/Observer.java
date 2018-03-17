@@ -2,8 +2,8 @@ package main.java.softdesign;
 
 public interface Observer {
 
-	public void updateStatus(UpdateStatus input);
+	public boolean updateStatus(UpdateStatus input);
 
-	public void updateMission(int i);
+	public boolean updateMission(int i);
 
 }
