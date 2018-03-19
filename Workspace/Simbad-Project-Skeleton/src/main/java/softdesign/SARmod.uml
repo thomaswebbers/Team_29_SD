@@ -19,6 +19,7 @@ no mission set</body>
         <include xmi:type="uml:Include" xmi:id="_7wAJ4BueEeiIBMjVLNyRQw" addition="_2ZoiIBueEeiIBMjVLNyRQw"/>
       </packagedElement>
       <packagedElement xmi:type="uml:UseCase" xmi:id="_2ZoiIBueEeiIBMjVLNyRQw" name="Send Message"/>
+      <packagedElement xmi:type="uml:TimeEvent" xmi:id="_gu-dICuwEeiJgqS1i12cuw" name="after(1 second)"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Actor" xmi:id="_R2jmwBueEeiIBMjVLNyRQw" name="Supervisor">
       <generalization xmi:type="uml:Generalization" xmi:id="_fxdbYBueEeiIBMjVLNyRQw" general="_TZNsUBueEeiIBMjVLNyRQw"/>
@@ -1735,6 +1736,71 @@ no mission set</body>
       <ownedEnd xmi:type="uml:Property" xmi:id="_22eJ4x7lEeiHZawkzfIYAg" name="envData" type="_SvlupR5eEei9IuplJyDV3g" aggregation="composite" association="_22U_8B7lEeiHZawkzfIYAg"/>
       <ownedEnd xmi:type="uml:Property" xmi:id="_22eJ4h7lEeiHZawkzfIYAg" name="owner" type="_cIYWoB7lEeiHZawkzfIYAg" association="_22U_8B7lEeiHZawkzfIYAg"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:StateMachine" xmi:id="_tSJ_8CunEeiJgqS1i12cuw" name="ControlCenter">
+      <region xmi:type="uml:Region" xmi:id="__tjkQCunEeiJgqS1i12cuw" name="Region1">
+        <transition xmi:type="uml:Transition" xmi:id="_y4ymYCupEeiJgqS1i12cuw" source="_wOT9ICupEeiJgqS1i12cuw" target="_9V-zcCuoEeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_SZDIICuqEeiJgqS1i12cuw" name="when(myMission.isEmpty())" source="_PJFBoCupEeiJgqS1i12cuw" target="_9V-zcCuoEeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_U1wwQCusEeiJgqS1i12cuw" name="when(!myMission.isEmpty()) / delegateMyMission()" source="_9V-zcCuoEeiJgqS1i12cuw" target="_PJFBoCupEeiJgqS1i12cuw"/>
+        <subvertex xmi:type="uml:State" xmi:id="_9V-zcCuoEeiJgqS1i12cuw" name="Inactive"/>
+        <subvertex xmi:type="uml:State" xmi:id="_PJFBoCupEeiJgqS1i12cuw" name="Active">
+          <region xmi:type="uml:Region" xmi:id="_YtJY4iupEeiJgqS1i12cuw" name="Region1">
+            <transition xmi:type="uml:Transition" xmi:id="_ptXjMCuqEeiJgqS1i12cuw" name="after(3 seconds) / updateRobots(Sending)" source="_UJRvoCuqEeiJgqS1i12cuw" target="_YtAZgCuqEeiJgqS1i12cuw"/>
+            <transition xmi:type="uml:Transition" xmi:id="_quXGICuqEeiJgqS1i12cuw" name="when(updatesReceived == connectedRobotAmount) / updateRobots(Receiving)" source="_YtAZgCuqEeiJgqS1i12cuw" target="_ah1NICuqEeiJgqS1i12cuw"/>
+            <transition xmi:type="uml:Transition" xmi:id="_spv0wCuqEeiJgqS1i12cuw" name="when(updatesSent == connectedRobotAmount)" source="_ah1NICuqEeiJgqS1i12cuw" target="_UJRvoCuqEeiJgqS1i12cuw"/>
+            <transition xmi:type="uml:Transition" xmi:id="_1SuK0CusEeiJgqS1i12cuw" source="_d7i68CuqEeiJgqS1i12cuw" target="_UJRvoCuqEeiJgqS1i12cuw"/>
+            <subvertex xmi:type="uml:State" xmi:id="_UJRvoCuqEeiJgqS1i12cuw" name="Done"/>
+            <subvertex xmi:type="uml:State" xmi:id="_YtAZgCuqEeiJgqS1i12cuw" name="Receiving">
+              <deferrableTrigger xmi:type="uml:Trigger" xmi:id="_hd6mwCuwEeiJgqS1i12cuw" name="updatesReceived = connectedRobotAmount" event="_gu-dICuwEeiJgqS1i12cuw"/>
+              <entry xmi:type="uml:Activity" xmi:id="_rmuxMCutEeiJgqS1i12cuw" name="updatesReceived = 0"/>
+              <exit xmi:type="uml:Activity" xmi:id="_8t4_ECuwEeiJgqS1i12cuw" name="AFTER(1 second) updatesReceived = connectedRobotAmount"/>
+            </subvertex>
+            <subvertex xmi:type="uml:State" xmi:id="_ah1NICuqEeiJgqS1i12cuw" name="Sending">
+              <entry xmi:type="uml:Activity" xmi:id="_B0fQACuyEeiJgqS1i12cuw" name="updatesSent = 0"/>
+              <exit xmi:type="uml:Activity" xmi:id="_YTS_YCuyEeiJgqS1i12cuw" name="AFTER(1 second) updatesSent = connectedRobotAmount ACTUALEXIT: myMission.checkEnvironment(myEnvironmentData)"/>
+            </subvertex>
+            <subvertex xmi:type="uml:Pseudostate" xmi:id="_d7i68CuqEeiJgqS1i12cuw" name=""/>
+          </region>
+        </subvertex>
+        <subvertex xmi:type="uml:Pseudostate" xmi:id="_wOT9ICupEeiJgqS1i12cuw" name=""/>
+      </region>
+    </packagedElement>
+    <packagedElement xmi:type="uml:StateMachine" xmi:id="_ExVwwCu0EeiJgqS1i12cuw" name="MyRobot">
+      <region xmi:type="uml:Region" xmi:id="_F0ZJMCu0EeiJgqS1i12cuw" name="Region1">
+        <transition xmi:type="uml:Transition" xmi:id="_6C0J0Cu5EeiJgqS1i12cuw" name="updateStatus(Sending)" source="_dHYHgCu0EeiJgqS1i12cuw" target="_e1f2MCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_7oJv8Cu5EeiJgqS1i12cuw" source="_e1f2MCu0EeiJgqS1i12cuw" target="_dHYHgCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="__uIG0Cu5EeiJgqS1i12cuw" source="_huIQMCu0EeiJgqS1i12cuw" target="_dHYHgCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_BOGEwCu6EeiJgqS1i12cuw" name="updateStatus(Receiving)" source="_dHYHgCu0EeiJgqS1i12cuw" target="_huIQMCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_YczxoCu7EeiJgqS1i12cuw" source="_WJ4FsCu7EeiJgqS1i12cuw" target="_dHYHgCu0EeiJgqS1i12cuw"/>
+        <subvertex xmi:type="uml:State" xmi:id="_dHYHgCu0EeiJgqS1i12cuw" name="Done"/>
+        <subvertex xmi:type="uml:State" xmi:id="_e1f2MCu0EeiJgqS1i12cuw" name="Sending">
+          <entry xmi:type="uml:Activity" xmi:id="_JVDA8Cu-EeiJgqS1i12cuw" name="mySupervisor.updateEnvironmentData(myEnvironmentData)"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_huIQMCu0EeiJgqS1i12cuw" name="Receiving">
+          <entry xmi:type="uml:Activity" xmi:id="_qg3FkCu-EeiJgqS1i12cuw" name="myEnvironmentData = mySupervisor.sendEnvironmentData()"/>
+          <exit xmi:type="uml:Activity" xmi:id="_xAUcUCu-EeiJgqS1i12cuw" name="myMission.checkEnvironment(myEnvironmentData)"/>
+        </subvertex>
+        <subvertex xmi:type="uml:Pseudostate" xmi:id="_WJ4FsCu7EeiJgqS1i12cuw" name=""/>
+      </region>
+      <region xmi:type="uml:Region" xmi:id="_P0_EYCu0EeiJgqS1i12cuw" name="Region2">
+        <transition xmi:type="uml:Transition" xmi:id="_ur8_QCu5EeiJgqS1i12cuw" name="returnToStart()" source="_knEMMCu0EeiJgqS1i12cuw" target="_lkmygCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_wS7kICu5EeiJgqS1i12cuw" name="when(myLocation == startLocation)" source="_lkmygCu0EeiJgqS1i12cuw" target="_jgIZUCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_yQQMcCu5EeiJgqS1i12cuw" name="returnToStart()" source="_jgIZUCu0EeiJgqS1i12cuw" target="_lkmygCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_06IYwCu5EeiJgqS1i12cuw" name="when(!myMission.isEmpty())" source="_jgIZUCu0EeiJgqS1i12cuw" target="_knEMMCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_3ZiacCu5EeiJgqS1i12cuw" name="when(myMission.isEmpty())" source="_knEMMCu0EeiJgqS1i12cuw" target="_jgIZUCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_dNQB0Cu7EeiJgqS1i12cuw" source="_bl_JECu7EeiJgqS1i12cuw" target="_jgIZUCu0EeiJgqS1i12cuw"/>
+        <subvertex xmi:type="uml:State" xmi:id="_jgIZUCu0EeiJgqS1i12cuw" name="Inactive">
+          <entry xmi:type="uml:Activity" xmi:id="_RmDtgCvBEeiJgqS1i12cuw" name="setSpeed(0)"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_knEMMCu0EeiJgqS1i12cuw" name="Active">
+          <doActivity xmi:type="uml:Activity" xmi:id="_jM-EYCvCEeiJgqS1i12cuw" name="runMission()"/>
+          <entry xmi:type="uml:Activity" xmi:id="_N8FgsCvCEeiJgqS1i12cuw" name="startMission()"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_lkmygCu0EeiJgqS1i12cuw" name="Returning">
+          <exit xmi:type="uml:Activity" xmi:id="_ZQ-f4CvDEeiJgqS1i12cuw" name="fixSelf()"/>
+        </subvertex>
+        <subvertex xmi:type="uml:Pseudostate" xmi:id="_bl_JECu7EeiJgqS1i12cuw" name=""/>
+      </region>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_qttREBufEeiIBMjVLNyRQw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qt2bABufEeiIBMjVLNyRQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
@@ -1752,6 +1818,12 @@ no mission set</body>
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_9oexUCurEeiJgqS1i12cuw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9on7QCurEeiJgqS1i12cuw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
     </profileApplication>
   </uml:Model>
   <PapyrusJava:External xmi:id="_q28FkBufEeiIBMjVLNyRQw" name="simbad.sim.EnvironmentDescription" base_Classifier="_q1mBwBufEeiIBMjVLNyRQw"/>
