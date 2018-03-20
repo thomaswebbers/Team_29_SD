@@ -35,4 +35,6 @@ public interface Robot extends Observer {
 	public void setMode(DeviceMode inactive);
 
 	public void shutDown();
+
+	public void setErrorStatus(ErrorStatus locomotionerror);
 }

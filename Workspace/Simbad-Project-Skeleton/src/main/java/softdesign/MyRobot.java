@@ -648,12 +648,15 @@ public class MyRobot extends MissionExecutor implements Robot {
 		DeviceMode colliderMode = collider.getMode();
 		// a robot is returning, indicating an error. Shut down both to prevent damage
 		if(myMode == DeviceMode.Returning || colliderMode == DeviceMode.Returning){
+			System.out.println("collisionType: robot mode is returning, shut down both");
 			myMode = DeviceMode.Inactive;
 			collider.setMode(DeviceMode.Inactive);
 			if(myMode != DeviceMode.Returning){
+				myErrorStatus = ErrorStatus.LocomotionError;
 				this.shutDown();
 			}
 			if(colliderMode != DeviceMode.Returning){
+				collider.setErrorStatus(ErrorStatus.LocomotionError);
 				collider.shutDown();
 			}
 			return;
@@ -769,10 +772,16 @@ public class MyRobot extends MissionExecutor implements Robot {
 
 	@Override
 	public void shutDown() {
+		System.out.println(this.getName()+" shutting down immediately");
 		this.setSpeed(0);
 		mySupervisor.reassignMission(myMissionNr, myMission);
 		myMission = new Mission(); //make mission empty
 		myEnvironmentData.addObstacle(previousTarget);
 		myEnvironmentData.addObstacle(currentTarget);
+	}
+
+	@Override
+	public void setErrorStatus(ErrorStatus input) {
+		myErrorStatus = input;
 	}
 }
