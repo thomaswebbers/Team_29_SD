@@ -191,7 +191,6 @@ public class MyRobot extends MissionExecutor implements Robot {
 					}
 					//robot returned, fix robot;
 					if(myMode == DeviceMode.Returning){
-						myEnvironmentData.addObstacle(previousTarget);
 						if(myErrorStatus == ErrorStatus.RadioError){
 							while(!this.reconnectToSupervisor());
 							mySupervisor.updateEnvironmentData(myEnvironmentData);
@@ -223,20 +222,13 @@ public class MyRobot extends MissionExecutor implements Robot {
 		if(myErrorStatus == ErrorStatus.NoErrors || errorHandled == true){
 			return;
 		}else if(myErrorStatus == ErrorStatus.IRError){
-			this.setSpeed(0);
-			mySupervisor.reassignMission(myMissionNr, myMission);
-			myMission = new Mission(); //make mission empty
-			myEnvironmentData.addObstacle(previousTarget);
-			myEnvironmentData.addObstacle(currentTarget);
+			this.shutDown();
 			
 		}else if(myErrorStatus == ErrorStatus.RadioError){
 			//handled automatically when the mission ends
 			
 		}else if(myErrorStatus == ErrorStatus.LocomotionError){
-			mySupervisor.reassignMission(myMissionNr, myMission);
-			myMission = new Mission(); //make mission empty
-			myEnvironmentData.addObstacle(previousTarget);
-			myEnvironmentData.addObstacle(currentTarget);
+			this.shutDown();
 			
 		}else if(myErrorStatus == ErrorStatus.CameraError){
 			mySupervisor.reassignMission(myMissionNr, myMission);
@@ -654,6 +646,19 @@ public class MyRobot extends MissionExecutor implements Robot {
 		ArrayList<Vector3d> colliderPath = collider.getCurrentPath();
 		Mission colliderMission = collider.getMission();
 		DeviceMode colliderMode = collider.getMode();
+		// a robot is returning, indicating an error. Shut down both to prevent damage
+		if(myMode == DeviceMode.Returning || colliderMode == DeviceMode.Returning){
+			myMode = DeviceMode.Inactive;
+			collider.setMode(DeviceMode.Inactive);
+			if(myMode != DeviceMode.Returning){
+				this.shutDown();
+			}
+			if(colliderMode != DeviceMode.Returning){
+				collider.shutDown();
+			}
+			return;
+		}
+		
 		// I am inactive
 		if (myMode == DeviceMode.Inactive) {
 			System.out.println("collisionType: I am inactive");
@@ -752,5 +757,22 @@ public class MyRobot extends MissionExecutor implements Robot {
 		waitTimer = tim;
 		waitLocation = loc;
 		pointTowards(waitLocation);
+	}
+	
+	public ErrorStatus returnErrorStatus(){
+		return myErrorStatus;
+	}
+
+	public void setMode(DeviceMode input) {
+		myMode = input;
+	}
+
+	@Override
+	public void shutDown() {
+		this.setSpeed(0);
+		mySupervisor.reassignMission(myMissionNr, myMission);
+		myMission = new Mission(); //make mission empty
+		myEnvironmentData.addObstacle(previousTarget);
+		myEnvironmentData.addObstacle(currentTarget);
 	}
 }

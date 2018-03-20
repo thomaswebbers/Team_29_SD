@@ -31,4 +31,8 @@ public interface Robot extends Observer {
 	public DeviceMode getMode();
 
 	public void waitAt(int tim, Vector3d loc);
+
+	public void setMode(DeviceMode inactive);
+
+	public void shutDown();
 }

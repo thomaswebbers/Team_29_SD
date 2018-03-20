@@ -1785,15 +1785,18 @@ no mission set</body>
         <transition xmi:type="uml:Transition" xmi:id="_ur8_QCu5EeiJgqS1i12cuw" name="returnToStart()" source="_knEMMCu0EeiJgqS1i12cuw" target="_lkmygCu0EeiJgqS1i12cuw"/>
         <transition xmi:type="uml:Transition" xmi:id="_wS7kICu5EeiJgqS1i12cuw" name="when(myLocation == startLocation)" source="_lkmygCu0EeiJgqS1i12cuw" target="_jgIZUCu0EeiJgqS1i12cuw"/>
         <transition xmi:type="uml:Transition" xmi:id="_yQQMcCu5EeiJgqS1i12cuw" name="returnToStart()" source="_jgIZUCu0EeiJgqS1i12cuw" target="_lkmygCu0EeiJgqS1i12cuw"/>
-        <transition xmi:type="uml:Transition" xmi:id="_06IYwCu5EeiJgqS1i12cuw" name="when(!myMission.isEmpty())" source="_jgIZUCu0EeiJgqS1i12cuw" target="_knEMMCu0EeiJgqS1i12cuw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_06IYwCu5EeiJgqS1i12cuw" name="when(!myMission.isEmpty()) / startMission()" source="_jgIZUCu0EeiJgqS1i12cuw" target="_knEMMCu0EeiJgqS1i12cuw"/>
         <transition xmi:type="uml:Transition" xmi:id="_3ZiacCu5EeiJgqS1i12cuw" name="when(myMission.isEmpty())" source="_knEMMCu0EeiJgqS1i12cuw" target="_jgIZUCu0EeiJgqS1i12cuw"/>
         <transition xmi:type="uml:Transition" xmi:id="_dNQB0Cu7EeiJgqS1i12cuw" source="_bl_JECu7EeiJgqS1i12cuw" target="_jgIZUCu0EeiJgqS1i12cuw"/>
         <subvertex xmi:type="uml:State" xmi:id="_jgIZUCu0EeiJgqS1i12cuw" name="Inactive">
           <entry xmi:type="uml:Activity" xmi:id="_RmDtgCvBEeiJgqS1i12cuw" name="setSpeed(0)"/>
         </subvertex>
         <subvertex xmi:type="uml:State" xmi:id="_knEMMCu0EeiJgqS1i12cuw" name="Active">
-          <doActivity xmi:type="uml:Activity" xmi:id="_jM-EYCvCEeiJgqS1i12cuw" name="runMission()"/>
-          <entry xmi:type="uml:Activity" xmi:id="_N8FgsCvCEeiJgqS1i12cuw" name="startMission()"/>
+          <region xmi:type="uml:Region" xmi:id="_1QjvkiwYEeiJgqS1i12cuw" name="Region1">
+            <subvertex xmi:type="uml:State" xmi:id="_1QtgliwYEeiJgqS1i12cuw" name="FollowPath">
+              <doActivity xmi:type="uml:Activity" xmi:id="_y-9cMCwfEeiJgqS1i12cuw" name="pointTowards(currentTarget)"/>
+            </subvertex>
+          </region>
         </subvertex>
         <subvertex xmi:type="uml:State" xmi:id="_lkmygCu0EeiJgqS1i12cuw" name="Returning">
           <exit xmi:type="uml:Activity" xmi:id="_ZQ-f4CvDEeiJgqS1i12cuw" name="fixSelf()"/>
