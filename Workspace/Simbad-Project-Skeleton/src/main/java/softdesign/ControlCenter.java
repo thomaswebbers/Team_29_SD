@@ -55,6 +55,8 @@ public class ControlCenter extends MissionExecutor {
 			if(myMission.isEmpty()){
 				myMode = DeviceMode.Inactive;
 				System.out.println("CC "+this.getName()+" done, shutting down");
+				System.out.println("FINAL RESULT:");
+				myEnvironmentData.printEnvironment();
 				return;
 			}
 		}
@@ -75,6 +77,7 @@ public class ControlCenter extends MissionExecutor {
 				}
 				if (updatesReceived >= connectedRobotAmount) {
 					myStatus = UpdateStatus.Sending;
+					myMission.checkEnvironment(myEnvironmentData);
 					updatesSent = 0;
 					updateRobots(UpdateStatus.Receiving);
 				}
@@ -88,7 +91,6 @@ public class ControlCenter extends MissionExecutor {
 					myStatus = UpdateStatus.Done;
 					lastUpdate = getCounter();
 					System.out.printf("Succesful update!\n");
-					myMission.checkEnvironment(myEnvironmentData);
 					myEnvironmentData.printEnvironment();
 				}
 			}

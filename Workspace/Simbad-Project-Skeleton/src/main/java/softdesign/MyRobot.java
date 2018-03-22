@@ -515,7 +515,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 			centerMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset) % SENSOR_AMOUNT);
 			rightMeasurement = mySonarBelt.getMeasurement(((i * 3) + northOffset + 1) % SENSOR_AMOUNT);
 
-			if (leftMeasurement <= 0.5 && centerMeasurement <= 0.5 && rightMeasurement <= 0.5 && !myEnvironmentData.isObstacle(neighbour)) {
+			if (leftMeasurement <= 0.55 && centerMeasurement <= 0.55 && rightMeasurement <= 0.55 && !myEnvironmentData.isObstacle(neighbour)) {
 				myEnvironmentData.addObstacle(neighbour);
 				myMission.remove(neighbour);
 				
@@ -649,16 +649,16 @@ public class MyRobot extends MissionExecutor implements Robot {
 		// a robot is returning, indicating an error. Shut down both to prevent damage
 		if(myMode == DeviceMode.Returning || colliderMode == DeviceMode.Returning){
 			System.out.println("collisionType: robot mode is returning, shut down both");
-			myMode = DeviceMode.Inactive;
-			collider.setMode(DeviceMode.Inactive);
 			if(myMode != DeviceMode.Returning){
-				myErrorStatus = ErrorStatus.LocomotionError;
 				this.shutDown();
+				myErrorStatus = ErrorStatus.LocomotionError;
 			}
 			if(colliderMode != DeviceMode.Returning){
-				collider.setErrorStatus(ErrorStatus.LocomotionError);
 				collider.shutDown();
+				collider.setErrorStatus(ErrorStatus.LocomotionError);
 			}
+			myMode = DeviceMode.Inactive;
+			collider.setMode(DeviceMode.Inactive);
 			return;
 		}
 		
@@ -703,6 +703,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 
 		// collision on an unvisited node
 		myEnvironmentData.addVisited(currentTarget);
+		takePicture();
 		myMission.remove(currentTarget);
 		colliderMission.remove(currentTarget);
 		// last node of one robot = let that robot return to its last location
