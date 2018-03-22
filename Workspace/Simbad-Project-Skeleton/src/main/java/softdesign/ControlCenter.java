@@ -30,6 +30,7 @@ public class ControlCenter extends MissionExecutor {
 		myEnvironmentData = new EnvironmentData();
 		myRobots = new ArrayList<Observer>();
 		connectedRobotAmount = 0;
+		lastUpdate = 0;
 		lock = new ReentrantLock();
 	}
 
@@ -85,7 +86,7 @@ public class ControlCenter extends MissionExecutor {
 			} else if (myStatus == UpdateStatus.Sending) {
 				if(getCounter() >= lastUpdate + 40){
 					//timeout of robots, go to next step;
-					updatesReceived = connectedRobotAmount;
+					updatesSent = connectedRobotAmount;
 				}
 				if (updatesSent >= connectedRobotAmount) {
 					myStatus = UpdateStatus.Done;
@@ -130,7 +131,7 @@ public class ControlCenter extends MissionExecutor {
 
 	public EnvironmentData sendEnvironmentData() {
 		updatesSent++;
-		return myEnvironmentData;
+		return myEnvironmentData.copy();
 	}
 
 	private void updateRobots(UpdateStatus input) {

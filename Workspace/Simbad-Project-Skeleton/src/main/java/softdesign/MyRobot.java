@@ -323,6 +323,7 @@ public class MyRobot extends MissionExecutor implements Robot {
 				myStatus = UpdateStatus.Done;
 			} else if (myStatus == UpdateStatus.Receiving) {
 				myEnvironmentData = mySupervisor.sendEnvironmentData();
+				myStatus = UpdateStatus.Done;
 				myMission.checkEnvironment(myEnvironmentData);
 			}
 		} finally {

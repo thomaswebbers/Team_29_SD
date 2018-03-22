@@ -108,6 +108,7 @@ public class EnvironmentData {
 	public void printEnvironment() {
 		if(this.isEmpty()){
 			System.out.println("X");
+			return;
 		}
 		
 		//get top left & bottom right of all environmentData
@@ -201,5 +202,11 @@ public class EnvironmentData {
 
 	public void addImage(Image input) {
 		imageList.add(input);
+	}
+
+	public EnvironmentData copy() {
+		EnvironmentData copy = new EnvironmentData();
+		copy.mergeData(this);
+		return copy;
 	}
 }
